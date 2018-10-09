@@ -5,7 +5,7 @@
                 <span>全站交易</span>
             </div>
         </div>
-        <div class="content" style="border:1px solid #ccc;overflow:hidden">
+        <div class="content" style="overflow:hidden">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w12">时间</li>
                 <li class="fl w12">价格</li>

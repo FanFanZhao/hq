@@ -8,7 +8,7 @@
                 <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.type)">{{way.title}}</span>
             </div>
         </div>
-        <div class="content" v-show="isUrl==0">
+        <div class="content" v-show="isUrl==0" style="border:1px solid #ccc">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w12">交易对</li>
@@ -222,7 +222,7 @@ export default {
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
 .content{padding: 0 40px 0 30px;height: 300px;}
-.list-title{line-height: 40px; border-bottom: 1px solid #303b4b;height: 40px;}
+.list-title{line-height: 40px; border-bottom: 1px solid #ccc;height: 40px;}
 .no_data{padding: 50px 0;}
 .container{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}
