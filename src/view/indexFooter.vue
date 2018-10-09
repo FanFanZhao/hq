@@ -49,7 +49,7 @@ export default {
 </script>
 <style scoped>
 .footer_wrap {
-  background: #060e20;
+  background: #09162e;
   color: #6b80ae;
   overflow: hidden;
   padding: 50px 80px;
@@ -60,10 +60,10 @@ export default {
   text-align: left;
 }
 .con_a{
-    color: #c7cce6;
+    color: #aabdbc;
 }
 .con_a:hover{
-    color: #6b80ae;
+    color: #d45858;
 }
 .logo{
     color: #6b80ae;
