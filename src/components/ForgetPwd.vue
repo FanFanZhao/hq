@@ -14,12 +14,12 @@
                         <span class="register-item">验证码</span>
                         <div class="code-box">
                             <input type="text" class="input-main input-content" maxlength="16" v-model="phoneCode" id="pwd" >
-                        <button type="button" @click="setTime">获取验证码</button>
+                        <button type="button" @click="setTime" class="redBg">获取验证码</button>
                         </div>
                     </div>
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
-                        <button class="register-button curPer" type="button" @click="check">确认</button>
+                        <button class="register-button curPer redBg" type="button" @click="check">确认</button>
                         
                     </div>
                    
@@ -34,7 +34,7 @@
                         <span class="register-item">请再次输入密码</span>
                         <input type="password" class="input-main input-content"  v-model="re_password" id="repwd">
                     </div>
-                    <button class="register-button curPer" type="button" @click="resetPass" style="margin-top:20px">确认</button>
+                    <button class="register-button curPer redBg" type="button" @click="resetPass" style="margin-top:20px">确认</button>
                 </div>
             </div>
         </div>
@@ -189,10 +189,10 @@ export default {
 </script>
 
 <style scoped>
-.content-wrap {
+/* .content-wrap {
   background: url(../assets/images/bg_login.png) center bottom 316px repeat-x,
     -webkit-linear-gradient(top, #21263f, #262a42);
-}
+} */
 .account {
   width: 1200px;
   margin: 0 auto;
@@ -206,12 +206,12 @@ export default {
 }
 .main_title {
   font-size: 36px;
-  color: #c7cce6;
+  /* color: #c7cce6; */
 }
 .register-item {
   display: block;
   height: 22px;
-  color: #61688a;
+  /* color: #61688a; */
   font-size: 12px;
 }
 .register-input {
@@ -225,25 +225,25 @@ export default {
 .input-main {
   width: 520px;
   min-height: 46px;
-  border: 1px solid #4e5b85;
+  border: 1px solid #ccc;
   padding: 0 20px;
-  color: #c7cce6;
+  /* color: #c7cce6; */
   font-size: 14px;
   border-radius: 3px;
-  background-color: #1e2235;
+  /* background-color: #1e2235; */
 }
 .icon {
   width: 48px;
   height: 48px;
   line-height: 48px;
-  border-right: 1px solid #52688c;
+  border-right: 1px solid #ccc;
   position: absolute;
   top: 0;
 }
 .login-btn {
   width: 420px;
   margin-top: 40px;
-  background: #5697f4;
+  /* background: #5697f4; */
   font-size: 16px;
   border-radius: 4px;
   color: #fff;
@@ -251,15 +251,15 @@ export default {
   cursor: pointer;
 }
 .noaccount {
-  color: #fff;
+  /* color: #fff; */
 }
 .register-button {
   width: 200px;
   display: inline-block;
   line-height: 46px;
-  background-color: #7a98f7;
+  /* background-color: #7a98f7; */
   border-radius: 4px;
-  color: #fff;
+  /* color: #fff; */
   border: none;
 }
 .have-account {
@@ -275,12 +275,12 @@ export default {
   padding-right: 50px;
   margin-top: 10px;
   font-size: 14px;
-  color: #61688a;
+  /* color: #61688a; */
 }
 .code-box {
   width: 520px;
-  border: 1px solid #4e5b85;
-  background: #1e2235;
+  border: 1px solid #ccc;
+  /* background: #1e2235; */
 }
 .code-box .input-main {
   width: 419px;
@@ -288,10 +288,10 @@ export default {
 }
 .code-box button {
   border: none;
-  border-left: 1px solid #4e5b85;
-  line-height: 44px;
-  color: #7a98f7;
-  background: #1e2235;
+  /* border-left: 1px solid #ccc; */
+  line-height: 48px;
+  /* color: #7a98f7; */
+  /* background: #1e2235; */
   width: 94px;
 }
 </style>

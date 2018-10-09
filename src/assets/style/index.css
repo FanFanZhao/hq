@@ -127,7 +127,7 @@
   width: 100%;
   height: 120px;
   margin: 0 auto;
-  background:#161923;
+  /* background:#161923; */
 }
 .indexBlackes .active-data .data{
   width: 70px;
@@ -168,7 +168,7 @@
 }
 .indexBlackes #chart{
   margin: 0 auto;
-  background:#161923!important;
+  /* background:#161923!important; */
 }
 .coinTable{
 	width: 100%;
