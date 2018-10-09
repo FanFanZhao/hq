@@ -60,6 +60,7 @@ export default {
   },
   created(){
       this.token = window.localStorage.getItem('token')||'';
+    //   this.account = window.localStorage.getItem('accountNum')||'';
       this.userInfo();
   },
   methods: {
@@ -75,7 +76,9 @@ export default {
           // console.log(res);
           if (res.data.type == "ok") {
             localStorage.setItem("user_id", res.data.message.id);
-            this.userName = res.data.message.account;
+            console.log(res);
+            
+            this.account = res.data.message.account;
             this.userId = res.data.message.id;
           }
         })
