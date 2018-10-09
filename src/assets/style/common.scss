@@ -27,6 +27,9 @@ input{
     outline:0;
     // #181b2a
 }
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {    -webkit-appearance: none;} input[type="number"] {    -moz-appearance: textfield;
+
+}
 .clear:after{
 	content: '';
 	display: block;

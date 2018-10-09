@@ -1,7 +1,7 @@
 <template>
     <div class="trade">
         <div class="title_box">
-            <div class="tabtitle fColor1 ft16curPer">
+            <div class="tabtitle 1 ft16curPer">
                 <span :class="{active:show == true}">限价交易</span>
                 <!-- <span :class="{active:show == false}" @click="changeType">市价交易</span> -->
             </div>
@@ -11,13 +11,13 @@
             <div class="w50 fl first">
                
                 <div class="ft14">
-                    <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
-                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                    <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="redColor curPer" @click="goNext('register')">注册</span>
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{user_legal}} {{currency_name}}</span>
-                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
+                        <span class="fl 1">可用 {{user_legal}} {{currency_name}}</span>
+                        <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
@@ -29,20 +29,20 @@
                         <input type="number" v-model="buyInfo.buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
                         <span>{{legal_name}}</span>
                     </div>
-                    <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 fColor1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
-                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16" @click="buyCoin">买{{legal_name}}</div>
+                    <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div>
+                    <div class="mt50 1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
+                    <div class="sell_btn curPer mt40 tc greenBack 1 ft16" @click="buyCoin">买{{legal_name}}</div>
                 </div>
             </div>
             <div class="w50 fl second">
                 <div class="ft14">
-                    <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
-                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                    <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="redColor curPer" @click="goNext('register')">注册</span>
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{user_currency}} {{legal_name}}</span>
-                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
+                        <span class="fl 1">可用 {{user_currency}} {{legal_name}}</span>
+                        <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
@@ -54,9 +54,9 @@
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellInfo.sellNum">
                         <span>{{legal_name}}</span>
                     </div>
-                    <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 fColor1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
-                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16" @click="sellCoin">卖{{legal_name}}</div>
+                    <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div>
+                    <div class="mt50 1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
+                    <div class="sell_btn curPer mt40 tc redBack 1 ft16" @click="sellCoin">卖{{legal_name}}</div>
                 </div>
             </div>
         </div>
@@ -64,13 +64,13 @@
         <div class="content clear" v-if="showNone" >
             <div class="w50 fl first">
                 <div class="ft14">
-                   <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
-                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                   <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="redColor curPer" @click="goNext('register')">注册</span>
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{user_currency}} {{currency_name}}</span>
-                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
+                        <span class="fl 1">可用 {{user_currency}} {{currency_name}}</span>
+                        <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
@@ -82,18 +82,18 @@
                         <input type="number"  @keydown.69.prevent  @keyup="numFilter($event)">
                         <span>{{legal_name}}</span>
                     </div>
-                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16">买{{legal_name}}</div>
+                    <div class="sell_btn curPer mt40 tc greenBack 1 ft16">买{{legal_name}}</div>
                 </div>
             </div>
             <div class="w50 fl second">
                 <div class="ft14">
-                   <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
-                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                   <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="redColor curPer" @click="goNext('register')">注册</span>
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{user_legal}} {{legal_name}}</span>
-                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
+                        <span class="fl 1">可用 {{user_legal}} {{legal_name}}</span>
+                        <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
@@ -105,7 +105,7 @@
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)">
                         <span>{{legal_name}}</span>
                     </div>
-                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16">卖{{legal_name}}</div>
+                    <div class="sell_btn curPer mt40 tc redBack 1 ft16">卖{{legal_name}}</div>
                 </div>
             </div>
         </div>  
@@ -318,20 +318,20 @@
 </script>
 
 <style scoped>
-.title_box{height: 48px;line-height: 48px; padding: 0 30px;background-color: #181b2a;box-shadow: 0 2px 6px rgba(0,0,0,.1);}
+.title_box{height: 48px;line-height: 48px; padding: 0 30px;}
 .tabtitle span{cursor: pointer;}
 .tabtitle span:not(:last-child) {margin-right: 40px;}
 .content .first{padding: 0 15px 0 25px;}
 .content .second{padding: 0 25px 0 15px;}
-.available{height: 48px;border-bottom: 1px solid #303b4b;line-height: 48px;}
+.available{height: 48px;border-bottom: 1px solid #ccc;line-height: 48px;}
 .input-item{position: relative;line-height: 40px;}
-.input-item label{width: 20%;float: left;font-size: 14px;color: #637085;}
-.input-item input{width: 80%;float: left;border: 1px solid #52688c;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;color: #cdd6e4;background-color: #262a42;line-height: 38px;}
-.input-item span{position: absolute;right: 15px;color: #637085;font-size: 16px}
+.input-item label{width: 20%;float: left;font-size: 14px;}
+.input-item input{width: 80%;float: left;border: 1px solid #ccc;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;line-height: 38px;}
+.input-item span{position: absolute;right: 15px;font-size: 16px}
 .attion{height: 20px;line-height: 30px;font-size: 12px;}
-.sell_btn{width: 100%;height: 40px;border-radius: 3px;color: #cdd6e4;line-height: 40px;}
-.greenBack {background-color: #55a067;}
-.redBack {background-color: #cc4951;}
+.sell_btn{width: 100%;height: 40px;border-radius: 3px;line-height: 40px;}
+.greenBack {background-color: #55a067;color: #fff}
+.redBack {background-color: #cc4951;color:#fff}
 input:disabled {color: #627085;cursor: not-allowed;}
 </style>
 

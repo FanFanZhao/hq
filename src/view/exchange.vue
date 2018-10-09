@@ -1,7 +1,7 @@
 <template>
     <div class="exchange">
 		<!-- <div class="title fColor1">交易所</div> -->
-        <div class="content fColor1">
+        <div class="content">
             <div class="new_price">
                 <span class="ft14">最新价 {{newData}}{{currency_name}}</span>
             </div>
@@ -11,15 +11,15 @@
                 <span>数量({{legal_name}})</span>
             </div>
             <ul class="list-item ft12 tc">
-                <li class="curPer" v-for="(out,index) in outlist" @click="price(out.price)">
-                    <span class="red">卖 {{outlist.length-index}}</span>
-                    <span>{{out.price}}</span>
+                <li class="curPer ceilColor" v-for="(out,index) in outlist" @click="price(out.price)">
+                    <span >卖 {{outlist.length-index}}</span>
+                    <span style="font-weight:600">{{out.price}}</span>
                     <span>{{out.number}}</span>
                 </li>
                 <div class="line"></div>
-                 <li class="curPer" v-for="(buy,index) in inlist" @click="price(buy.price)">
-                    <span class="green">买 {{index+1}}</span>
-                    <span>{{buy.price}}</span>
+                 <li class="curPer redColor" v-for="(buy,index) in inlist" @click="price(buy.price)">
+                    <span>买 {{index+1}}</span>
+                    <span style="font-weight:600">{{buy.price}}</span>
                     <span>{{buy.number}}</span>
                 </li>
             </ul>
@@ -173,7 +173,7 @@ export default {
   height: 48px;
   line-height: 48px;
   padding: 0 10px 0 30px;
-  background-color: #181b2a;
+  /* background-color: #181b2a; */
 }
 .content {
   padding: 0 10px;
@@ -181,13 +181,13 @@ export default {
 .new_price {
   height: 40px;
   line-height: 40px;
-  border-bottom: 1px solid #303b4b;
+  border-bottom: 1px solid #ccc;
   padding: 0 0 0 20px;
 }
 .exchange_title {
   line-height: 25px;
   position: relative;
-  color: #637085;
+  /* color: #637085; */
 }
 .list-item li {
   line-height: 25px;
@@ -200,16 +200,16 @@ export default {
   float: left;
 }
 .green {
-  color: #55a067;
+  color: #008069;
 }
 .red {
   color: #cc4951;
-}
+}.list-item li:nth-child(odd){background: #f8f8f8;}
 .list-item li:hover{
-  background: #262a42;
+  background: #ccc;
 }
 .line {
   height: 5px;
-  border-bottom: 1px solid #303b4b;
+  border-bottom: 1px solid #ccc;
 }
 </style>
