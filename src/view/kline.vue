@@ -1,6 +1,6 @@
 <template>
         <div class="klines">
-          <div class="top-txt fColor1 ft14">{{leg_name}}/{{currency_name}}</div>
+          <div class="top-txt ft14">{{leg_name}}/{{currency_name}}</div>
           <div class="kline">
             <div id="kline_container"></div>
           </div>
@@ -31,7 +31,7 @@
               element: "#kline_container",
               width: $(".kline").width(),
               height: 490,
-              theme: 'dark', // light/dark
+              theme: 'light', // light/dark
               language: 'zh-cn', // zh-cn/en-us/zh-tw
               ranges: ["1w", "1d", "1h", "30m", "15m", "5m", "1m", "line"],
               symbol: "BTC/coin4",
@@ -106,9 +106,9 @@
       .top-txt{
         height: 40px;
         line-height: 40px;
-        background: #181b2a;
+        /* background: #181b2a;
         -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.1);
-        box-shadow: 0 2px 6px rgba(0,0,0,.1);
+        box-shadow: 0 2px 6px rgba(0,0,0,.1); */
         padding: 0 15px;
       }
       .kline {
