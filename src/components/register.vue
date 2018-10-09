@@ -17,9 +17,9 @@
                     <div class="tip" style="margin-bottom:10px">请输入验证码</div>
                 <div class="code-box">
                     <input type="text" v-model="code" class="code">
-                    <button type='button' class="code-btn" @click="sendCode">发送验证码</button>
+                    <button type='button' class="code-btn redBg" @click="sendCode">发送验证码</button>
                 </div>
-                <button class="confirm-btn" @click="checkCode" type="button">确认</button>
+                <button class="confirm-btn redBg" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
                 <div class="title">设置地区</div>
@@ -55,7 +55,7 @@
                     <div class="tip">请输入邀请码</div>
                     <input type="password" v-model="invite" class="invite-input">
                 </div>
-                <button type="button" @click="register" class="reg-btn confirm-btn">确认</button>
+                <button type="button" @click="register" class="reg-btn confirm-btn redBg">确认</button>
             </div>
             </div>
     </div>
@@ -304,7 +304,7 @@ export default {
 #register-box {
   .tip {
     margin: 10px 0;
-    color: #61688a;
+    // color: #61688a;
     font-size: 12px;
   }
   .reg-content {
@@ -313,16 +313,16 @@ export default {
       margin: 10px 0 30px;
     }
 
-    color: #c7cce6;
+    // color: #c7cce6;
     input {
       width: 520px;
       min-height: 46px;
-      border: 1px solid #4e5b85;
+      border: 1px solid #ccc;
       padding: 0 20px;
-      color: #c7cce6;
+      // color: #c7cce6;
       font-size: 14px;
       border-radius: 3px;
-      background-color: #1e2235;
+      //background-color: #1e2235;
     }
     > .title {
       font-size: 30px;
@@ -336,8 +336,8 @@ export default {
     .code-box {
       width: 520px;
       height: 46px;
-      background-color: #1e2235;
-      border: 1px solid #4e5b85;
+      //background-color: #1e2235;
+      border: 1px solid #ccc;
       input {
         border: none;
         height: 44px;
@@ -346,11 +346,11 @@ export default {
       }
       button {
         border: none;
-        line-height: 43px;
+        line-height: 45px;
         width: 93px;
-        color: #c7cce6;
-        border-left: 1px solid #c7cce6;
-        background: #1e2235;
+        // color: #c7cce6;
+        // border-left: 1px solid #c7cce6;
+        // //background: #1e2235;
       }
     }
   }
@@ -360,30 +360,30 @@ export default {
     width: 200px;
     margin: 20px 0 0;
     border: none;
-    background: #7a98f7;
+    //background: #7a98f7;
     color: #fff;
   }
   .area-box {
     position: relative;
     width: 520px;
     line-height: 44px;
-    background-color: #1e2235;
-    color: #c7cce6;
+    // //background-color: #1e2235;
+    // color: #c7cce6;
     text-align: center;
     height: 46px;
     .light {
-      color: #7a98f7;
+      color: #d45858;
     }
     // overflow: hidden;
     .area {
       display: flex;
-      border: 1px solid #4e5b85;
+      border: 1px solid #ccc;
       > div {
         flex: 1;
       }
       .city {
-        border-left: 1px solid #4e5b85;
-        border-right: 1px solid #4e5b85;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
       }
     }
     .area-list {
@@ -396,7 +396,7 @@ export default {
 
       > ul {
         flex: 1;
-        background-color: #1e2235;
+        //background-color: #1e2235;
         height: 265px;
         overflow: scroll;
       }
