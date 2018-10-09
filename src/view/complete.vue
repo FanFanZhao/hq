@@ -12,7 +12,7 @@
                 <li class="fl w12">交易量</li>
             </ul>
             <div class="containers scroll" v-if="deList.length>0">
-                <ul v-for="itm in deList" class="list-item fColor1 ft12">
+                <ul v-for="itm in deList" class="list-item color ft12">
                     <li class="clear">
                         <span class="fl w12">{{itm.time}}</span>
                         <span class="fl w14">{{itm.price}}</span>
@@ -111,17 +111,17 @@ export default {
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
 .content{padding: 0 40px 0 30px;height: 330px;}
-.list-title{line-height: 40px; border-bottom: 1px solid #303b4b;height: 40px;}
+.list-title{line-height: 40px; border-bottom: 1px solid #ccc;height: 40px;}
 .list-title li{
     width: 33%;
     text-align: center;
 }
 .no_data{padding: 50px 0;}
-.containers{height: 260px;overflow: auto;}
+.containers{height: 260px;overflow: auto;border-bottom: 1px solid #ccc;}
 .list-item li{line-height: 45px; display: flex;}
 .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
 
-.list-item li:hover{background-color: #2b3648}
+.list-item li:hover{background-color: #eee; color: #de5959;}
 .list-item li span.green{color: #55a067}
 </style>
 
