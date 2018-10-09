@@ -1,15 +1,15 @@
 <template>
     <div class="entrust">
         <div class="title fColor1 topshadow">
-            <div class="tab_title">
+            <div class="tab_title color">
                 <span>当前委托</span>
             </div>
-            <div class="tab_title fr ft12">
+            <div class="tab_title fr ft12 color">
                 <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.url)">{{way.title}}</span>
             </div>
         </div>
         <div class="content">
-            <ul class="list-title fColor2 ft12 clear">
+            <ul class="list-title color ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w10">交易对</li>
                 <li class="fl w8">方向</li>
@@ -21,7 +21,7 @@
                 <li class="fl w8 tr">操作</li>
             </ul>
             <div class="containers scroll" v-if="inList.length>0">
-                <ul class="list-item fColor1 ft12">
+                <ul class="list-item color ft12">
                     <li v-for="(item,index) in inList" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
                         <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
@@ -190,12 +190,12 @@ export default {
 }
 </script>
 <style scoped>
-.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;background-color: #181b2a;}
+.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;}
 .tab_title{display: inline-block;line-height: 46px;height: 46px;}
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
 .content{padding: 0 40px 0 30px;height: 300px;}
-.list-title{line-height: 40px; border-bottom: 1px solid #303b4b;height: 40px;}
+.list-title{line-height: 40px; border-bottom: 1px solid #ccc;height: 40px;}
 .no_data{padding: 50px 0;}
 .containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}
