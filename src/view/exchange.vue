@@ -1,16 +1,16 @@
 <template>
-    <div class="exchange">
+    <div class="exchange" style="margin-top:30px">
 		<!-- <div class="title fColor1">交易所</div> -->
         <div class="content">
             <div class="new_price">
                 <span class="ft14">最新价 {{newData}}{{currency_name}}</span>
             </div>
-            <div class="exchange_title ft12 clear tc">
+            <div class="exchange_title ft14 clear tc">
                 <span>方向</span>
                 <span>价格({{currency_name}})</span>
                 <span>数量({{legal_name}})</span>
             </div>
-            <ul class="list-item ft12 tc">
+            <ul class="list-item ft14 tc">
                 <li class="curPer ceilColor" v-for="(out,index) in outlist" @click="price(out.price)">
                     <span >卖 {{outlist.length-index}}</span>
                     <span style="font-weight:600">{{out.price}}</span>

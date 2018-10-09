@@ -6,17 +6,17 @@
             </div>
         </div>
         <div class="content" style="overflow:hidden">
-            <ul class="list-title fColor2 ft12 clear">
+            <ul class="list-title fColor2 ft14 clear">
                 <li class="fl w12">时间</li>
                 <li class="fl w12">价格</li>
                 <li class="fl w12">交易量</li>
             </ul>
             <div class="containers scroll" v-if="deList.length>0">
-                <ul v-for="itm in deList" class="list-item color ft12">
-                    <li class="clear">
-                        <span class="fl w12">{{itm.time}}</span>
-                        <span class="fl w14">{{itm.price}}</span>
-                        <span class="fl">{{itm.number}}</span>
+                <ul v-for="itm in deList" class="list-item color ft14">
+                    <li class="clear flex">
+                        <span class=" ">{{itm.time}}</span>
+                        <span class=" ">{{itm.price}}</span>
+                        <span class="">{{itm.number}}</span>
                     </li>
                 </ul>
             </div>
@@ -119,10 +119,14 @@ export default {
 .no_data{padding: 50px 0;}
 .containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 45px; display: flex;}
-.list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
+/* .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;} */
 
 .list-item li:hover{background-color: #eee; color: #de5959;}
 .list-item li span.green{color: #55a067}
+.containers ul li{
+    display: flex;
+    justify-content: space-around;
+}
 </style>
 
 
