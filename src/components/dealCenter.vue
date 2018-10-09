@@ -31,9 +31,9 @@
         <div class="entrust_box" >
           <entrust></entrust>
         </div>
-        <div class="entrust_box">
+        <!-- <div class="entrust_box">
           <hisentrust></hisentrust>
-        </div>
+        </div> -->
         <!-- <div class="deatil_box" style="background: #181b2a;">
             <detail></detail>
         </div> -->
