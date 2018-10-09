@@ -8,14 +8,14 @@
                <input class="fl inp ft14" :type="item.type" :name="item.name" value="" :placeholder="item.placeholder" />
            </div>
            <div class="img">
-              <img src="" />
+              <img src="../assets/images/yzm.png" />
            </div>
            <div class="inp_wrap clear">
-               <p class="fl lebal ft14">图片验证码</p>
+               <p class="fl lebal ft14">图片验证码：</p>
                <input class="fl inp ft14" type="text" name="yanzhengma" value="" placeholder="" />
            </div>
            <div class="submit_btn">
-               提交上先申请
+               提交上线申请
            </div>
         </div>
     </div>
@@ -87,6 +87,10 @@ export default {
     .inp{
         width: 600px;
          padding: 10px;
+    }
+    .img{
+        width: 800px;
+        margin: 0 auto;
     }
     .submit_btn{
         width: 800px;
