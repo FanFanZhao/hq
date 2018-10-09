@@ -55,7 +55,7 @@ import exchange from "@/view/exchange";
 import market from "@/view/market";
 import trade from "@/view/trade";
 import chart from "@/view/chart";
-import entrust from "@/view/entrust";
+import entrust from "@/view/entrust2";
 import hisentrust from "@/view/hisentrust";
 import detail from "@/view/detail";
 import currency from "@/view/currency";

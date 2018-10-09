@@ -136,7 +136,7 @@ export default {
   z-index: 9;
   background: rgba(255, 255, 255, 0.7);
 
-  top: 75px;
+  top: 60px;
   right: 200px;
   font-size: 14px;
   > div {
