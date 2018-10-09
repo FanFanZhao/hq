@@ -292,6 +292,6 @@ export default {
   line-height: 48px;
   /* color: #7a98f7; */
   /* background: #1e2235; */
-  width: 95px;
+  width: 94px;
 }
 </style>
