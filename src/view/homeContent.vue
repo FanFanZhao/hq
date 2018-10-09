@@ -477,15 +477,15 @@ export default {
       console.log(date);
       var option = {
         textStyle: {
-          color: "#818283"
+          color: "#d45858"
         },
-        backgroundColor: "#161923",
+        backgroundColor: "#fff",
         tooltip: {
           trigger: "axis",
           axisPointer: {
             type: "cross",
             label: {
-              backgroundColor: "#6a7985"
+              backgroundColor: "#fff"
             }
           }
         },
