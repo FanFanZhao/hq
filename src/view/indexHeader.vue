@@ -1,7 +1,7 @@
 <template>
 	<div class="nav_bar">
-		<div class="content clear" style="height:40px">
-			<div class="fl" style="margin-top:5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
+		<div class="content clear" style="height:45px">
+			<div class="fl" style="margin-top:7.5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList"  @click="goto(index,tabs.page)">{{tabs.title}}</li>
         <li class="base downapp" @click="showapp">APP下载
@@ -238,7 +238,7 @@ export default {
   color: #d45858;
 }
 .nav_bar {
-  @include line-height(40px);
+  @include line-height(45px);
   width: 100%;
   min-width: 1200px;
   padding: 0 30px;
@@ -281,7 +281,7 @@ export default {
   }
   .assets_item,
   .order_item {
-    height: 40px;
+    height: 45px;
     display: flex;
     align-items: center;
   }
@@ -289,11 +289,11 @@ export default {
     // display: none;
     cursor: default;
     position: absolute;
-    top: 40px;
+    top: 45px;
     right: -44px;
     z-index: 999;
     width: 188px;
-    line-height: 40px;
+    line-height: 45px;
     background-color: #262a42;
     z-index: 5000;
     border-radius: 3px;
@@ -325,10 +325,10 @@ export default {
     // display: none;
     cursor: default;
     position: absolute;
-    top: 40px;
+    top: 45px;
     right: 156px;
     width: 188px;
-    line-height: 40px;
+    line-height: 45px;
     background-color: #262a42;
     z-index: 5000;
     border-radius: 3px;
@@ -360,10 +360,10 @@ export default {
     // display: none;
     cursor: default;
     position: absolute;
-    top: 40px;
+    top: 45px;
     right: 56px;
     width: 188px;
-    line-height: 40px;
+    line-height: 45px;
     background-color: #262a42;
     z-index: 5000;
     border-radius: 3px;
@@ -395,8 +395,8 @@ export default {
     color: #cdd6e4;
     li {
       float: left;
-      height: 40px;
-      line-height: 40px;
+      height: 45px;
+      line-height: 45px;
       padding: 0 30px;
       display: inline-block;
       text-align: center;
