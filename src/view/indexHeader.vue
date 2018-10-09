@@ -89,6 +89,7 @@ export default {
       tabList: [
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
+        { title: "上币申请", page: "currencyApply" },
         // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [

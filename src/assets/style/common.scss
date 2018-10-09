@@ -19,6 +19,9 @@ ins,a{text-decoration:none}
 .color{
     color: #333
 }
+.red{
+    color: #de5959;
+}
 a{
 	color:inherit;
 }
@@ -104,6 +107,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {    -webkit-a
 .ft20{font-size: 20px;}
 .ft24{font-size: 24px;}
 .ml40{margin-left: 40px;}
+.mt10 {margin-top: 10px;}
 .mt15 {margin-top: 15px;}
 .mt20{margin-top: 20px;}
 .mt40{margin-top: 40px;}
@@ -120,6 +124,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {    -webkit-a
 .mb40 {margin-bottom: 40px;}
 .mb30 {margin-bottom: 30px;}
 .mb15 {margin-bottom: 15px;}
+.mb10 {margin-bottom: 10px;}
 .ml30 {margin-left: 30px;}
 .ml20 {margin-left: 20px;}
 .pdlr20{padding-left: 20px;padding-right: 20px;}
