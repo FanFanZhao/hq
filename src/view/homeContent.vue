@@ -576,22 +576,23 @@ export default {
   margin: 10px 50px;
   line-height: 40px;
   text-align: center;
-  border: 1px solid #4e5b85;
+  border: 1px solid #ccc;
   .coin-tab {
     height: 42px;
-    color: #c7cce6;
+    // color: #c7cce6;
     display: flex;
     > ul {
-      border-left: 1px solid #4e5b85;
+      border-left: 1px solid #ccc;
       display: flex;
       li {
         padding: 0 40px;
-        box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
-        border-bottom: 1px solid #4e5b85;
-        border-right: 1px solid #4e5b85;
+        // box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
       }
       .activeCoin {
         border-bottom: none;
+        color:#d45858;
       }
     }
   }
@@ -601,18 +602,21 @@ export default {
       flex: 1;
 
       text-align: center;
-      color: #c7cce6;
+      // color: #c7cce6;
       font-size: 14px;
     }
   }
   .list-con {
-    background: rgb(32, 36, 55);
+    // background: rgb(32, 36, 55);
     max-height: 680px;
     overflow: scroll;
+    li:nth-child(n+2){
+      border-top: 1px solid #ddd;
+    }
     li {
       display: flex;
-      border-bottom: 1px solid #282e44;
-      color: #c7cce6;
+      
+      // color: #c7cce6;
       > div {
         flex: 1;
       }
@@ -643,7 +647,7 @@ export default {
 }
 .notice_ul {
   padding: 25px 0;
-  background: #161923;
+  // background: #161923;
   margin-bottom: 5px;
 }
 .notice_li {
