@@ -14,19 +14,15 @@
             <div class="swiper-wrapper">
                <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="../../static/imgs/bg01.png" />
+                   <img src="../../static/imgs/bnr_dcr_cn.png" />
                    </a>
                </div>
                 <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="../../static/imgs/bg02.png" />
+                   <img src="../../static/imgs/bnr_lend2_cn.jpeg" />
                    </a>
                </div>
-               <div class="swiper-slide sliders">
-                   <a href="">
-                   <img src="../../static/imgs/bg03.png" />
-                   </a>
-               </div>
+               
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
@@ -475,8 +471,15 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.swiper-container{
+  height: 310px;
+}
+.swiper-container a{
+  display: block;
+  height: 310px;
+}
 .swiper-container img{
-  display: block;height: 100%;
+  display: block;height: 310px;
 }
   .coin-tab {
     line-height: 52px;
@@ -565,7 +568,7 @@ export default {
 }
 .sliders img {
   width: 100%;
-  height: 500px;
+  // height: 500px;
 }
 .notice_ul {
   padding: 25px 0;

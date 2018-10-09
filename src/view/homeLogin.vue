@@ -78,7 +78,7 @@ export default {
             localStorage.setItem("user_id", res.data.message.id);
             console.log(res);
             
-            this.account = res.data.message.account;
+            this.account = res.data.message.phone;
             this.userId = res.data.message.id;
           }
         })
@@ -136,8 +136,8 @@ export default {
   z-index: 9;
   background: rgba(255, 255, 255, 0.7);
 
-  top: 120px;
-  right: 120px;
+  top: 75px;
+  right: 200px;
   font-size: 14px;
   > div {
     padding: 0 20px 20px;
