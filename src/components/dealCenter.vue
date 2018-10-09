@@ -22,16 +22,16 @@
 						<exchange></exchange>
 					</div>
 				</div>
-        <div class="entrust_box" style="background: #181b2a;">
+        <div class="entrust_box" >
           <entrust></entrust>
         </div>
-        <div class="entrust_box" style="background: #181b2a;">
+        <div class="entrust_box">
           <hisentrust></hisentrust>
         </div>
         <!-- <div class="deatil_box" style="background: #181b2a;">
             <detail></detail>
         </div> -->
-        <div class="deatil_box" style="background: #181b2a;">
+        <div class="deatil_box" >
           <complete></complete>
         </div>
 				<div class="currency_box">
@@ -105,23 +105,26 @@ export default {
   .main {
       overflow: hidden;
     .main-l {
-      width: 360px;
+      width: 350px;
       height: 100%;
-      margin-top: 10px;
+      margin: 10px 10px  0 0;
       > div {
         background: #fff;
         border: 1px solid #C8DAE2;
+        // background: #181b2a;
         margin: 0 10px 10px;
       }
     }
     .main-r {
-      padding: 0 10px 10px 360px;
+      margin-left: 360px;
+      border-left: 1px solid #ccc;
+      padding: 0 10px 10px 20px;
       .parts {
         margin-top: 10px;
         max-height: 530px;
 
         > .part-l {
-          background: #181b2a;
+          // background: #181b2a;
           min-width: 67%;
           padding-bottom: 20px;
         }
@@ -129,7 +132,7 @@ export default {
           width: 33%;
           > div {
             margin-left: 10px;
-            background: #181b2a;
+            // background: #181b2a;
             height: 100%;
             padding-bottom: 20px;
           }

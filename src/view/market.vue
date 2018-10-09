@@ -1,14 +1,14 @@
 <template>
     <div class="market" >
-		<div class="m_title  clear fColor1">
-            <span class="fff fl">市场</span>
+		<div class="m_title  clear">
+            <span class=" fl">市场</span>
             <div class="m_search fr">
-               <input type="text" class="fColor1">
+               <input type="text" >
                <img src="../assets/images/search.png" alt="">
             </div>
         </div>
         <div class="m_filter">
-            <div class="tabtitle fColor1 ft14 curPer flex around">
+            <div class="tabtitle ft14 curPer flex around">
                 <!-- <span class="active">JNB</span> -->
 
                 <!-- <span class="active">USDT</span>
@@ -31,7 +31,7 @@
                 <img src="../assets/images/select0.png" alt="">
             </div>
         </div>
-        <div class="line"></div>
+        <!-- <div class="line"></div> -->
         <ul class="coin-wrap scroll">
             <!-- <li>
                 <span v-for="item in newData">{{item}}</span>
@@ -39,7 +39,7 @@
             <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
               <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
                 <span>{{itm.name}}</span>
-                <span :data-name='currency_name+"/"+itm.name'>${{itm.last_price}}</span>
+                <span class="redColor" :data-name='currency_name+"/"+itm.name'>${{itm.last_price}}</span>
                 <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span>
                 </p>
             </li>
@@ -234,20 +234,24 @@
 .m_search img{width: 16px;height: 15px;position: absolute;right: 35px;top: 20px;z-index: 123;}
 .m_filter{padding: 10px 0 15px;}
 .tabtitle span {text-align: center;padding: 0 10px;}
-.coin-title div{width: 33.3%;height: 36px;line-height: 36px;background-color: #181b2a;text-align: center;float: left;color: #637085;font-size:12px;}
+.coin-title div{width: 33.3%;height: 36px;line-height: 36px;text-align: center;float: left;font-size:12px;}
 .coin-title img{vertical-align: middle;margin-top: -3px;}
 .line{width: 90%;margin: 0px auto;border-bottom: 1px solid rgb(48, 59, 75);}
-.coin-wrap{height: 395px;overflow: auto;background-color: #181b2a;}
-.coin-wrap li{height: 30px;line-height: 30px;cursor: pointer;font-size: 12px;color: #cdd6e4;}
+.coin-wrap{height: 395px;overflow: auto;}
+.coin-wrap li p:nth-child(even){background: #f8f8f8;}
+.coin-wrap li p:hover{
+    background: #eee;
+}
+.coin-wrap li{height: 30px;line-height: 30px;cursor: pointer;font-size: 12px;}
 .coin-wrap li span{display: inline-block;width: 33%;float: left;text-align: center;}
 .coin-wrap li span:last-child{color: #cc4951;}
-.coin-wrap li:nth-child(odd){background-color: #181b2a;}
+/* .coin-wrap li:nth-child(odd){background-color: #181b2a;} */
 .coin-wrap li span.green{color: #55a067;}
 .coin-wrap li p{
     overflow: hidden;
 }
 .active_p{
-    background-color: #2b3648;
+    /* background-color: #2b3648; */
 }
-.coin-wrap li p:hover{background-color: #2b3648;}
+/* .coin-wrap li p:hover{background-color: #2b3648;} */
 </style>
