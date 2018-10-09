@@ -5,7 +5,7 @@
                 <span>全站交易</span>
             </div>
         </div>
-        <div class="content">
+        <div class="content" style="border:1px solid #ccc;overflow:hidden">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w12">时间</li>
                 <li class="fl w12">价格</li>
@@ -117,7 +117,7 @@ export default {
     text-align: center;
 }
 .no_data{padding: 50px 0;}
-.containers{height: 260px;overflow: auto;border-bottom: 1px solid #ccc;}
+.containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 45px; display: flex;}
 .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
 

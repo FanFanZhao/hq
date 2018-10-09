@@ -8,7 +8,7 @@
                 <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.url)">{{way.title}}</span>
             </div> -->
         </div>
-        <div class="content">
+        <div class="content" style="border:1px solid #ccc;overflow:hidden">
             <ul class="list-title color ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w10">交易对</li>

@@ -8,7 +8,7 @@
         </div>
         <!-- 限价交易 -->
         <div class="content clear" v-if="show">
-            <div class="w50 fl first">
+            <div class="w50 fl first" style="border-right:1px dashed #ccc">
                
                 <div class="ft14">
                     <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
