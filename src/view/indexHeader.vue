@@ -246,7 +246,7 @@ export default {
   width: 100%;
   min-width: 1200px;
   padding: 0 30px;
-  background: #fff;
+  background: #181b2a;
   .content {
     // width: 1200px;
     margin: 0 auto;
@@ -407,21 +407,18 @@ export default {
       vertical-align: middle;
       font-size: 14px;
       cursor: pointer;
-      color:#333;
+      color:#c7cce6;
       &.active {
-        color:#de5959;
+        color:#d45858;
         border:none;
       }
     }
   }
   .login {
-    color: #333;
+    color: #cdd6e4;
     margin-right: 50px;
     span {
       cursor: pointer;
-    }
-    span:hover{
-      color:#de5959;
     }
     .ml20 {
       margin-left: 20px;
