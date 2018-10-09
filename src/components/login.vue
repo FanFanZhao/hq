@@ -38,93 +38,157 @@
 </template>
 
 <script>
-import indexHeader from '@/view/indexHeader'
-import indexFooter from '@/view/indexFooter'
-    export default {
-        name: "login",
-        components:{indexHeader,indexFooter},
-        data (){
-            return{
-                account_number:'',
-                password:'',
-            }
-        },
-		created (){
-            console.log(this.$utils);
-            
-			this.account_number = this.$route.query.account_number || ''
-		},
-        methods:{
-            userInfo(){
-                this.$http({
-                                url: '/api/'+'user/info',
-                                method:'get',
-                                data:{},  
-                                headers: {'Authorization':  localStorage.getItem('token')},    
-                            }).then(res=>{
-                                // console.log(res);
-                                if(res.data.type == 'ok'){
-                                localStorage.setItem('user_id',res.data.message.id)
-                                }
-                            }).catch(error=>{
-                                
-                            })
-                            
-            },
-            login(){
-                let account_number = this.$utils.trim(this.account_number);
-                let password = this.$utils.trim(this.password);
-                if(this.account_number.length == ''){
-                    layer.tips('请输入账号!', '#account');
-                    return;
-                }
-                if(this.password.length<6){
-                    layer.tips('密码不能小于六位!', '#pwd');
-                    return;
-                }
-                this.$http({
-					url: this.$utils.laravel_api + 'user/login',
-					method:'post',
-					data:{
-						user_string: account_number,
-                        password : password,
-                        type:1
-					}
-				}).then(res=>{
-                    console.log(res);
-                    
-					res = res.data;
-					if(res.type  === 'ok'){
-						localStorage.setItem('token',res.message);
-                        localStorage.setItem('accountNum',account_number);
-                        this.$store.commit('setAccountNum');
-                        this.userInfo();
-                        this.$router.push('/');
-					}else{
-						layer.msg(res.message);
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
-            }
-        }
+import indexHeader from "@/view/indexHeader";
+import indexFooter from "@/view/indexFooter";
+export default {
+  name: "login",
+  components: { indexHeader, indexFooter },
+  data() {
+    return {
+      account_number: "",
+      password: ""
+    };
+  },
+  created() {
+    console.log(this.$utils);
 
+    this.account_number = this.$route.query.account_number || "";
+  },
+  methods: {
+    userInfo() {
+      this.$http({
+        url: "/api/" + "user/info",
+        method: "get",
+        data: {},
+        headers: { Authorization: localStorage.getItem("token") }
+      })
+        .then(res => {
+          // console.log(res);
+          if (res.data.type == "ok") {
+            localStorage.setItem("user_id", res.data.message.id);
+          }
+        })
+        .catch(error => {});
+    },
+    login() {
+      let account_number = this.$utils.trim(this.account_number);
+      let password = this.$utils.trim(this.password);
+      if (this.account_number.length == "") {
+        layer.tips("请输入账号!", "#account");
+        return;
+      }
+      if (this.password.length < 6) {
+        layer.tips("密码不能小于六位!", "#pwd");
+        return;
+      }
+      this.$http({
+        url: this.$utils.laravel_api + "user/login",
+        method: "post",
+        data: {
+          user_string: account_number,
+          password: password,
+          type: 1
+        }
+      })
+        .then(res => {
+          console.log(res);
+
+          res = res.data;
+          if (res.type === "ok") {
+            localStorage.setItem("token", res.message);
+            localStorage.setItem("accountNum", account_number);
+            this.$store.commit("setAccountNum");
+            this.userInfo();
+            this.$router.push("/");
+          } else {
+            layer.msg(res.message);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+  }
+};
 </script>
 
 <style scoped>
-	/* .content-wrap{background: #fff center bottom 316px repeat-x,-webkit-linear-gradient(top,#21263f,#262a42);} */
-	.account{width: 1200px;margin: 0 auto;padding-top: 93px;overflow: hidden;min-height: 880px;}
-	.main{position: relative;padding: 0 0 60px 30px;}
-	.main_title{font-size: 36px;}
-    .register-item{display: block;height:22px;font-size: 12px}
-	.register-input{position: relative;margin-top: 20px}
-	.input-box{position: relative;margin-top: 40px;}
-	.input-main{width: 520px;min-height: 46px;border: 1px solid #ccc;padding: 0 20px;font-size: 14px;border-radius: 3px; }
-	.icon{width: 48px;height: 48px;line-height: 48px;border-right: 1px solid #52688c;position: absolute;top: 0;}
-	.login-btn{width: 420px;margin-top: 40px;font-size: 16px;border-radius: 4px;color: #fff;line-height: 48px;cursor: pointer;}
-	.noaccount{color: #fff;}
-    .register-button{width:200px;display: inline-block;line-height: 46px;border-radius: 4px;color: #fff;border: none}
-    .have-account{font-size: 14px;display:inline-block;margin-left: 30px}
-    .right-tip{position: absolute;left: 620px;top: 70px;line-height: 24px;padding-right: 50px;margin-top: 10px;font-size: 14px;}
+/* .content-wrap{background: #fff center bottom 316px repeat-x,-webkit-linear-gradient(top,#21263f,#262a42);} */
+.account {
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 93px;
+  overflow: hidden;
+  min-height: 880px;
+}
+.main {
+  position: relative;
+  padding: 0 0 60px 30px;
+}
+.main_title {
+  font-size: 36px;
+}
+.register-item {
+  display: block;
+  height: 22px;
+  font-size: 12px;
+}
+.register-input {
+  position: relative;
+  margin-top: 20px;
+}
+.input-box {
+  position: relative;
+  margin-top: 40px;
+}
+.input-main {
+  width: 520px;
+  min-height: 46px;
+  border: 1px solid #ccc;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 3px;
+}
+.icon {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  border-right: 1px solid #52688c;
+  position: absolute;
+  top: 0;
+}
+.login-btn {
+  width: 420px;
+  margin-top: 40px;
+  font-size: 16px;
+  border-radius: 4px;
+  color: #fff;
+  line-height: 48px;
+  cursor: pointer;
+}
+.noaccount {
+  color: #fff;
+}
+.register-button {
+  width: 200px;
+  display: inline-block;
+  line-height: 46px;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+}
+.have-account {
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 30px;
+}
+.right-tip {
+  position: absolute;
+  left: 620px;
+  top: 70px;
+  line-height: 24px;
+  padding-right: 50px;
+  margin-top: 10px;
+  font-size: 14px;
+}
 </style>

@@ -8,6 +8,8 @@
                 <p class="kefu">手机下载二维码</p>
             </div>
         </div> -->
+        <!-- <home-login></home-login> -->
+        <home-login></home-login>
         <div class="swiper-container banner_wrap swiper-container-horizontal">
             <div class="swiper-wrapper">
                <div class="swiper-slide sliders">
@@ -185,10 +187,11 @@ import "@/assets/style/index.css";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
 import indexHeader from "@/view/indexHeader";
+import homeLogin from "@/view/homeLogin";
 // var echarts = require("echarts");
 export default {
   name: "homeContent",
-  components: { indexHeader },
+  components: { indexHeader,homeLogin },
   data() {
     return {
       quotation: [],

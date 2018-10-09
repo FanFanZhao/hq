@@ -77,7 +77,7 @@ export default {
   name: "indexHeader",
   data() {
     return {
-      appshow:false,
+      appshow: false,
       address: "",
       account_number: "",
       assets: "资产",
@@ -89,7 +89,7 @@ export default {
       tabList: [
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
-        { title: "上币申请", page: "currencyApply" },
+        { title: "上币申请", page: "currencyApply" }
         // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
@@ -136,58 +136,42 @@ export default {
         //   src2: require("@/assets/images/s1.png"),
         //   title: "充币&提币",
         //   page:'finance'
-		    // },
-	    	{
+        // },
+        {
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
           title: "交易",
-           page:'finance'
+          page: "finance"
         }
       ],
       orderList: [
-		  {
+        {
           title: "当前委托"
-		},
-		{
+        },
+        {
           title: "委托历史"
         },
-		{
+        {
           title: "成交明细"
         }
-	  ]
+      ]
     };
   },
   created() {
-
-    
-    
     this.address = localStorage.getItem("token") || "";
-    this.account_number = localStorage.getItem('accountNum') || '';
-    // var address = this.address;
-    // if (address != "") {
-    //   this.$http({
-    //     url: this.$utils.laravel_api + "user/getuserbyaddress",
-    //     method: "post",
-    //     data: {
-    //       address: address
-    //     }
-    //   })
-    //     .then(res => {
-    //       res = res.data;
-    //       if (res.type === "ok") {
-    //         // console.log(res.message)
-    //         this.account_number = res.message.account_number;
-    //       } else {
-    //         layer.msg(res.message);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    // }
-
+    this.account_number = localStorage.getItem("accountNum") || "";
+    eventBus.$on('toHeader',function(mess){
+      console.log(mess);
+      
+      this.address = mess;
+    })
   },
   mounted() {
+    eventBus.$on('toHeader',function(mess){
+      console.log(mess);
+      
+      this.address = mess;
+    })
     this.bus.$on("nav_name", name => {
       console.log(name);
       this.current = this.tabList.findIndex(
@@ -198,19 +182,19 @@ export default {
     });
   },
   methods: {
-    showapp(){
-      this.appshow=!this.appshow
+    showapp() {
+      this.appshow = !this.appshow;
     },
     goto(index, name) {
       this.current = index;
       // console.log(index, name);
-      this.bus.$emit('nav_name',name);
+      this.bus.$emit("nav_name", name);
       this.$router.push({ name: name });
     },
-    gotoAccount(index,name){
+    gotoAccount(index, name) {
       // this.current = index;
       // console.log(index, name);
-      this.bus.$emit('nav_name',name);
+      this.bus.$emit("nav_name", name);
       this.$router.push({ name: name });
     },
     loginOut() {
@@ -255,7 +239,7 @@ export default {
   .msg_wrap {
     display: flex;
     align-items: center;
-    >div{
+    > div {
       margin: 0 10px;
     }
   }
@@ -408,10 +392,10 @@ export default {
       vertical-align: middle;
       font-size: 14px;
       cursor: pointer;
-      color:#c7cce6;
+      color: #c7cce6;
       &.active {
-        color:#d45858;
-        border:none;
+        color: #d45858;
+        border: none;
       }
     }
   }
@@ -426,31 +410,29 @@ export default {
     }
   }
 }
-.downapp{
+.downapp {
   position: relative;
-  div{
+  div {
     position: absolute;
     top: 15px;
     z-index: 10;
     left: 0;
-    span{
+    span {
       display: inline-block;
       width: 0;
       height: 0;
       border-width: 10px;
       border-style: solid;
-      border-color:  transparent transparent #fff  transparent ;
+      border-color: transparent transparent #fff transparent;
     }
-    p{
+    p {
       position: relative;
       top: -25px;
-      img{
+      img {
         width: 100px;
         height: 100px;
       }
     }
-    
   }
 }
-
 </style>
