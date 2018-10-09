@@ -583,6 +583,10 @@ export default {
   color: #6b80ae;
   cursor: pointer;
 }
+.coins li:hover{
+  cursor: pointer;
+  background: #303e4c;
+}
 </style>
 
 
