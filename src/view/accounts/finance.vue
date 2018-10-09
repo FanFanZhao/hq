@@ -1,7 +1,7 @@
 <template>
-    <div class="">
-        <div class="header fColor1">
-            <p class="fl">总资产折合：<span class="asset_num">0.0000000</span><span class="asset_name"> BTC</span><span class="ft12 baseColor"> ≈ <span>0.00</span>CNY</span>
+    <div class="bgf8">
+        <div class="header bgf8">
+            <p class="fl">总资产折合：<span class="asset_num">0.0000000</span><span class="asset_name"> BTC</span><span class="ft12 "> ≈ <span>0.00</span>CNY</span>
             <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
             </p>
             <p class="fr right_text">
@@ -9,7 +9,7 @@
                 <span class="address" @click="withdraw_address">提币地址管理</span>
             </p>
         </div>
-        <div class="content fColor1 ft12">
+        <div class="content  ft12">
            <div class="content_top flex alcenter fColor2">
                <p class="flex1 tc">币种<i></i></p>
                <p class="flex1 tc">可用</p>
@@ -36,7 +36,7 @@
                    <!--充币区-->
                    <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
-                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">二维码</span>
+                       <p class="mt50 mb50"><span class="ft18  excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">二维码</span>
                          <div class="ewm_img" id="code" :class="{'hide':isHide}">
                              
                          </div>
@@ -51,10 +51,10 @@
                    <!--提币区-->
                    <div class="hide_div" v-if="index == active01">
                        <p class="fColor2 ft12 mb15">提币地址</p>
-                       <input class="address_inp fColor1 mb30" type="text" v-model="address" />
+                       <input class="address_inp  mb30" type="text" v-model="address" />
                        <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">{{balance}}</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
                        <label class="num_lab flex between mb30">
-                            <input class="fColor1" type="text" :placeholder="min_number" v-model="number" />
+                            <input class="" type="text" :placeholder="min_number" v-model="number" />
                             <span>{{coinname}}</span>
                         </label>
                        <div class="flex mb50">
@@ -63,13 +63,13 @@
                                    <span>手续费</span>
                                    <span>范围：<span>{{ratenum}}</span></span>
                                </p>
-                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" v-model="rate" /><span>{{coinname}}</span></label>
+                               <label class="range_lab flex alcenter between"><input class=""  type="text" v-model="rate" /><span>{{coinname}}</span></label>
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
                                    <span class="fColor2 ft12">到账数量</span>
                                </p>
-                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
+                               <label class="get_lab flex alcenter between"><input class="" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
                            </div>
                        </div>
                        <div class="flex">
@@ -104,7 +104,7 @@
                    </div>
                </li>
            </ul>
-           <!-- <div class="tc ft16 fColor1 mt50" v-show="asset_list.length<=0">暂无数据</div> -->
+           <!-- <div class="tc ft16  mt50" v-show="asset_list.length<=0">暂无数据</div> -->
         </div>
     </div>
 </template>
@@ -474,7 +474,7 @@ export default {
         color: #fff;
     }
     .right_text{
-        color: #5697f4;
+        color: #d45858;
     }
     .right_text span{
         cursor: pointer;
@@ -491,10 +491,10 @@ export default {
     }
     .content_li{
         padding: 15px 0;
-        border-bottom: 1px solid #1e2c42;
+        border-bottom: 1px solid #ccc;
     }
     .operation,.copy,.ewm{
-        color: #5697f4;
+        color: #d45858;
     }
     .copy{
         margin: 0 30px;
@@ -509,11 +509,11 @@ export default {
         cursor: pointer;
     }
     .hide_div{
-        border:1px solid #1e2c42;
+        border:1px solid #ccc;
         padding: 20px;
     }
     .excharge_record{
-        color: #5697f4;
+        color: #d45858;
     }
     input{
         background: none;
@@ -540,14 +540,12 @@ export default {
         border-radius: 3px;
         padding: 15px;
     }
-    .get_lab{
-        background: #1e2c42;
-    }
+    
     .right_inp_wrap{
         margin-left: 20px;
     }
     .use_num,.advance{
-        color: #5697f4;
+        color: #d45858;
     }
     .use_num{
         margin-right: 5px;
@@ -556,7 +554,7 @@ export default {
         margin-left: 5px;
     }
     .withdraw_btn{
-        background-color: #7a98f7;
+        background-color: #d45858;
         color: #fff;
         padding: 15px 70px;
         border: none;
@@ -566,7 +564,7 @@ export default {
         cursor: pointer;
     }
     .bg{
-        background: #2b3c71;
+        // background: #2b3c71;
     }
     .ewm_wrap{
         position: relative;
@@ -577,7 +575,7 @@ export default {
         position: absolute;
         top: 25px;
         left: -30px;
-        border: 10px solid #262a42;
+        // border: 10px solid #262a42;
     }
     .hide{
         display: none;
@@ -587,7 +585,7 @@ export default {
         .rec-con{
             margin: 10px;
             padding: 0 20px;
-            background: #262a42;
+            // background: #262a42;
                 span{
                     flex:1;text-align: center;
                     line-height: 3;
@@ -596,7 +594,7 @@ export default {
                 display: flex;
                 justify-content: space-between;
                 font-size: 14px;
-                color:#fff;
+                // color:#fff;
                 line-height: 1.5;
             }
             li{
@@ -604,8 +602,8 @@ export default {
                 
                 justify-content: space-between;
                 font-size: 12px;
-                color: #728daf;
-                border-top: 1px solid #181b2a;
+                // color: #728daf;
+                // border-top: 1px solid #181b2a;
             }
         }
     }

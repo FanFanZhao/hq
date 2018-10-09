@@ -233,7 +233,12 @@
 /* .m_search input{position: absolute;left: 0;top: 10px;z-index: 2;width: 100%;padding: 5px 40px 5px 8px;height: 26px;border-radius: 3px;background: transparent;border: 1px solid #52688c;} */
 .m_search img{width: 16px;height: 15px;position: absolute;right: 35px;top: 20px;z-index: 123;}
 .m_filter{padding: 10px 0 15px;}
-.tabtitle span {text-align: center;padding: 0 10px;}
+.tabtitle{padding: 0 20px;}
+.tabtitle span {flex:1;text-align: center;padding: 3px 10px;border-bottom: 1px solid #ccc}
+.tabtitle .active{
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
 .coin-title div{width: 33.3%;height: 36px;line-height: 36px;text-align: center;float: left;font-size:12px;}
 .coin-title img{vertical-align: middle;margin-top: -3px;}
 .line{width: 90%;margin: 0px auto;border-bottom: 1px solid rgb(48, 59, 75);}

@@ -1,5 +1,5 @@
 <template>
-    <div id="transfer-legal" v-if="coins.length">
+    <div id="transfer-legal" v-if="coins.length" class="bgf8">
        <div class="title">划转</div>
        <ul class="coins">
            <li v-for="(coin,index) in coins" :key="index" :class="{active:index == coinIndex}" @click="coinIndex = index;number = ''">
@@ -95,11 +95,11 @@ export default {
 <style lang='scss' scoped>
 #transfer-legal {
   padding: 0 30px;
-  color: #c7cce6;
+//   color: #c7cce6;
   > .title {
       padding: 20px 0;
     font-size: 24px;
-    color: #61688a;
+    // color: #61688a;
   }
   > .coins {
     display: flex;
@@ -111,7 +111,7 @@ export default {
       background: #234165;
     }
     .active {
-      background: #7a98f7;
+      background: #d45858;
     }
   }
   >.types{
@@ -136,7 +136,7 @@ export default {
       line-height: 40px;
       input{
           border:none;
-          color:#f2f5ff;
+        //   color:#f2f5ff;
           background: none;
           line-height: 40px;
           width: 800px;
@@ -154,7 +154,7 @@ export default {
       margin: 0 auto;
       line-height: 40px;
       width: 200px;
-      background: #7a98f7;
+      background: #d45858;
       color: #fff;
       border: none;
   }

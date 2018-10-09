@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bgf8">
         <div class="top">
             <p>法币账户  总资产折合：{{totle}}（CNY）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle/6.5}}</span> USDT</span></p>
         </div>
@@ -77,12 +77,11 @@ export default {
         flex: 1;
     }
    .top{
-       background: #1b1e2e;
-       color: #fff;
+       
        padding: 15px 30px;
    }
    .all_account{
-       color: #61688a;
+       /* color: #61688a; */
    }
    .list{
        padding: 15px 30px;
@@ -91,18 +90,18 @@ export default {
        display: flex;
        justify-content: space-between;
        align-items: center;
-       color: #61688a;
+       /* color: #61688a; */
    }
    .legal_name{
-       color: #61688a;
+       /* color: #61688a; */
        padding: 10px 0;
    }
    .use_balance_num,.lock_balance_num,.lock_balance_num{
-       color: #fff;
+       /* color: #fff; */
        padding: 5px 0;
    }
    .list li{
-       border-bottom: 1px solid #1B2A3E;
+       border-bottom: 1px solid #ccc;
    }
    .convert{
        padding: 10px 0;

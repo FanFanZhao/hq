@@ -4,20 +4,20 @@
         <div class="account-wrap">
             <div class="account">
                 <div>
-                    <div class="back-nav fColor1 ft20"> 网站公告
-                        <span class="fr fColor2 curPer" @click="goBefore">&lt;&lt;返回</span>
+                    <div class="back-nav  ft20"> 网站公告
+                        <span class="fr  curPer" @click="goBefore">&lt;&lt;返回</span>
                     </div>
                     <div class="nav-after"></div>
                 </div>
                 <div class="account-content">
                     <div class="detailBig">
                         <div class="mb30 clear">
-                            <span class="fColor1 w90 fl tc">{{title}}</span>
+                            <span class=" w90 fl tc">{{title}}</span>
                         </div>
-                        <div class="detailContent fColor2">
+                        <div class="detailContent ">
                             <p v-html="content" ref="con"></p>
                         </div> 
-                        <div class="fColor2 mt40">
+                        <div class=" mt40">
                             <p class="tr">{{abstract}}</p>
                             <p class="tr mt5">{{update_time}}</p>
                         </div>
@@ -94,8 +94,8 @@ export default {
 <style lang="scss" scoped>
 .noticeDetail{
     .account-wrap{
-        background: url(../assets/images/account_center_bg.jpg) no-repeat;
-        background-size: cover;
+        // background: url(../assets/images/account_center_bg.jpg) no-repeat;
+        // background-size: cover;
         .account {
             width: 1500px;
             margin: 0 auto;
@@ -105,12 +105,12 @@ export default {
             .nav-after{
                 display: block;
                 height: 10px;
-                background-color: #262a42;
+                // background-color: #262a42;
             }
             .account-content {
                 width: 100%;
                 min-height: 750px;
-                background-color: #181b2a;
+                // background-color: #181b2a;
                 .detailBig{
                     padding: 48px 46px 20px;
                     .mb30{
@@ -120,7 +120,7 @@ export default {
                         line-height: 26px;
                         p{
                           &>*{
-                            background-color: #181b2a!important;
+                            // background-color: #181b2a!important;
                            }  
                         }
                        

@@ -1,16 +1,16 @@
 <template>
-    <div class="lever">
-        <div class="lever-head fColor1">
+    <div class="lever bgf8">
+        <div class="lever-head">
             <span>净资产折合:</span> 
             <span>0.00000000 BTC</span>
             <span class="ft12 mincny">≈0.00 CNY</span>
             <input type="checkbox" class="ml20">
             <span class="ft14">隐藏小额资产</span>
             <input type="text" class="filter-input ml20">
-            <span class="fr baseColor">财务记录</span>
+            <span class="fr ">财务记录</span>
         </div>
         <div class="leverbody contentBK ft12">
-            <ul class="titlebox fColor3 clearfix">
+            <ul class="titlebox  clearfix">
                 <li class="w11">杠杆账户</li>
                 <li class="w16 tr">可用</li>
                 <li class="w16 tr">冻结</li>
@@ -19,7 +19,7 @@
                 <li class="w5 tr">爆仓价</li>
                 <li class="w25 tr">操作</li>
             </ul>
-            <ul class="contentbox fColor1">
+            <ul class="contentbox ">
                 <!-- <li class="clearfix flex">
                     <p class="w11 l40">BTC/USDT</p>
                     <p class="w16 tr flex column between">
@@ -36,7 +36,7 @@
                     </p>
                     <p class="w11 tr l40">无风险</p>
                     <p class="w5 tr l40">---</p>
-                    <p class="w25 tr baseColor l40 btn">
+                    <p class="w25 tr  l40 btn">
                         <span @click="turnin">转入</span>
                         <span @click="turnout">转出</span>
                         <span @click="golever">杠杆</span>
@@ -58,49 +58,49 @@
                     </p>
                     <p class="w11 tr l40">无风险</p>
                     <p class="w5 tr l40">---</p>
-                    <p class="w25 tr baseColor l40 btn">
+                    <p class="w25 tr  l40 btn">
                         <span @click="turnin">转入</span>
                         <span @click="turnout">转出</span>
                         <span>杠杆</span>
                     </p>
                 </li> -->
             </ul>
-            <div class="tc ft16 fColor1 mt50">暂无数据</div>
+            <div class="tc ft16  mt50">暂无数据</div>
         </div>
         <div class="dialog_wrap" v-show="inDialog">
             <div class="dialog">
                 <div class="dia-tit clearfix">
-                    <span class="fl fColor1">转入本金</span>
-                    <span class="fr fColor3 close" @click="close">X</span>
+                    <span class="fl ">转入本金</span>
+                    <span class="fr  close" @click="close">X</span>
                 </div>
-                <div class="dia-content fColor1">
+                <div class="dia-content ">
                     <div class="dia-container">
                         <div class="flex alcenter frombox">
-                            <span class="fColor3 ft12 tc">从</span>
+                            <span class=" ft12 tc">从</span>
                             <p class="ft14 flex1">交易账户</p>
                         </div>
                         <div class="frombox flex alcenter w10 tc">
                             <img src="@/assets/images/trade.png" alt="" class="coinimg">                      
                         </div>
                         <div class="flex alcenter frombox">
-                            <span class="fColor3 ft12 tc">到</span>
+                            <span class=" ft12 tc">到</span>
                             <p class="ft14 flex1">BTC/USDT杠杆账户</p>
                         </div>
                     </div>
                     <div class="div-input mt20">
-                        <p class="ft12 fColor3">币种</p>
-                        <div class="dia-coin flex tc mt10 ft12 fColor3">
+                        <p class="ft12 ">币种</p>
+                        <div class="dia-coin flex tc mt10 ft12 ">
                             <p v-for="(item,index) in coins" :class="{select:index==current}" @click="chooseCoin(index)">{{item.coin}}<i></i></p>
                         </div>
                     </div>
                     <div class="div-input mt20">
-                        <p class="ft12 fColor3 flex between">
+                        <p class="ft12  flex between">
                             <span>数量</span>
                             <span>可转 0.00000000 BTC</span>
                         </p>
                         <div class="inputboxs flex between alcenter mt10">
                             <input type="text">
-                            <div class="ft12 fColor3">
+                            <div class="ft12 ">
                                 <span>BTC</span>
                                 <span>|</span>
                                 <span class="all">全部</span>
@@ -117,37 +117,37 @@
         <div class="dialog_wrap" v-show="outDialog">
             <div class="dialog">
                 <div class="dia-tit clearfix">
-                    <span class="fl fColor1">转出本金</span>
-                    <span class="fr fColor3 close" @click="close">X</span>
+                    <span class="fl ">转出本金</span>
+                    <span class="fr  close" @click="close">X</span>
                 </div>
-                <div class="dia-content fColor1">
+                <div class="dia-content ">
                     <div class="dia-container">
                         <div class="flex alcenter frombox">
-                            <span class="fColor3 ft12 tc">从</span>
+                            <span class=" ft12 tc">从</span>
                             <p class="ft14 flex1">BTC/USDT杠杆账户</p>
                         </div>
                         <div class="frombox flex alcenter w10 tc">
                             <img src="@/assets/images/trade.png" alt="" class="coinimg">                      
                         </div>
                         <div class="flex alcenter frombox">
-                            <span class="fColor3 ft12 tc">到</span>
+                            <span class=" ft12 tc">到</span>
                             <p class="ft14 flex1">交易账户</p>
                         </div>
                     </div>
                     <div class="div-input mt20">
-                        <p class="ft12 fColor3">币种</p>
-                        <div class="dia-coin flex tc mt10 ft12 fColor3">
+                        <p class="ft12 ">币种</p>
+                        <div class="dia-coin flex tc mt10 ft12 ">
                             <p v-for="(item,index) in coins" :class="{select:index==current}" @click="chooseCoin(index)">{{item.coin}}<i></i></p>
                         </div>
                     </div>
                     <div class="div-input mt20">
-                        <p class="ft12 fColor3 flex between">
+                        <p class="ft12  flex between">
                             <span>数量</span>
                             <span>可转 0.00000000 BTC</span>
                         </p>
                         <div class="inputboxs flex between alcenter mt10">
                             <input type="text">
-                            <div class="ft12 fColor3">
+                            <div class="ft12 ">
                                 <span>BTC</span>
                                 <span>|</span>
                                 <span class="all">全部</span>
@@ -220,12 +220,12 @@ export default {
 <style scoped lang="scss">
 .lever{
     .lever-head{
-        background-color: #1b1e2e;
+        // background-color: #1b1e2e;
         padding: 0 30px;
         height: 48px;
         line-height: 48px;
         font-size: 16px;
-        color: #c7cce6;
+        // color: #c7cce6;
         .mincny{
             color: #61688a;
         }
@@ -236,7 +236,7 @@ export default {
                 padding: 0 30px 0 10px;
                 background: none;
                 border-radius: 3px;
-                border: 1px solid #4e5b85;
+                border: 1px solid #ccc;
         }
     }
     .leverbody{
@@ -280,7 +280,7 @@ export default {
         left: 0;
         z-index: 9;
         text-align: center;
-        background: rgba(0,0,0,.4);
+        // background: rgba(0,0,0,.4);
         .dialog {
             margin-top: 220px;
             display: inline-block;
@@ -290,7 +290,7 @@ export default {
             border-radius: 3px;
             text-align: left;
             vertical-align: middle;
-            background-color: #262a42;
+            // background-color: #262a42;
             .dia-tit{
                 padding: 0 40px 30px;
                 font-size: 24px;
@@ -299,7 +299,7 @@ export default {
                     cursor: pointer;
                 }
                 .close:hover{
-                    color: #fff
+                    // color: #fff
                 }
             }
             .dia-content{
@@ -314,7 +314,7 @@ export default {
                         padding-left: 20px;
                         line-height: 48px;
                         border-radius: 3px;
-                        background-color: #202437;
+                        // background-color: #202437;
                     }
                     .coinimg{
                         width: 28px;
@@ -322,7 +322,7 @@ export default {
                     }
                 }
                 .dia-coin{
-                    background-color: #202437;
+                    // background-color: #202437;
                     p{
                         width: 50%;
                         width: 50%;
@@ -359,13 +359,13 @@ export default {
                 .inputboxs{
                     width: 100%;
                     border-radius: 3px;
-                    background-color: #1e2235;
-                    border: 1px solid #4e5b85;
+                    // background-color: #1e2235;
+                    border: 1px solid #ccc;
                     padding: 0 20px;
                     input{
                         background: transparent;
                         height: 46px;
-                        color: #fff
+                        // color: #fff
 
                     }
                     span{

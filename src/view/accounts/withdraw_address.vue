@@ -2,13 +2,13 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <div class="topcontent ft20 ">
-                <span class="white"><span class="baseColor">资产></span> 提币地址管理</span>
+            <div class="topcontent ft20 redColor bgf8">
+                <span ><span class="">资产></span> 提币地址管理</span>
             </div>
             <div class="content">
-               <div class="con_box">
+               <div class="con_box bgf8">
                   
-                   <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                   <div class="contentBK 1  pdlr20 pdtb20 ft12">
                        <div class="flex alcenter">
                            <span class="w10 mr20">币种</span>
                            <span class="flex1 mr20">提币地址</span>
@@ -24,16 +24,16 @@
                                 <input type="text" class="flex1 " placeholder="请输入备注" v-model="notes">
                             </div>
                             <div class="add">
-                                <div class="baseBtn" @click="addAddress">添加</div>
+                                <div class="baseBtn redBg" style="background:#d45858" @click="addAddress">添加</div>
                             </div> 
                        </div>
                    </div>
                </div>
-               <div class="con_box mt15">
+               <div class="con_box mt15 ">
                    <div class="account_title ttBk white flex">
                        <div class="ml20">地址列表</div>
                    </div>
-                   <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                   <div class="contentBK 1  pdlr20 pdtb20 ft12 bgf8">
                        <div class="flex alcenter">
                            <span class="flex1">币种</span>
                            <span class="flex1">提币地址</span>
@@ -174,34 +174,34 @@ export default {
 .topcontent {
   padding: 22px 30px;
   margin-bottom: 20px;
-  background-color: #1a2330;
+  //background-color: #1a2330;
   border-radius: 5px;
 }
 .account_title {
   padding: 15px 20px;
 }
 select {
-  background-color: transparent;
+  //background-color: transparent;
   padding: 10px;
-  color: #c7cce6;
+//   color: #c7cce6;
   font-size: 18px;
   border-radius: 3px;
-  border: 1px solid #4e5b85;
+  border: 1px solid #ccc;
 }
 select.ft14 {
   font-size: 14px;
 }
 select > option {
   padding: 10px 0;
-  background-color: transparent;
+  //background-color: transparent;
 }
 input {
   padding: 10px;
-  border: 1px solid #4e5b85;
+  border: 1px solid #ccc;
   font-size: 18px;
-  color: #c7cce6;
+//   color: #c7cce6;
   border-radius: 3px;
-  background-color: transparent;
+  //background-color: transparent;
   outline: none;
 }
 .add {

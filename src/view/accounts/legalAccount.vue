@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main bgf8">
         <p class="legal_name">{{legal_name}}</p>
         <div class="legalAccount_msg flex between">
           <div>
@@ -30,7 +30,7 @@
               <li class="flex arround ft12"></li>
            </ul>
         </div>
-        <router-link tag="p" class="huazhuan" to='/transferLegal'>划转</router-link>
+        <router-link tag="p" class="huazhuan redBg" to='/transferLegal'>划转</router-link>
     </div>
 </template>
 <script>
@@ -81,18 +81,18 @@ export default {
 </script>
 <style scoped>
    .legal_name{
-       background: #1b1e2e;
+       /* background: #1b1e2e; */
        padding: 5px 0;
    }
     .msg_title{
-        color: #61688a;
+        /* color: #61688a; */
     }
    .main{
-       color:#fff;
+       /* color:#fff; */
        padding: 30px;
    }
    .legalAccount_msg{
-       background: #1b1e2e;
+       /* background: #1b1e2e; */
        padding: 6px 0;
    }
    .legalAccount_msg div p:first-child{
@@ -107,16 +107,16 @@ export default {
        
    }
    .all{
-        color: #61688a;
+        /* color: #61688a; */
    }
    .list_title{
        padding: 10px 0;
-       background: #1b1e2e;
+       /* background: #1b1e2e; */
    }
    .huazhuan{
        text-align: center;
        margin-top: 60px;
-       background: #7a98f7;
+       background: #d45858;
        padding: 8px;
    }
    .huazhuan:hover{

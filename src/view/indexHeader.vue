@@ -315,7 +315,7 @@ export default {
       }
     }
     p:hover {
-      color: #5697f4;
+      color: #d45858;
       background-color: #181b2a;
     }
     p:hover img:nth-child(2) {
@@ -385,7 +385,7 @@ export default {
       }
     }
     p:hover {
-      color: #5697f4;
+      color: #d45858;
       background-color: #181b2a;
     }
     p:hover img:nth-child(2) {

@@ -2,7 +2,7 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <div class="topcontent ft20 fColor1">
+            <div class="topcontent ft20 ">
                 <span>资产</span>
             </div>
             <div class="leftcontent contentBK">
@@ -49,7 +49,7 @@
         margin: 20px 0;
         font-size: 20px;
         border-radius: 3px;
-        background-color: #181b2a;
+        /* background-color: #181b2a; */
     }
     .leftcontent{
         width: 220px;

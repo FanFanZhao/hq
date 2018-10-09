@@ -51,7 +51,7 @@
                <li v-for="item in noticeList" :key="item.id" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" :data-id='item.id'>{{item.name}}</a></li>
            </ul>
         </div> -->
-        <div class="active-data clearfix">
+        <!-- <div class="active-data clearfix">
             <div class="data high">
                 <div class="name">最高价</div>
                 <div class="content">{{coinKline.hight}}</div>
@@ -77,41 +77,36 @@
                 <div class="content">{{coinKline.volume}}</div>
             </div>
             <div class="time">24H</div>
-        </div>
-        <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
-            <!-- <div style="position: relative; overflow: hidden; width: 1200px; height: 320px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
-                <canvas width="1200" height="320" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 1200px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
-            </div>
-            <div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgb(153, 153, 153); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 533px; top: 67px;">22:00:00<br>
-                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:RGBA(110, 68, 110, .7);"></span>当前价: 708.9</div> -->
-        </div>
-        <div class="coins-list">
+        </div> -->
+        <!-- <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
+            
+        </div> -->
           <div class="coin-tab">
             <ul class="coins">
-              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">{{coin.name}}</li>
+              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">对{{coin.name}}交易区</li>
             </ul>
           </div>
+        <div class="coins-list">
           <div class="list-title">
-            <span>交易对</span>
-            <span>昨日</span>
-            <span>今日</span>
-            <span>涨幅</span>
+            <span>币种对{{nowCoin}}</span>
+            <span>价格({{nowCoin}})</span>
+            <span>交易量({{nowCoin}})</span>
+            <span>涨跌</span>
           </div>
           
           <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
             <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='item.name+"/"+li.name'>
               <div class="two-coin">
-                <span>{{li.name}}</span>
-                <span style="color:#61688a">/{{item.name}}</span>
+                
+                <span style="color:#61688a;font-weight:bold">{{li.name}}</span>
               </div>
               <div class="yester">
-                <span>{{li.yesterday_last_price}}</span>
+                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.last_price}}</span>/
+                <span style="color:#666">{{li.yesterday_last_price}}</span>
               </div>
-              <div class="today">
-                <span>{{li.last_price}}</span>
-              </div>
+              <div class="count">{{li.count}}</div>
               <div class="yes-toa">
-                <span>{{setPercent(li.last_price,li.yesterday_last_price)}}</span>
+                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.proportion}}%</span>
               </div>
             </li>
           </ul>
@@ -190,7 +185,7 @@ import "@/assets/style/index.css";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
 import indexHeader from "@/view/indexHeader";
-var echarts = require("echarts");
+// var echarts = require("echarts");
 export default {
   name: "homeContent",
   components: { indexHeader },
@@ -209,98 +204,14 @@ export default {
       coinKlineList: [],
       coinKline: {},
       swiperList: [
-        //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
-        //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
-        //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
-        //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
-        //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
+       
       ],
       coinList: [
-        //   {ico:'icon-BTYUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-BTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-BCCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-ETHUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-ETCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-ZECUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-LTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        
       ],
       coin_list: [
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        }
-      ],
-      noticeList: [
-        { text: "2KEX交易所测试上线。。。", url: "" },
-        { text: "2KEX交易所测试上线。。。", url: "" },
-        { text: "2KEX交易所测试上线。。。", url: "" },
-        { text: "2KEX交易所测试上线。。。", url: "" }
       ]
-    };
+    }
   },
   created() {
     // this.init(this.initKline);
@@ -328,7 +239,7 @@ export default {
       observer: true, //修改swiper自己或子元素时，自动初始化swiper
       observeParents: true //修改swiper的父元素时，自动初始化swiper
     });
-    this.setChart();
+    // this.setChart();
     this.$http({
       url: this.$utils.laravel_api + "news/help",
       method: "post",
@@ -389,24 +300,14 @@ export default {
           $("li[data-name='"+cname+"']").find('.yes-toa span').html(zf);
       });
     },
-    setPercent(a,b){
-      if((a-b) == 0){
-        return '0%';
-      }
-      else if(a == 0){
-        return '-100%';
-      } else if( b == 0){
-        return '+100%';
+    setColor(to,yes){
+      if(yes>to){
+        return 'ceilColor';
+      } else if(yes<to){
+        return 'redColor';
       } else {
-        var p  = ((a-b)/b/100).toFixed(2);
-        if(p>0){
-          p = '+'+p+ '%';
-        } else {
-          p = p+'%'
-        }
-        return p;
+        return '';
       }
-      
     },
     getQuotation() {
       this.$http({
@@ -571,24 +472,25 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-/* 币种列表 */
-.coins-list {
-  margin: 10px 50px;
-  line-height: 40px;
-  text-align: center;
-  border: 1px solid #ccc;
+.swiper-container img{
+  display: block;height: 100%;
+}
   .coin-tab {
-    height: 42px;
+    line-height: 52px;
+    height: 52px;
+    background: #252e3e;
+    padding:  0 50px;
     // color: #c7cce6;
     display: flex;
     > ul {
-      border-left: 1px solid #ccc;
+      width: 1280px;
       display: flex;
+      margin: 0 auto;
       li {
         padding: 0 40px;
+        color:#ddd;
         // box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
-        border-bottom: 1px solid #ccc;
-        border-right: 1px solid #ccc;
+       
       }
       .activeCoin {
         border-bottom: none;
@@ -596,6 +498,13 @@ export default {
       }
     }
   }
+/* 币种列表 */
+.coins-list {
+  margin: 10px auto;
+  max-width: 1280px;
+  line-height: 40px;
+  text-align: center;
+  
   .list-title {
     display: flex;
     > span {
@@ -605,21 +514,29 @@ export default {
       // color: #c7cce6;
       font-size: 14px;
     }
+    >span:first-child{
+        text-align: left;
+      }
+      >span:last-child{text-align: right}
   }
   .list-con {
     // background: rgb(32, 36, 55);
     max-height: 680px;
     overflow: scroll;
-    li:nth-child(n+2){
-      border-top: 1px solid #ddd;
-    }
+    
     li {
       display: flex;
+      border-top: 1px solid #ddd;
       
       // color: #c7cce6;
       > div {
         flex: 1;
+        text-align: center;
       }
+      >div:first-child{
+        text-align: left;
+      }
+      >div:last-child{text-align: right}
     }
   }
 }
