@@ -34,15 +34,15 @@
                         <span class="fl w8 tr curPer ceilColor" @click="revoke(index,item.id)">撤销</span>
                     </li>
                 </ul>
-                <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && inList.length>8">{{more}}</div>
+                <div class="getmore tc gray9 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && inList.length>8">{{more}}</div>
                 <div class="tc pdb20" v-if="loading">
                     <img src="@/assets/images/loading.gif" alt=""  class="lodw20">
-                    <p class="ft12 baseColor">加载中...</p>
+                    <p class="ft12 gray9">加载中...</p>
                 </div>
             </div>
             <div class="no_data tc" v-if="inList.length<=0 && !loading">
                 <img src="@/assets/images/nodata.png" alt="">
-                <p class="fColor2 ft18">暂无数据</p> 
+                <p class="gray9 ft18">暂无数据</p> 
             </div>
         </div>
     </div>
@@ -201,9 +201,12 @@ export default {
 .list-item li{line-height: 30px;}
 .list-item li span{display: inline-block;float: left;}
 .list-item li span:nth-child(3){color:#cc4951;}
-.list-item li:hover{background-color: #2b3648}
+.list-item li:hover{background-color: #eee;color: #de5959;}
 .list-item li span.green{color: #55a067}
 .pdb20{padding-bottom: 20px;}
+.containers{
+    border-bottom: 1px solid #ccc;
+}
 .containers span{
     margin-left: 0;
 }

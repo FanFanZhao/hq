@@ -85,7 +85,7 @@
         </div> -->
           <div class="coin-tab">
             <ul class="coins">
-              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">对{{coin.name}}交易区</li>
+              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">对{{coin.name}}交易区<span class='arrow' v-if="nowCoin == coin.name"></span></li>
             </ul>
           </div>
         <div class="coins-list">
@@ -510,6 +510,7 @@ export default {
   
   .list-title {
     display: flex;
+    padding: 0 30px;
     > span {
       flex: 1;
 
@@ -530,6 +531,7 @@ export default {
     li {
       display: flex;
       border-top: 1px solid #ddd;
+      padding: 0 30px;
       
       // color: #c7cce6;
       > div {
@@ -585,6 +587,24 @@ export default {
 .notice_a:hover {
   color: #6b80ae;
   cursor: pointer;
+}
+.coins li{
+  position: relative;
+}
+.arrow{
+    border-width: 16px;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: none;
+    border-bottom: 8px dashed;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -4px;
+}
+.coins li:hover{
+  cursor: pointer;
+  background: #303e4c;
 }
 </style>
 

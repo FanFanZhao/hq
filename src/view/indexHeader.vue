@@ -88,8 +88,14 @@ export default {
       current: 0,
       tabList: [
         { title: "首页", page: "homeContent" },
+        { title: "C2C交易", page: "" },
         { title: "币币交易", page: "dealCenter" },
-        { title: "上币申请", page: "currencyApply" }
+        { title: "杠杆交易", page: "" },
+        { title: "我的财务", page: "" },
+        { title: "安全设置", page: "" },
+        { title: "公告", page: "" },
+        { title: "上币申请", page: "currencyApply" },
+        { title: "帮助", page: "" },
         // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
@@ -111,24 +117,24 @@ export default {
         //   title: "充值",
         //   page: "recharge"
         // },
-        {
-          src1: require("@/assets/images/z0.png"),
-          src2: require("@/assets/images/z1.png"),
-          title: "账户设置",
-          page: "accountSet"
-        },
+        // {
+        //   src1: require("@/assets/images/z0.png"),
+        //   src2: require("@/assets/images/z1.png"),
+        //   title: "账户设置",
+        //   page: "accountSet"
+        // },
         // {
         //   src1: require("@/assets/images/s0.png"),
         //   src2: require("@/assets/images/s1.png"),
         //   title: "承兑商",
         //   page: "aceite"
         // },
-        {
-          src1: require("@/assets/images/s0.png"),
-          src2: require("@/assets/images/s1.png"),
-          title: "区域代理",
-          page: "region"
-        }
+        // {
+        //   src1: require("@/assets/images/s0.png"),
+        //   src2: require("@/assets/images/s1.png"),
+        //   title: "区域代理",
+        //   page: "region"
+        // }
       ],
       assetstList: [
         // {
@@ -226,6 +232,9 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.nav_li:hover{
+  color: #d45858;
+}
 .nav_bar {
   @include line-height(60px);
   width: 100%;
@@ -397,6 +406,9 @@ export default {
         color: #d45858;
         border: none;
       }
+    }
+    li:hover{
+      color: #d45858;
     }
   }
   .login {
