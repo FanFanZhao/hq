@@ -166,17 +166,19 @@ export default {
   created() {
     this.address = localStorage.getItem("token") || "";
     this.account_number = localStorage.getItem("accountNum") || "";
-    eventBus.$on('toHeader',function(mess){
-      console.log(mess);
-      
-      this.address = mess;
+    var that = this;
+    eventBus.$on('toHeader',function(obj){
+      that.address = obj.token;
+      that.account_number = obj.account;
     })
   },
   mounted() {
-    eventBus.$on('toHeader',function(mess){
-      console.log(mess);
+   var that = this;
+    eventBus.$on('toHeader',function(obj){
+      console.log(obj);
       
-      this.address = mess;
+      that.address = obj.token;
+      that.account_number = obj.account;
     })
     this.bus.$on("nav_name", name => {
       console.log(name);

@@ -107,9 +107,11 @@ export default {
           res = res.data;
           if (res.type === "ok") {
               this.token = res.message;
-              eventBus.$emit('toHeader',res.message);
+              
+              eventBus.$emit('toHeader',{token:res.message,account:this.account});
             localStorage.setItem("token", res.message);
             localStorage.setItem("accountNum", account_number);
+
             this.$store.commit("setAccountNum");
             this.userInfo();
             // this.$router.push("/");
