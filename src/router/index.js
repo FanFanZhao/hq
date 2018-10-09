@@ -27,6 +27,7 @@ import manger from '@/view/accounts/lever_manger'
 import legal from '@/view/accounts/legal'
 import legalAccount from '@/view/accounts/legalAccount'
 import transferLegal from '@/view/accounts/transferLegal'
+import currencyApply from '@/view/currency_apply'
 
 import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
@@ -52,6 +53,11 @@ export default new Router({
 					name:'dealCenter',
 					component:dealCenter
 				},
+				{
+					path:'/currencyApply',
+					name:'currencyApply',
+					component:currencyApply
+				}
 			]
 		},
 		// {
