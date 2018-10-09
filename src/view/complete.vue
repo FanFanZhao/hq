@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
         <div class="title fColor1 topshadow">
-            <div class="inblock">
+            <div class="inblock color">
                 <span>全站交易</span>
             </div>
         </div>
@@ -106,7 +106,7 @@ export default {
 }
 </script>
 <style scoped>
-.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;background-color: #181b2a;}
+.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;}
 .tab_title{display: inline-block;line-height: 46px;height: 46px;}
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
