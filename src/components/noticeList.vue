@@ -4,7 +4,7 @@
         <div class="account-wrap">
             <div class="account" style="width:auto">
                 <div>
-                    <div class="back-nav fColor1 ft20 clear" style="padding:0 20px"> 公告
+                    <div class="back-nav fColor1 ft20 clear" style="padding:0 20px;color:#333;"> 公告
                         
                     </div>
                     
@@ -123,15 +123,15 @@ export default {
       .account-content {
         width: 100%;
         min-height: 450px;
-        background-color: #181b2a;
+        background-color: #fff;
         ul {
           padding: 0 20px;
           font-size: 14px;
           li {
-            border-bottom: 1px dashed #303b4b;
+            border-bottom: 1px dashed #eee;
             height: 72px;
             padding: 10px 0 7px;
-            color: #cdd6e4;
+            color: #333;
                 font-size: 12px;
             > div {
               > div {
@@ -142,6 +142,9 @@ export default {
                   color: #61688a;
               }
             }
+          }
+          li:hover{
+            color: #de5959;
           }
         }
       }

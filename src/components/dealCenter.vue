@@ -109,6 +109,8 @@ export default {
       height: 100%;
       margin: 10px 10px  0 0;
       > div {
+        background: #fff;
+        border: 1px solid #C8DAE2;
         // background: #181b2a;
         margin: 0 10px 10px;
       }
