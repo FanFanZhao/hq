@@ -106,7 +106,7 @@
               </div>
               <div class="count">{{li.count}}</div>
               <div class="yes-toa">
-                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.proportion}}%</span>
+                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{(li.proportion - 0).toFixed(4)}}%</span>
               </div>
             </li>
           </ul>
@@ -502,7 +502,7 @@ export default {
 .coins-list {
   margin: 10px auto;
   max-width: 1280px;
-  line-height: 40px;
+  line-height: 51px;
   text-align: center;
   
   .list-title {
