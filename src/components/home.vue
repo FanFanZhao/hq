@@ -26,7 +26,7 @@ export default {
         // this.$router.push({name:'homeContent'})
         // this.$http({
         //     method:'get',
-        //     url:'https://api.2KEX.pro/market/tickers?AccessKeyId=c96392eb-b7c57373-f646c2ef-25a14&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp='+new Date().toUTCString()
+        //     url:'https://api.HQ.pro/market/tickers?AccessKeyId=c96392eb-b7c57373-f646c2ef-25a14&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp='+new Date().toUTCString()
         //     ,headers:{
         //         'Content-Type':'application/x-www-form-urlencoded'
         //     }

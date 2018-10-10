@@ -57,7 +57,7 @@
                 isShow:0,
                 tabList:[],
                 marketList:[],
-                newData:['2KEX', "$0.076128",'-1.11%'],
+                newData:['HQ', "$0.076128",'-1.11%'],
                 legal_index:this.$route.params.legal_index,
                 currency_index:this.$route.params.currency_index,
                 tradeDatas:'',

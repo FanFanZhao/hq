@@ -126,7 +126,7 @@
                         }],
                         series: [{
                                 type: 'candlestick',
-                                name: '2KEX',
+                                name: 'HQ',
                                 color: 'green',
                                 lineColor: 'green',
                                 upColor: 'red',
