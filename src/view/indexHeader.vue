@@ -90,7 +90,7 @@ export default {
         { title: "首页", page: "homeContent" },
         { title: "C2C交易", page: "" },
         { title: "币币交易", page: "dealCenter" },
-        { title: "杠杆交易", page: "" },
+        // { title: "杠杆交易", page: "" },
         // { title: "我的财务", page: "" },
         { title: "安全设置", page: "" },
         { title: "公告", page: "" },
