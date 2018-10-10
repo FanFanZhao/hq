@@ -2,10 +2,10 @@
     <div id="c2c-box" class="flex">
         <div class="c2c-l">
             <ul>
-                <li class="flex">
+                <li class="flex" v-for="(item,index) in currency_list" :key="index" :data-id="item.id" @click="currency_click(item.id,item.name)">
                     <div class="flex">
-                        <div>USDT/CNY</div>
-                        <div class="redColor">USDT/人民币</div>
+                        <div>{{item.name}}/CNY</div>
+                        <div class="redColor">{{item.name}}/人民币</div>
                     </div>
                     <span>></span>
                 </li>
@@ -15,7 +15,7 @@
             <div class="top">
                 <div class="top-title flex">
                     <div>
-                        <router-link tag="span" to="/c2c" class="link-span">tether USDT</router-link>
+                        <router-link tag="span" to="/c2c" class="link-span">tether {{currency_name}}</router-link>
                         <span>对cny</span>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="inp-items flex">
                     <div class="inp-item">
                         <div class="inp-title flex">
-                            <div>买入USDT</div>
+                            <div>买入{{currency_name}}</div>
                             
                         </div>
                         <div class="how redColor ft14">如何买入?</div>
@@ -50,7 +50,7 @@
                                 <div style="background:#f8f8f8;">6.85</div>
                             </div>
                             <div class="inp-box">
-                                <span>买入量USDT</span>
+                                <span>买入量{{currency_name}}</span>
                                 <input type="text">
                             </div>
                             <div class="inp-box">
@@ -84,14 +84,14 @@
                             <div>（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
-                        <div class="btn-in bgRed">买入（CNY→USDT）</div>
+                        <div class="btn-in bgRed" @click="bui_in">买入（CNY→USDT）</div>
                     </div>
                     <div class="inp-item">
                         <div class="inp-title flex">
-                            <div>买入USDT</div>
+                            <div>买入{{currency_name}}</div>
                             <div>
-                                <router-link to="/c2c">USDT充值</router-link>
-                                <router-link to="/c2c">USDT提现</router-link>
+                                <router-link to="/c2c">{{currency_name}}充值</router-link>
+                                <router-link to="/c2c">{{currency_name}}提现</router-link>
                             </div>
                         </div>
                         <div class="how redColor ft14">如何卖出?</div>
@@ -101,7 +101,7 @@
                                 <div style="background:#f8f8f8;color:#008069">6.85</div>
                             </div>
                             <div class="inp-box">
-                                <span>卖出量USDT</span>
+                                <span>卖出量{{currency_name}}</span>
                                 <input type="text">
                             </div>
                             <div class="inp-box">
@@ -247,16 +247,39 @@ export default {
         return {
             token:'',
             listIn:{page:1,list:[],hasMore:true},
-            listOut:{page:1,list:[],hasMore:true}
+            listOut:{page:1,list:[],hasMore:true},
 
+            
+            currency_list:[],
+            currency_name:'',
         }
     },
     created(){
         this.token = window.localStorage.getItem('token')||'';
+        this.getList();
+        this.get_currency();
         this.getList(1);
         this.getList(0);
     },
     methods:{
+        get_currency(){
+            this.$http({
+                url: "/api/currency/list",
+                method: "get",
+               headers: {'Authorization':  this.token},
+            }).then(res => {
+                console.log(res);
+                if (res.data.type == "ok") {
+                this.currency_list = res.data.message.legal
+                this.currency_name = res.data.message.legal[0].name
+                }
+            });
+        },
+        //选择币种
+        currency_click(id,name){
+           this.currency_name = name;
+           
+        },
         getList(type){
             let page = type == 1?this.listOut.page:this.listIn.page;
             this.$http({
@@ -281,7 +304,24 @@ export default {
                 }
                 
             })
-        }
+        },
+        //买入
+        bui_in(){
+            this.$http({
+                url: "/api/c2c/buy",
+                method: "get",
+                data:{
+                    id:''
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.type == "ok" && res.data.message.length != 0) {
+                this.quotation = res.data.message;
+                this.nowCoin = this.quotation[0].name;
+                }
+            });
+        },
+
     }
 };
 </script>
