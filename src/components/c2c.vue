@@ -253,13 +253,18 @@ export default {
     },
     created(){
         this.token = window.localStorage.getItem('token')||'';
-        this.getList();
+        this.getList(1);
     },
     methods:{
         getList(type){
+            // let page = type == 1?this.listOut.page:this.listIn.page;
             this.$http({
-                url:'/api/list',
-                data:{type:1,page:1}
+                // url:'/api/c2c/list?type='+type+'&page='+page,
+                // url:'/api/c2c/list?type=1&page=1',
+                url:'/api/c2c/list',
+                // data:{type:1,page:1},
+                method:'get',
+                headers:{'Authorization':this.token}
             }).then(res => {
                 console.log(res);
                 
@@ -351,6 +356,7 @@ export default {
               > div,
               > input {
                 display: block;
+                width: 100%;
                 line-height: 40px;
                 padding: 0 20px;
               }
@@ -366,8 +372,11 @@ export default {
             }
           }
           .pay-opts {
+              >div:nth-child(n+2){
+                  margin-left: 20px;
+              }
             > div {
-              padding-right: 20px;
+            //   padding-right: 20px;
               line-height: 40px;
               > input {
                 vertical-align: middle;
