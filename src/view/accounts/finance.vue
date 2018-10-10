@@ -471,7 +471,7 @@ export default {
         background: none;
         border: none;
         width: 120px;
-        color: #fff;
+        
     }
     .right_text{
         color: #d45858;
