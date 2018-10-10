@@ -84,7 +84,7 @@
                             <div>（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
-                        <div class="btn-in bgRed">买入（CNY→USDT）</div>
+                        <div class="btn-in bgRed" @click="bui_in">买入（CNY→USDT）</div>
                     </div>
                     <div class="inp-item">
                         <div class="inp-title flex">
@@ -254,8 +254,22 @@ export default {
     created(){
         this.token = window.localStorage.getItem('token')||'';
         this.getList();
+        this.get_currency();
     },
     methods:{
+        get_currency(){
+            this.$http({
+                url: "/api/currency/list",
+                method: "get",
+               headers: {'Authorization':  this.token},
+            }).then(res => {
+                console.log(res);
+                if (res.data.type == "ok" && res.data.message.length != 0) {
+                this.quotation = res.data.message;
+                this.nowCoin = this.quotation[0].name;
+                }
+            });
+        },
         getList(type){
             this.$http({
                 url:'/api/list',
@@ -264,7 +278,24 @@ export default {
                 console.log(res);
                 
             })
-        }
+        },
+        //买入
+        bui_in(){
+            this.$http({
+                url: "/api/c2c/buy",
+                method: "get",
+                data:{
+                    id:''
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.type == "ok" && res.data.message.length != 0) {
+                this.quotation = res.data.message;
+                this.nowCoin = this.quotation[0].name;
+                }
+            });
+        },
+
     }
 };
 </script>
