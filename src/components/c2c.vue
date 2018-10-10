@@ -242,7 +242,31 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data(){
+        return {
+            token:'',
+            listIn:{page:1,list:[]},
+            listOut:{page:1,list:[]}
+
+        }
+    },
+    created(){
+        this.token = window.localStorage.getItem('token')||'';
+        this.getList();
+    },
+    methods:{
+        getList(type){
+            this.$http({
+                url:'/api/list',
+                data:{type:1,page:1}
+            }).then(res => {
+                console.log(res);
+                
+            })
+        }
+    }
+};
 </script>
 
 <style lang='scss'>
