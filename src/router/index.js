@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import homeContent from '@/view/homeContent'
 import dealCenter from '@/components/dealCenter'
+import c2c from '@/components/c2c'
 import login from '@/components/login'
 import register from '@/components/register'
 import account from '@/components/account'
@@ -52,6 +53,11 @@ export default new Router({
 					path:'/dealCenter',
 					name:'dealCenter',
 					component:dealCenter
+				},
+				{
+					path:'/c2c',
+					name:'c2c',
+					component:c2c
 				},
 				{
 					path:'/currencyApply',
