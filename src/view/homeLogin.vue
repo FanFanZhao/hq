@@ -10,8 +10,9 @@
             </div>
             <div class="login-btn redBg" @click="login">登录</div>
             <div class="forget">
-                <span>忘记密码</span>
-                <span>新用户注册</span>
+                <router-link tag="span" to="/forgetPwd">忘记密码</router-link>
+                <router-link tag="span" to="/components/register">注册</router-link>
+                
             </div>
         </div>
         <div v-if="token" class="userInfo">
