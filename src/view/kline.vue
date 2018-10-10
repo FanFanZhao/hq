@@ -39,7 +39,7 @@
               type: "poll", // poll/socket
             //   url: "../../static/lib/mock.json",
             //   datas:{id:123},
-              url: 'http://ice.adminchao.com/api/deal/info',
+              url: 'http://t2.fuwuqian.cn/api/deal/info',
               datas:{
                 legal_id:_that.legal_id,
                 currency_id :_that.currency_id,
