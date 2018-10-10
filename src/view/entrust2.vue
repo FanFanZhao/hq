@@ -107,7 +107,7 @@ export default {
     created(){
         this.address = localStorage.getItem('address') || '';
         this.token = localStorage.getItem('token') || '';
-         this.getdata('transaction_in');
+        //  this.getdata('transaction_in');
     },
     methods:{
         changeType(index,url){
