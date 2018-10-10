@@ -246,27 +246,39 @@ export default {
     data(){
         return {
             token:'',
-            listIn:{page:1,list:[]},
-            listOut:{page:1,list:[]}
+            listIn:{page:1,list:[],hasMore:true},
+            listOut:{page:1,list:[],hasMore:true}
 
         }
     },
     created(){
         this.token = window.localStorage.getItem('token')||'';
         this.getList(1);
+        this.getList(0);
     },
     methods:{
         getList(type){
-            // let page = type == 1?this.listOut.page:this.listIn.page;
+            let page = type == 1?this.listOut.page:this.listIn.page;
             this.$http({
-                // url:'/api/c2c/list?type='+type+'&page='+page,
-                // url:'/api/c2c/list?type=1&page=1',
-                url:'/api/c2c/list',
-                // data:{type:1,page:1},
+                url:'/api/c2c/list?type='+type+'&page='+page,
+               
                 method:'get',
                 headers:{'Authorization':this.token}
             }).then(res => {
-                console.log(res);
+                if(res.data.type == 'ok'){
+                    let list = res.data.message.list;
+                    if(list.length != 0){
+                        if(type == 1){
+                            this.listOut.list.concat(list);
+                            this.listOut.page++;
+                        } else {
+                            this.listIn.concat(list);
+                            this.listIn.page++;
+                        }
+                    } else {
+                        type == 1?this.listOut.hasMore = false:this.listIn.hasMore = false;
+                    }
+                }
                 
             })
         }
