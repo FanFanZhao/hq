@@ -55,20 +55,22 @@ export default {
     this.account_number = this.$route.query.account_number || "";
   },
   methods: {
-    userInfo() {
+    userInfo(){
       this.$http({
-        url: "/api/" + "user/info",
-        method: "get",
-        data: {},
-        headers: { Authorization: localStorage.getItem("token") }
-      })
-        .then(res => {
+          url: '/api/'+'user/info',
+          method:'get',
+          data:{},  
+          headers: {'Authorization':  localStorage.getItem('token')},    
+      }).then(res=>{
           // console.log(res);
-          if (res.data.type == "ok") {
-            localStorage.setItem("user_id", res.data.message.id);
+          if(res.data.type == 'ok'){
+          console.log(res)
+          localStorage.setItem('user_id',res.data.message.id)
+          localStorage.setItem('extension_code',res.data.message.extension_code);
           }
-        })
-        .catch(error => {});
+      }).catch(error=>{
+          
+      })                       
     },
     login() {
       let account_number = this.$utils.trim(this.account_number);
