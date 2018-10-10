@@ -88,7 +88,7 @@ export default {
       current: 0,
       tabList: [
         { title: "首页", page: "homeContent" },
-        { title: "C2C交易", page: "" },
+        { title: "C2C交易", page: "c2c" },
         { title: "币币交易", page: "dealCenter" },
         // { title: "杠杆交易", page: "" },
         // { title: "我的财务", page: "" },
