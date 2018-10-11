@@ -94,7 +94,7 @@ export default {
         { title: "币币交易", page: "dealCenter" },
         // { title: "杠杆交易", page: "" },
         // { title: "我的财务", page: "" },
-        { title: "安全设置", page: "" },
+        { title: "安全设置", page: "userSetting" },
         { title: "公告", page: "" },
         { title: "上币申请", page: "currencyApply" },
         { title: "帮助", page: "" },
@@ -200,6 +200,9 @@ export default {
       this.current = index;
       // console.log(index, name);
       this.bus.$emit("nav_name", name);
+      if(name == 'userSetting'){
+        this.$router.push('/userSetting');return;
+      }
       this.$router.push({ name: name });
     },
     gotoAccount(index, name) {
