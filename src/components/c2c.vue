@@ -113,19 +113,19 @@
                             </div>
                             <div class="inp-box">
                                 <span>卖出量{{currency_name}}</span>
-                                <input type="text">
+                                <input type="text" v-model="num01">
                             </div>
                             <div class="inp-box">
                                 <span>金额CNY</span>
-                                <input type="text">
+                                <input type="text" v-model="price01">
                             </div>
                              <div class="inp-box">
                                 <span>姓名</span>
-                                <input type="text" v-model="user_name">
+                                <input type="text" v-model="user_name01">
                             </div>
                             <div class="inp-box">
                                 <span>详细内容</span>
-                                <input type="text" v-model="content">
+                                <input type="text" v-model="content01" />
                             </div>
                         </div>
                         <div class="pay-opts flex">
@@ -133,21 +133,21 @@
                             <div>
                     
                                 <label >
-                                    <input type="radio" name="pay">
+                                    <input type="radio" name="pay01" value="支付宝" v-model="pay01">
                                     支付宝
                                 </label>
                             </div>
                             <div>
                     
                                 <label >
-                                    <input type="radio" name="pay">
+                                    <input type="radio" name="pay01" value="微信" v-model="pay01">
                                     微信
                                 </label>
                             </div>
                             <div>
                     
                                 <label >
-                                    <input type="radio" name="pay">
+                                    <input type="radio" name="pay01" value="银行卡" v-model="pay01">
                                     银行转账
                                 </label>
                             </div>
@@ -155,7 +155,7 @@
                             <div class="redColor">（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
-                        <div class="btn-out">卖出（USDT→CNY）</div>
+                        <div class="btn-out" @click="sell_out">卖出（USDT→CNY）</div>
 
                     </div>
                     
@@ -233,15 +233,18 @@ export default {
             pay:'',
             user_name:'',
             content:'', 
-
+            price01:'',
+            num01:'',
+            pay01:'',
+            user_name01:'',
+            content01:'', 
             currency_list:[],
             currency_name:'',
             showList:true
         }
     },
     created(){
-        this.token = window.localStorage.getItem('token')||'';
-        
+        this.token = window.localStorage.getItem('token')||'';       
         this.get_currency();
         this.getList(1);
         this.getList(0);
@@ -310,28 +313,64 @@ export default {
                 }
             })
         },
-        //买入
+        //添加买入
         bui_in(){
             this.$http({
                 url: "/api/c2c/add",
                 method: "post",
                 data:{
+                    // price:this.price,
+                    // number:this.num,
+                    // name:this.user_name,
+                    // pay_mode:'微信',
+                    // content:this.content,
+                    // token:this.currency_name
                     price:this.price,
                     number:this.num,
                     name:this.user_name,
-                    pay_mode:'微信',
+                    pay_mode:this.pay,
                     content:this.content,
-                    token:this.currency_name
+                    token:this.currency_name,
+                    type:0
                 },
                 headers: {'Authorization':  this.token}
             }).then(res => {
                 console.log(res);
-                if (res.data.type == "ok" && res.data.message.length != 0) {
-                this.quotation = res.data.message;
-                this.nowCoin = this.quotation[0].name;
-                }
+                layer.msg(res.data.message);
+                this.price = '';
+                this.num = '';
+                this.user_name = '';
+                this.pay = '';
+                this.content = '';
             });
         },
+        //添加卖出
+        sell_out(){
+            this.$http({
+                url:'/api/c2c/add',
+                method:'post',
+                data:{
+                    price:this.price01,
+                    number:this.num01,
+                    name:this.user_name01,
+                    pay_mode:this.pay01,
+                    content:this.content01,
+                    token:this.currency_name,
+                    type:1
+                },
+                headers: {'Authorization':  this.token}
+            }).then(res =>{
+                console.log(res);
+                layer.msg(res.data.message);
+                this.price = '';
+                this.num = '';
+                this.user_name = '';
+                this.pay = '';
+                this.content = '';
+            }).catch(res =>{
+                layer.msg(res.data.message)
+            })
+        }
 
     }
 };
