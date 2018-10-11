@@ -174,44 +174,48 @@
                     <div>价格(CNY)</div>
                     <div>数量(USDT)</div>
                     <div>总计(CNY)</div>
-                    <div>交易限额(USDT)</div>
-                    <div>商家在线</div>
-                    <div>成交单数</div>
-                    <div>平均用时</div>
+                    <!-- <div>交易限额(USDT)</div> -->
+                    <div>商家</div>
+                    <!-- <div>成交单数</div> -->
+                    <!-- <div>平均用时</div> -->
                     <div>付款方式</div>
-                    <div style="visibility: hidden;"></div>
+                    <div style="visibility: hidden;">一一24234234</div>
                 </div>
-                <ul class="ul-out" v-if="showList">
-                    <li class="flex">
-                        <div>卖出</div>
-                        <div>6.85</div>
-                        <div>3660</div>
-                        <div>2550</div>
-                        <div>5100-1000</div>
-                        <div>付**3分钟</div>
-                        <div>175</div>
-                        <div>1分钟</div>
-                        <div>支银</div>
+                <ul class="ul-out" v-if="showList&&listOut.list.length">
+                    <li v-for="(item,index) in listOut.list" :key="index" class="flex">
+                        <div style="color:#25796a">卖出</div>
+                        <div>{{item.price}}</div>
+                        <div>{{item.number}}</div>
+                        <div>{{(item.number*item.price-0).toFixed(2)}}</div>
+                        <!-- <div></div> -->
+                        <div>{{item.name}}</div>
+                        <!-- <div></div> -->
+                        <!-- <div></div> -->
+                        <div>{{item.pay_mode}}</div>
+                        <div @click="buySell(item.id,'buy')">买入</div>
+                    </li>
+                    <!-- <li class="flex">
+                        
+                    </li> -->
+                    
+                </ul>
+                <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div>
+                <ul class="ul-in" v-if="showList&&listIn.list.length">
+                    <li v-for="(item,index) in listIn.list" :key="index" class="flex">
                         <div>买入</div>
+                        <div>{{item.price}}</div>
+                        <div>{{item.number}}</div>
+                        <div>{{(item.number*item.price-0).toFixed(2)}}</div>
+                        <!-- <div></div> -->
+                        <div>{{item.name}}</div>
+                        <!-- <div></div> -->
+                        <!-- <div></div> -->
+                        <div>{{item.pay_mode}}</div>
+                        <div @click="buySell(item.id,'sell')">卖出</div>
                     </li>
                     
                 </ul>
-                <ul class="ul-in" v-if="showList">
-                    <li class="flex">
-                        <div>卖出</div>
-                        <div>6.85</div>
-                        <div>3660</div>
-                        <div>2550</div>
-                        <div>5100-1000</div>
-                        <div>付**3分钟</div>
-                        <div>175</div>
-                        <div>1分钟</div>
-                        <div>支银</div>
-                        <div>买入</div>
-                    </li>
-                    
-                </ul>
-                
+                <div class="more"  v-if="listIn.list.length&&listIn.hasMore" @click="getList(0)">加载更多</div>
             </div>
         </div>
     </div>
@@ -254,7 +258,7 @@ export default {
                 method: "get",
                 headers: {'Authorization':  this.token},
             }).then(res => {
-                console.log(res);
+                //console.log(res);
                 if (res.data.type == "ok") {
                 this.currency_list = res.data.message.legal;
                 this.currency_name = res.data.message.legal[0].name;
@@ -272,7 +276,7 @@ export default {
         getList(type){
             let page = 1;
             page = type == 1?this.listOut.page:this.listIn.page;
-            console.log(type);
+            //console.log(type);
             
             this.$http({
                 url:'/api/c2c/list?type='+type+'&page='+page,
@@ -282,13 +286,29 @@ export default {
             }).then(res => {
                 if(res.data.type == 'ok'){
                     let list = res.data.message.list;
+                    //console.log(list);
+                    
                     if(list.length != 0){
+                        // console.log(list);
+                        
                         if(type == 1){
-                            this.listOut.list.concat(list);
-                            this.listOut.page++;
+                            this.listOut.list = this.listOut.list.concat(list);
+                            
+                            this.listOut.page+=1;
+                            console.log(this.listOut);
+                            
                         } else {
-                            this.listIn.concat(list);
-                            this.listIn.page++;
+                            console.log(this.listIn.list);
+
+                            
+                            this.listIn.list = this.listIn.list.concat(list);
+                            // console.log( this.listIn.list);
+                            
+                            // console.log(this.listIn);
+                            
+                            this.listIn.page+=1;
+                            // console.log([].concat(list));
+                            
                         }
                     } else {
                         type == 1?this.listOut.hasMore = false:this.listIn.hasMore = false;
@@ -302,11 +322,14 @@ export default {
             
             this.$http({
                 url:'/api/c2c/'+type,
-                methodL:'post',
-                data:{id:id}
+                method:'post',
+                data:{id:id},
+                 headers:{'Authorization':this.token}
             }).then(res => {
+                layer.msg(res.data.message);
                 if(res.data.type == 'ok'){
-                    layer.msg(res.data.message)
+                    console.log(res.data);
+                    
                 }
             })
         },
@@ -325,7 +348,7 @@ export default {
                 },
                 headers: {'Authorization':  this.token}
             }).then(res => {
-                console.log(res);
+                //console.log(res);
                 if (res.data.type == "ok" && res.data.message.length != 0) {
                 this.quotation = res.data.message;
                 this.nowCoin = this.quotation[0].name;
@@ -338,6 +361,11 @@ export default {
 </script>
 
 <style lang='scss'>
+.more{
+    color:#ca4141;
+    text-align: center;
+    cursor: pointer;
+}
 .bg_active{
     background: #f8f8f8;
 }
@@ -515,55 +543,68 @@ export default {
       .list-title,
       ul li {
         justify-content: space-between;
+        
+        >div{
+            flex:1;
+            text-align: center;
+        }
+        >div:first-child{
+            flex:0.5;
+            text-align: left;
+        }
+        >div:nth-child(n+2){
+            flex: 1;
+        }
         > div:last-child {
+            flex: none;
           width: 55px;
           color: #fff;
-          margin-left: 70px;
+        //   margin-left: 70px;
           text-align: center !important;
           cursor: pointer;
         }
-        > div:first-child,
-        #divPushOrder tr th:first-child {
-          width: 6%;
-        }
-        > div:nth-child(2),
-        #divPushOrder tr th:nth-child(2) {
-          width: 8%;
-        }
-        > div:nth-child(3),
-        #divPushOrder tr th:nth-child(3) {
-          width: 12%;
-        }
-        > div:nth-child(4),
-        #divPushOrder tr th:nth-child(4) {
-          width: 12%;
-        }
-        > div:nth-child(5),
-        #divPushOrder tr th:nth-child(5) {
-          width: 14%;
-        }
-        > div:nth-child(6),
-        #divPushOrder tr th:nth-child(6) {
-          width: 11%;
-        }
-        > div:nth-child(7),
-        #divPushOrder tr th:nth-child(7) {
-          width: 9%;
-        }
-        > div:nth-child(8),
-        #divPushOrder tr th:nth-child(8) {
-          width: 10%;
-        }
-        > div:nth-child(9),
-        #divPushOrder tr th:nth-child(9) {
-          width: 10%;
-        }
-        div:nth-child(n + 2) {
-          text-align: right;
-        }
+        // > div:first-child,
+        // #divPushOrder tr th:first-child {
+        //   width: 6%;
+        // }
+        // > div:nth-child(2),
+        // #divPushOrder tr th:nth-child(2) {
+        //   width: 8%;
+        // }
+        // > div:nth-child(3),
+        // #divPushOrder tr th:nth-child(3) {
+        //   width: 12%;
+        // }
+        // > div:nth-child(4),
+        // #divPushOrder tr th:nth-child(4) {
+        //   width: 12%;
+        // }
+        // > div:nth-child(5),
+        // #divPushOrder tr th:nth-child(5) {
+        //   width: 14%;
+        // }
+        // > div:nth-child(6),
+        // #divPushOrder tr th:nth-child(6) {
+        //   width: 11%;
+        // }
+        // > div:nth-child(7),
+        // #divPushOrder tr th:nth-child(7) {
+        //   width: 9%;
+        // }
+        // > div:nth-child(8),
+        // #divPushOrder tr th:nth-child(8) {
+        //   width: 10%;
+        // }
+        // > div:nth-child(9),
+        // #divPushOrder tr th:nth-child(9) {
+        //   width: 10%;
+        // }
+        // div:nth-child(n + 2) {
+        //   text-align: right;
+        // }
       }
       li {
-        padding: 8px 0;
+        padding: 8px 5px;
         line-height: 24px;
         border-top: 1px solid #ddd;
         &:hover{
