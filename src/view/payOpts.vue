@@ -54,14 +54,18 @@ export default {
         method: "post",
         headers: { 'Authorization': this.token }
       }).then(res => {
-        if ((res.data.type = "ok")) {
-          let data = res.data.message;
-          this.name = data.real_name;
-          this.bankName = data.bank_name;
-          this.bankNum = data.bank_account;
-          this.ali = data.alipay_account;
-          this.weChatAccount = data.wechat_account;
-          this.weChatName = data.wechat_nickname;
+        if ((res.data.type == "ok")) {
+            if(res.data.message != null){
+                let data = res.data.message;
+                this.name = data.real_name;
+                this.bankName = data.bank_name;
+                this.bankNum = data.bank_account;
+                this.ali = data.alipay_account;
+                this.weChatAccount = data.wechat_account;
+                this.weChatName = data.wechat_nickname;
+
+            }
+
         }
       });
     },
