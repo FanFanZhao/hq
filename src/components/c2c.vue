@@ -92,7 +92,7 @@
                             <div class="redColor">（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
-                        <div class="btn-in bgRed" @click="bui_in">买入（CNY→USDT）</div>
+                        <div class="btn-in bgRed" @click="bui_in">买入（CNY→{{currency_name}}）</div>
                     </div>
                     <div class="inp-item">
                         <div class="inp-title flex">
@@ -155,7 +155,7 @@
                             <div class="redColor">（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
-                        <div class="btn-out" @click="sell_out">卖出（USDT→CNY）</div>
+                        <div class="btn-out" @click="sell_out">卖出（{{currency_name}}→CNY）</div>
 
                     </div>
                     

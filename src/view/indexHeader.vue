@@ -7,7 +7,7 @@
         <li class="base downapp" @click="showapp">APP下载
           <div class="appcode tc" v-show="appshow">
             <span></span>
-            <p><img src="@/assets/images/code.jpg" alt=""></p>
+            <p><img src="@/assets/images/ewm.png" alt=""></p>
           </div>
         </li>
 			</ul>
