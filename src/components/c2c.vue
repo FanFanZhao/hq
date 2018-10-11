@@ -2,7 +2,7 @@
     <div id="c2c-box" class="flex">
         <div class="c2c-l">
             <ul>
-                <li class="flex" v-for="(item,index) in currency_list" :key="index" :data-id="item.id" @click="currency_click(item.id,item.name)">
+                <li class="flex" v-for="(item,index) in currency_list" :key="index" :class="index == active?'bg_active':''" :data-id="item.id" @click="currency_click(item.id,item.name,index)">
                     <div class="flex">
                         <div>{{item.name}}/CNY</div>
                         <div class="redColor">{{item.name}}/人民币</div>
@@ -51,11 +51,19 @@
                             </div>
                             <div class="inp-box">
                                 <span>买入量{{currency_name}}</span>
-                                <input type="text">
+                                <input type="text" v-model="num">
                             </div>
                             <div class="inp-box">
                                 <span>金额CNY</span>
-                                <input type="text">
+                                <input type="text" v-model="price">
+                            </div>
+                            <div class="inp-box">
+                                <span>姓名</span>
+                                <input type="text" v-model="user_name">
+                            </div>
+                            <div class="inp-box">
+                                <span>详细内容</span>
+                                <input type="text" v-model="content">
                             </div>
                         </div>
                         <div class="pay-opts flex">
@@ -63,21 +71,21 @@
                             <div>
                     
                                 <label >
-                                    <input type="radio" name="pay">
+                                    <input type="radio" name="pay" value="支付宝" v-model="pay">
                                     支付宝
                                 </label>
                             </div>
                             <div>
                     
                                 <label >
-                                    <input type="radio" name="pay">
+                                    <input type="radio" name="pay" value="微信" v-model="pay">
                                     微信
                                 </label>
                             </div>
                             <div>
                     
                                 <label >
-                                    <input type="radio" name="pay">
+                                    <input type="radio" name="pay" value="银行卡" v-model="pay">
                                     银行转账
                                 </label>
                             </div>
@@ -110,6 +118,14 @@
                             <div class="inp-box">
                                 <span>金额CNY</span>
                                 <input type="text">
+                            </div>
+                             <div class="inp-box">
+                                <span>姓名</span>
+                                <input type="text" v-model="user_name">
+                            </div>
+                            <div class="inp-box">
+                                <span>详细内容</span>
+                                <input type="text" v-model="content">
                             </div>
                         </div>
                         <div class="pay-opts flex">
@@ -208,6 +224,15 @@ export default {
             token:'',
             listIn:{page:1,list:[],hasMore:true},
             listOut:{page:1,list:[],hasMore:true},
+            active:0,
+            currency_list:[],
+            currency_name:'',
+            id:'',
+            price:'',
+            num:'',
+            pay:'',
+            user_name:'',
+            content:'', 
 
             currency_list:[],
             currency_name:'',
@@ -227,19 +252,21 @@ export default {
             this.$http({
                 url: "/api/currency/list",
                 method: "get",
-               headers: {'Authorization':  this.token},
+                headers: {'Authorization':  this.token},
             }).then(res => {
                 console.log(res);
                 if (res.data.type == "ok") {
-                this.currency_list = res.data.message.legal
-                this.currency_name = res.data.message.legal[0].name
+                this.currency_list = res.data.message.legal;
+                this.currency_name = res.data.message.legal[0].name;
+                this.id = res.data.message.legal[0].id;
                 }
             });
         },
         //选择币种
-        currency_click(id,name){
+        currency_click(id,name,index){
            this.currency_name = name;
-           
+           this.active = index;
+           this.id = id;
         },
         // 获取c2clist
         getList(type){
@@ -286,11 +313,17 @@ export default {
         //买入
         bui_in(){
             this.$http({
-                url: "/api/c2c/buy",
-                method: "get",
+                url: "/api/c2c/add",
+                method: "post",
                 data:{
-                    id:''
-                }
+                    price:this.price,
+                    number:this.num,
+                    name:this.user_name,
+                    pay_mode:'微信',
+                    content:this.content,
+                    token:this.currency_name
+                },
+                headers: {'Authorization':  this.token}
             }).then(res => {
                 console.log(res);
                 if (res.data.type == "ok" && res.data.message.length != 0) {
@@ -305,6 +338,9 @@ export default {
 </script>
 
 <style lang='scss'>
+.bg_active{
+    background: #f8f8f8;
+}
 #c2c-box {
   border-top: 1px solid #ddd;
   font-size: 14px;
@@ -312,11 +348,14 @@ export default {
     border-right: 1px solid #ddd;
     padding: 30px;
     width: 23%;
+    ul{
+        background: #dfe8f3;
+    }
     li{
         padding: 0 10px;
         justify-content: space-between;
         cursor: pointer;
-        background: #dfe8f3;
+       
         line-height: 40px;
         &:hover{
             background: #f8f8f8;
