@@ -24,6 +24,9 @@ export default {};
       line-height: 40px;
     width: 23%;
     border-right: 1px solid #ddd;
+    .router-link-active{
+        color:#d45858;
+    }
   }
   .setting-r {
       padding: 20px;

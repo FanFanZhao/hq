@@ -45,6 +45,7 @@ export default {
   },
   created() {
     this.token = window.localStorage.getItem("token") || "";
+    this.getInfo();
   },
   methods: {
     getInfo() {
