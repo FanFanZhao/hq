@@ -418,8 +418,11 @@ export default {
         headers: { Authorization: this.token }
       }).then(res => {
         console.log(res);
-
-        layer.msg(res.message);
+        if(type == 'cancel'){
+            this.myAdd.list = [];
+            this.getMy('myAdd')
+        }
+        layer.msg(res.data.message);
       });
     },
 
