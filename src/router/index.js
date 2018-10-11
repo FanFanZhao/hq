@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import homeContent from '@/view/homeContent'
 import dealCenter from '@/components/dealCenter'
+import userSetting from '@/components/userSetting'
 import c2c from '@/components/c2c'
 import login from '@/components/login'
 import register from '@/components/register'
@@ -29,6 +30,7 @@ import legal from '@/view/accounts/legal'
 import legalAccount from '@/view/accounts/legalAccount'
 import transferLegal from '@/view/accounts/transferLegal'
 import currencyApply from '@/view/currency_apply'
+import payOpts from '@/view/payOpts'						//收款方式
 
 import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
@@ -53,6 +55,17 @@ export default new Router({
 					path:'/dealCenter',
 					name:'dealCenter',
 					component:dealCenter
+				},
+				{
+					path:'/userSetting',
+					name:'userSetting',
+					component:userSetting,
+					children:[
+						{
+							path:'',
+							component:payOpts
+						}
+					]
 				},
 				{
 					path:'/c2c',

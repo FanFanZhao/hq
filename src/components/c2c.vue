@@ -89,16 +89,19 @@
                                     银行转账
                                 </label>
                             </div>
-                            <div>（必须本人支付)</div>
+                            <div class="redColor">（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
                         <div class="btn-in bgRed" @click="bui_in">买入（CNY→USDT）</div>
                     </div>
                     <div class="inp-item">
                         <div class="inp-title flex">
-                            <div>买入{{currency_name}}</div>
                             <div>
-                                <router-link to="/c2c">{{currency_name}}充值</router-link>
+                                <span>卖出{{currency_name}}</span>
+                                <span class="ft14" style="color:#666">({{currency_name}}余额)</span>
+                                </div>
+                            <div style='font-size:14px;color:#666'>
+                                <router-link to="/c2c" style="margin-right:10px">{{currency_name}}充值</router-link>
                                 <router-link to="/c2c">{{currency_name}}提现</router-link>
                             </div>
                         </div>
@@ -149,7 +152,7 @@
                                 </label>
                             </div>
                             
-                            <div>（必须本人支付)</div>
+                            <div class="redColor">（必须本人支付)</div>
                             <router-link tag="div" to="/c2c">《交易须知》</router-link>
                         </div>
                         <div class="btn-out">卖出（USDT→CNY）</div>
@@ -161,9 +164,12 @@
             <div class="bot">
                 <div class="bot-title flex">
                     <div>市场挂单（只显示在线商家）</div>
-                    <div>显示市场挂单</div>
+                    <div class="flex" @click="showList = !showList">
+                        <div :class="[{'switch-on':!showList},{'switch':showList}]"><div></div></div>
+                        <span class="ft14">显示市场挂单</span>
+                    </div>
                 </div>
-                <div class="list-title flex">
+                <div class="list-title flex" v-if="showList">
                     <div>类型</div>
                     <div>价格(CNY)</div>
                     <div>数量(USDT)</div>
@@ -175,7 +181,7 @@
                     <div>付款方式</div>
                     <div style="visibility: hidden;"></div>
                 </div>
-                <ul class="ul-out">
+                <ul class="ul-out" v-if="showList">
                     <li class="flex">
                         <div>卖出</div>
                         <div>6.85</div>
@@ -188,32 +194,9 @@
                         <div>支银</div>
                         <div>买入</div>
                     </li>
-                    <li class="flex">
-                        <div>卖出</div>
-                        <div>6.85</div>
-                        <div>3660</div>
-                        <div>2550</div>
-                        <div>5100-1000</div>
-                        <div>付**3分钟</div>
-                        <div>175</div>
-                        <div>1分钟</div>
-                        <div>支银</div>
-                        <div>买入</div>
-                    </li>
-                    <li class="flex">
-                        <div>卖出</div>
-                        <div>6.85</div>
-                        <div>3660</div>
-                        <div>2550</div>
-                        <div>5100-1000</div>
-                        <div>付**3分钟</div>
-                        <div>175</div>
-                        <div>1分钟</div>
-                        <div>支银</div>
-                        <div>买入</div>
-                    </li>
+                    
                 </ul>
-                <ul class="ul-in">
+                <ul class="ul-in" v-if="showList">
                     <li class="flex">
                         <div>卖出</div>
                         <div>6.85</div>
@@ -226,30 +209,7 @@
                         <div>支银</div>
                         <div>买入</div>
                     </li>
-                    <li class="flex">
-                        <div>卖出</div>
-                        <div>6.85</div>
-                        <div>3660</div>
-                        <div>2550</div>
-                        <div>5100-1000</div>
-                        <div>付**3分钟</div>
-                        <div>175</div>
-                        <div>1分钟</div>
-                        <div>支银</div>
-                        <div>买入</div>
-                    </li>
-                    <li class="flex">
-                        <div>卖出</div>
-                        <div>6.85</div>
-                        <div>3660</div>
-                        <div>2550</div>
-                        <div>5100-1000</div>
-                        <div>付**3分钟</div>
-                        <div>175</div>
-                        <div>1分钟</div>
-                        <div>支银</div>
-                        <div>买入</div>
-                    </li>
+                    
                 </ul>
                 
             </div>
@@ -272,17 +232,22 @@ export default {
             num:'',
             pay:'',
             user_name:'',
-            content:'' 
+            content:'', 
+
+            currency_list:[],
+            currency_name:'',
+            showList:true
         }
     },
     created(){
         this.token = window.localStorage.getItem('token')||'';
-        this.getList();
+        
         this.get_currency();
         this.getList(1);
         this.getList(0);
     },
     methods:{
+        // 获取币种列表
         get_currency(){
             this.$http({
                 url: "/api/currency/list",
@@ -303,8 +268,12 @@ export default {
            this.active = index;
            this.id = id;
         },
+        // 获取c2clist
         getList(type){
-            let page = type == 1?this.listOut.page:this.listIn.page;
+            let page = 1;
+            page = type == 1?this.listOut.page:this.listIn.page;
+            console.log(type);
+            
             this.$http({
                 url:'/api/c2c/list?type='+type+'&page='+page,
                
@@ -326,6 +295,19 @@ export default {
                     }
                 }
                 
+            })
+        },
+        // c2c列表买入卖出
+        buySell(id,type){
+            
+            this.$http({
+                url:'/api/c2c/'+type,
+                methodL:'post',
+                data:{id:id}
+            }).then(res => {
+                if(res.data.type == 'ok'){
+                    layer.msg(res.data.message)
+                }
             })
         },
         //买入
@@ -459,8 +441,9 @@ export default {
             }
           }
           .pay-opts {
+              flex-wrap: wrap;
               >div:nth-child(n+2){
-                  margin-left: 20px;
+                  margin-left: 15px;
               }
             > div {
             //   padding-right: 20px;
@@ -490,9 +473,38 @@ export default {
     > .bot {
       > .bot-title {
         margin: 30px 0 10px;
+        border-bottom: 1px solid #ccc;
         font-size: 16px;
         line-height: 40px;
         justify-content: space-between;
+        align-items: center;
+        >.flex{
+            height: 17px;
+            line-height: 15px;
+            cursor: pointer;
+            >div{
+                margin-right: 10px;
+                border:1px solid #ccc;
+                transition: all .3s;
+                width: 32px;
+                border-radius: 7.5px;
+                div{
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: #fff;
+                }
+            }
+            .switch-on{
+                padding-left: 0;
+                background: #ccc;
+            }
+            .switch{
+                transition: all .3s;
+                    background: #1cb69b;
+                    padding-left: 15px;
+            }
+        }
       }
       > .list-title {
         height: 40px;
@@ -554,6 +566,9 @@ export default {
         padding: 8px 0;
         line-height: 24px;
         border-top: 1px solid #ddd;
+        &:hover{
+            background: #f8f8f8;
+        }
         //   justify-content: space-between;
       }
       .ul-out li {
