@@ -178,7 +178,7 @@
                 <div class="list-title flex" v-if="showList">
                     <div>类型</div>
                     <div>价格(CNY)</div>
-                    <div>数量(USDT)</div>
+                    <div>数量</div>
                     <div>总计(CNY)</div>
                     <!-- <div>交易限额(USDT)</div> -->
                     <div>商家</div>
@@ -192,7 +192,7 @@
                         <li v-for="(item,index) in listOut.list" :key="index" class="flex">
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}}</div>
+                            <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>
@@ -211,7 +211,7 @@
                         <li v-for="(item,index) in listIn.list" :key="index" class="flex">
                             <div>买入</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}}</div>
+                            <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>
@@ -230,7 +230,7 @@
                         <li v-for="(item,index) in myAdd.list" :key="index" class="flex">
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}}</div>
+                            <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>
@@ -252,7 +252,7 @@
                         <li v-for="(item,index) in myAdd.list" :key="index" class="flex">
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}}</div>
+                            <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>

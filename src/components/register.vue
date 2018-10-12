@@ -22,8 +22,8 @@
                 <button class="confirm-btn redBg" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
-                <div class="title">设置地区</div>
-                <div class="area-box">
+                <!-- <div class="title">设置地区</div> -->
+                <!-- <div class="area-box">
                   <div class="area">
                     <div :class="['province',{light:showList == 'provinces'}]" @click="showList = showList?false:'provinces'">{{province.name}}</div>
                     <div :class="['city',{light:showList =='cities'}]" @click="showList = showList?false:'cities'">{{city.name}}</div>
@@ -40,7 +40,7 @@
                       <li v-for="(item,index) in districts" :key="index" @click="getRegion(item.id,'',item.region_name)">{{item.region_name}}</li>
                     </ul>
                   </div>
-                </div>
+                </div> -->
                 
                 <div class="title">设置密码</div>
                 <div class="pwd-box">
@@ -69,7 +69,7 @@ export default {
   },
   data() {
     return {
-      codeTrue: false,             //验证码是否正确
+      codeTrue: true,             //验证码是否正确
       isMb: true,                  //是否为手机注册
       account: "",                //用户名
       pwd: "",                    //密码
@@ -78,14 +78,14 @@ export default {
       invite: "",                  //邀请码
       timer: "",                  //倒计时timer
       showList: false,            //是否显示地址列表
-      province: { id: "", name: "请选择省" },      //所选省份
-      provinces: [],                              //省份列表
+      //province: { id: "", name: "请选择省" },      //所选省份
+      //provinces: [],                              //省份列表
 
-      city: { id: "", name: "请选择市" },         //所选城市
-      cities: [],                                //城市列表
+      //city: { id: "", name: "请选择市" },         //所选城市
+      //cities: [],                                //城市列表
 
-      district: { id: "", name: "请选择区" },     //所选地区
-      districts: []                              //地区列表
+      //district: { id: "", name: "请选择区" },     //所选地区
+      //districts: []                              //地区列表
     };
   },
   created() {
@@ -94,56 +94,56 @@ export default {
   },
   methods: {
     // 获取地区列表
-    getRegion(id, type, name) {
-      if (type == "") {
-        this.showList = false;
-        this.district = { id: id, name: name };
-        return;
-      } else if (type == "cities") {
-        if (name == this.province.name) {
-          this.showList = "cities";
-          return;
-        }
-      } else if (type == "districts") {
-        if (name == this.city.name) {
-          this.showList = "districts";
-          return;
-        }
-      }
-      var pId = '';
-      //  if(id != ''){
-      //    data.parent_id = id;
-      //  }
-      if (id !== "") {
-        pId = "?parent_id=" + id;
-      }
+    // getRegion(id, type, name) {
+    //   if (type == "") {
+    //     this.showList = false;
+    //     this.district = { id: id, name: name };
+    //     return;
+    //   } else if (type == "cities") {
+    //     if (name == this.province.name) {
+    //       this.showList = "cities";
+    //       return;
+    //     }
+    //   } else if (type == "districts") {
+    //     if (name == this.city.name) {
+    //       this.showList = "districts";
+    //       return;
+    //     }
+    //   }
+    //   var pId = '';
+    //   //  if(id != ''){
+    //   //    data.parent_id = id;
+    //   //  }
+    //   if (id !== "") {
+    //     pId = "?parent_id=" + id;
+    //   }
       
 
-      this.$http({
-        url: "/api/region" + pId,
-        method: "get"
-      }).then(res => {
-        //console.log(res.data);
-        if(res.data.type == 'ok'&&res.data.message.length != 0){
+    //   this.$http({
+    //     url: "/api/region" + pId,
+    //     method: "get"
+    //   }).then(res => {
+    //     //console.log(res.data);
+    //     if(res.data.type == 'ok'&&res.data.message.length != 0){
 
-          if (type == "provinces") {
-            this.provinces = res.data.message;
-          } else if (type == "cities") {
-            this.province = { name: name, id: id };
-            this.city = { id: "", name: "请选择市" };
-            this.district = { id: "", name: "请选择区" };
-            this.showList = "cities";
-            this.cities = res.data.message;
-          } else {
-            this.district = { id: "", name: "请选择区" };
-            this.showList = "districts";
-            this.city = { name: name, id: id };
-            this.showCities = false;
-            this.districts = res.data.message;
-          }
-        }
-      });
-    },
+    //       if (type == "provinces") {
+    //         this.provinces = res.data.message;
+    //       } else if (type == "cities") {
+    //         this.province = { name: name, id: id };
+    //         this.city = { id: "", name: "请选择市" };
+    //         this.district = { id: "", name: "请选择区" };
+    //         this.showList = "cities";
+    //         this.cities = res.data.message;
+    //       } else {
+    //         this.district = { id: "", name: "请选择区" };
+    //         this.showList = "districts";
+    //         this.city = { name: name, id: id };
+    //         this.showCities = false;
+    //         this.districts = res.data.message;
+    //       }
+    //     }
+    //   });
+    // },
     // 切换注册方式
     setIsMb(boo) {
       this.account = "";
@@ -154,10 +154,10 @@ export default {
       this.isMb = boo;
       this.codeTrue = false;
       this.showList = false;
-      this.provinces = [];this.cities = [];this.districts = [];
-      this.province = { id: "", name: "请选择省" };
-      this.city = { id: "", name: "请选择市" };
-      this.district = { id: "", name: "请选择区" };
+      // this.provinces = [];this.cities = [];this.districts = [];
+      // this.province = { id: "", name: "请选择省" };
+      // this.city = { id: "", name: "请选择市" };
+      // this.district = { id: "", name: "请选择区" };
       
       clearInterval(this.timer);
       var codeBtn = document.querySelector(".code-btn");
@@ -242,7 +242,7 @@ export default {
 
           if (res.data.type == "ok") {
             this.codeTrue = true;
-            this.getRegion("", "provinces");
+            // this.getRegion("", "provinces");
           } else {
           }
         });
@@ -250,14 +250,7 @@ export default {
     },
     // 注册
     register() {
-      if (
-        this.province.id == "" ||
-        this.city.id == "" ||
-        this.district.id == ""
-      ) {
-        layer.msg("请设置地区");
-        return;
-      }
+      
       if (this.pwd == "") {
         layer.msg("请输入密码");
         return;
@@ -273,9 +266,9 @@ export default {
       } else {
       }
       var data = {};
-      data.province_id = this.province.id;
-      data.city_id = this.city.id;
-      data.district_id = this.district.id;
+      // data.province_id = this.province.id;
+      // data.city_id = this.city.id;
+      // data.district_id = this.district.id;
       var isMb = this.isMb;
       data.type = isMb ? "mobile" : "email";
       data.user_string = this.account;
