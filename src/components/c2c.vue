@@ -45,16 +45,16 @@
                         </div>
                         <div class="how redColor ft14">如何买入?</div>
                         <div class="three-inp">
-                            <div class="inp-box">
+                            <!-- <div class="inp-box">
                                 <span>买入估价CNY</span>
                                 <div style="background:#f8f8f8;">6.85</div>
-                            </div>
+                            </div> -->
                             <div class="inp-box">
                                 <span>买入量{{currency_name}}</span>
                                 <input type="text" v-model="num">
                             </div>
                             <div class="inp-box">
-                                <span>金额CNY</span>
+                                <span>单价CNY</span>
                                 <input type="text" v-model="price">
                             </div>
                             <div class="inp-box">
@@ -107,16 +107,16 @@
                         </div>
                         <div class="how redColor ft14">如何卖出?</div>
                         <div class="three-inp">
-                            <div class="inp-box">
+                            <!-- <div class="inp-box">
                                 <span>卖出估价CNY</span>
                                 <div style="background:#f8f8f8;color:#008069">6.85</div>
-                            </div>
+                            </div> -->
                             <div class="inp-box">
                                 <span>卖出量{{currency_name}}</span>
                                 <input type="text" v-model="num01">
                             </div>
                             <div class="inp-box">
-                                <span>金额CNY</span>
+                                <span>单价CNY</span>
                                 <input type="text" v-model="price01">
                             </div>
                              <div class="inp-box">
@@ -593,7 +593,7 @@ export default {
                 color: #ca4141;
               }
             }
-            > div:nth-child(n + 2) {
+            > div {
               border: 1px solid #ddd;
               > input {
                 border-left: 1px solid #ddd;
