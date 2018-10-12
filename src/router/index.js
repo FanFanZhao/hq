@@ -30,7 +30,10 @@ import legal from '@/view/accounts/legal'
 import legalAccount from '@/view/accounts/legalAccount'
 import transferLegal from '@/view/accounts/transferLegal'
 import currencyApply from '@/view/currency_apply'
-import payOpts from '@/view/payOpts'						//收款方式
+import payOpts from '@/view/payOpts'		
+import currencyList from '@/view/currency_list'	
+import currencyEdit from '@/view/edit_currency'	
+			//收款方式
 
 import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
@@ -76,6 +79,16 @@ export default new Router({
 					path:'/currencyApply',
 					name:'currencyApply',
 					component:currencyApply
+				},
+				{
+					path:'/currencyEdit',
+					name:'currencyEdit',
+					component:currencyEdit
+				},
+				{
+					path:'/currencyList',
+					name:'currencyList',
+					component:currencyList
 				}
 			]
 		},

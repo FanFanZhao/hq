@@ -3,7 +3,10 @@
 		<div class="content clear" style="height:45px">
 			<div class="fl" style="margin-top:7.5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
-				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList"  @click="goto(index,tabs.page)">{{tabs.title}}</li>
+				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList" :key="index" @mouseover="liMouseover(index)" @mouseout="liMouseout(index)">
+          <span @click="goto(index,tabs.page)">{{tabs.title}}</span>
+          <p class="currency_sub" @mouseover="subMouseover" @mouseout="subMouseout" @click="currency_list" v-if="index == 5" v-show="isShow">币种列表</p>
+        </li>
         <li class="base downapp" @click="showapp">APP下载
           <div class="appcode tc" v-show="appshow">
             <span></span>
@@ -78,6 +81,7 @@ export default {
   name: "indexHeader",
   data() {
     return {
+      isShow:false,
       appshow: false,
       address: "",
       account_number: "",
@@ -193,6 +197,25 @@ export default {
     });
   },
   methods: {
+    liMouseover(index){
+      if(index == 5){
+         this.isShow = true;
+      } 
+    },
+    liMouseout(index){
+      if(index == 5){
+         this.isShow = false;
+      }
+    },
+    subMouseover(){
+      this.isShow = true;
+    },
+    subMouseout(){
+      this.isShow = false;
+    },
+    currency_list(){
+      this.$router.push('/currencyList') 
+    },
     showapp() {
       this.appshow = !this.appshow;
     },
@@ -242,6 +265,17 @@ export default {
 <style scoped lang='scss'>
 .nav_li:hover{
   color: #d45858;
+}
+.currency_sub:hover{
+  color: #d45858;
+}
+.currency_sub{
+  width: 100%;
+  background: #181b2a;
+  color: #fff;
+  position: absolute;
+  left: 0;
+  top: 45px;
 }
 .nav_bar {
   @include line-height(45px);
@@ -400,6 +434,7 @@ export default {
   .navbar-item {
     color: #cdd6e4;
     li {
+      position: relative;
       float: left;
       height: 45px;
       line-height: 45px;
@@ -413,6 +448,10 @@ export default {
       &.active {
         color: #d45858;
         border: none;
+      }
+      span{
+        display:inline-block;
+        height:100%;
       }
     }
     li:hover{

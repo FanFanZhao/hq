@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
-        <h1 class="title tc bold mb10">优质项目（币种）上线申请</h1>
-        <p class="ft16 tc">请填写以下项目资料（前10名中提供最详细最准确的用户如被采纳，<span class="red">立即获得1ETH奖励</span>）</p>
+        <!-- <h1 class="title tc bold mb10">优质项目（币种）上线申请</h1>
+        <p class="ft16 tc">请填写以下项目资料（前10名中提供最详细最准确的用户如被采纳，<span class="red">立即获得1ETH奖励</span>）</p> -->
         <div class="main">
            <div class="inp_wrap clear" v-for="(item,index) in list" :key="index">
                <p class="fl lebal ft14">{{item.lebal_name}}</p>
@@ -15,7 +15,7 @@
                <input class="fl inp ft14" type="text" name="yanzhengma" value="" placeholder="" />
            </div> -->
            <div class="submit_btn" @click="submit_apply">
-               提交上线申请
+               保存提交
            </div>
         </div>
     </div>
@@ -39,21 +39,17 @@ export default {
                 {lebal_name:'币种白皮书网址：',placeholder:'',type:'text',name:'white_paper_website',val:''},
                 {lebal_name:'区块浏览器：',placeholder:'',type:'text',name:'browsing_volume',val:''},
                 {lebal_name:'Logo图片链接：',placeholder:'',type:'text',name:'img_src',val:''},
-                // {lebal_name:'Twitter链接：',placeholder:'',type:'text',name:'twitter_src',val:''},
-                // {lebal_name:'Telegram链接：',placeholder:'',type:'text',name:'telegram_src',val:''},
+               
                 {lebal_name:'币种简短中文介绍：',placeholder:'',type:'text',name:'chinese_des',val:''},
-                // {lebal_name:'币种简短英文介绍：',placeholder:'',type:'text',name:'English_des',val:''},
+               
                 {lebal_name:'币种总量：',placeholder:'',type:'text',name:'currency_account',val:''},
-                // {lebal_name:'币种流通量：',placeholder:'',type:'text',name:'currency_circle',val:''},
-                // {lebal_name:'币种分配比例：',placeholder:'如ICO分发比例，团队预留等',type:'text',name:'proportion',val:''},
-                // {lebal_name:'成本价格：',placeholder:'presale,private sale,public sale等',type:'text',name:'price',val:''},
-                // {lebal_name:'已上线交易平台：',placeholder:'未上线写无',type:'text',name:'trade_terrace',val:''},
-                // {lebal_name:'其他信息说明：',placeholder:'',type:'text',name:'other_msg',val:''},
             ]
         }
     },
     created(){
         this.token = window.localStorage.getItem("token") || "";
+        console.log(this.$route.params.id);
+        this.edit();
     },
     methods:{
         submit_apply(){
@@ -64,7 +60,7 @@ export default {
                  }
             }
             this.$http({
-                url: "/api/currency/request_add_currency",
+                url: "/api/currency/edit_request_add_currency",
                 method: "post",
                 data: {
                 email:this.list[0].val,
@@ -82,21 +78,52 @@ export default {
                 browsing_volume:this.list[12].val,
                 logo:this.list[13].val,
                 desc:this.list[14].val,
-                sum:this.list[15].val
+                sum:this.list[15].val,
+                id:this.$route.params.id
                 },
                 headers: { Authorization: this.token }
             }).then(res => {
+                var msg = res.data.message.data;
                 console.log(res);
+                if(res.data.type == 'ok'){
+                  
+                }
                 layer.msg(res.data.message);
-                setTimeout(() => {
-                    this.$router.push('/currencyList')
-                }, 1000);
                 })
                 .catch(res => {
                 layer.msg(res.data.message);
                 });
                  
            
+        },
+        edit(){
+             this.$http({
+                  url: "/api/currency/request_add_currency_detail?id="+this.$route.params.id,
+                  method: "get",
+                  headers: { Authorization: this.token },
+
+             }).then(res =>{
+                  var msg = res.data.message;
+                  console.log(res);
+                  if(res.data.type == 'ok'){
+                   this.list[0].val = msg.email,
+                   this.list[1].val = msg.tel,
+                   this.list[2].val = msg.english_name,
+                   this.list[3].val = msg.chinese_name,
+                   this.list[4].val = msg.token,
+                   this.list[5].val = msg.ico_date,
+                   this.list[6].val = msg.circulation_date,
+                   this.list[7].val = msg.net_type,
+                   this.list[8].val = msg.address,
+                   this.list[9].val = msg.decimals,
+                   this.list[10].val = msg.official_website,
+                   this.list[11].val = msg.white_paper_website,
+                   this.list[12].val = msg.browsing_volume,
+                   this.list[13].val = msg.logo,
+                   this.list[14].val = msg.desc,
+                   this.list[15].val = msg.sum
+                }
+             })
         }
     }
 }
