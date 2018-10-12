@@ -90,7 +90,7 @@
                                 </label>
                             </div>
                             <div class="redColor">（必须本人支付)</div>
-                            <router-link tag="div" to="/c2c">《交易须知》</router-link>
+                            <!-- <router-link tag="div" to="/c2c">《交易须知》</router-link> -->
                         </div>
                         <div class="btn-in bgRed" @click="bui_in">买入（CNY→{{currency_name}}）</div>
                     </div>
@@ -153,7 +153,7 @@
                             </div>
                             
                             <div class="redColor">（必须本人支付)</div>
-                            <router-link tag="div" to="/c2c">《交易须知》</router-link>
+                            <!-- <router-link tag="div" to="/c2c">《交易须知》</router-link> -->
                         </div>
                         <div class="btn-out" @click="sell_out">卖出（{{currency_name}}→CNY）</div>
 
@@ -228,7 +228,7 @@
                         </li>
                         
                     </ul>
-                    <div class="more"  v-if="(listIn.list.length&&listIn.hasMore) || (listOut.length&&listOut.hasMore)" @click="getList(0);getList(1)">加载更多</div>
+                    <div class="more"  v-if="(listIn.list.length&&listIn.hasMore) || (listOut.list.length&&listOut.hasMore)" @click="getList(0);getList(1)">加载更多</div>
 
                 </div>
                 <div class="ul-box" v-if="nowList == 'myAdd'">
@@ -246,7 +246,8 @@
                             <div class="last">
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #ca4141;">取消交易</div> -->
 
-                                <div class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
+                                <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
+                                <span v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -254,7 +255,7 @@
                         </li> -->
                         
                     </ul>
-                    <div class="more"  v-if="myAdd.length&&myAdd.hasMore" @click="getMy('myAdd')">加载更多</div>
+                    <div class="more"  v-if="myAdd.list.length&&myAdd.hasMore" @click="getMy('myAdd')">加载更多</div>
                     
                 </div>
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
@@ -281,7 +282,7 @@
                         </li> -->
                         
                     </ul>
-                    <div class="more"  v-if="myBuySell.length&&myBuySell.hasMore" @click="getMy('myBuySell')">加载更多</div>
+                    <div class="more"  v-if="myBuySell.list.length&&myBuySell.hasMore" @click="getMy('myBuySell')">加载更多</div>
                     
 
                 </div>
@@ -371,12 +372,12 @@ export default {
 
             if (type == 1) {
               this.listOut.list = this.listOut.list.concat(list);
-
+            this.listOut.hasMore = true;
               this.listOut.page += 1;
               //   console.log(this.listOut);
             } else {
               //   console.log(this.listIn.list);
-
+                this.listIn.hasMore = true;
               this.listIn.list = this.listIn.list.concat(list);
               // console.log( this.listIn.list);
 
@@ -420,17 +421,22 @@ export default {
       let t = "";
       t = type == "myAdd" ? "my_add" : "my_transaction";
       this.$http({
-        url: "/api/c2c/" + t,
-        data: { page: this[type].page },
+        url: "/api/c2c/" + t+'?page='+this[type].page,
+        
         headers: { Authorization: this.token }
       }).then(res => {
+          console.log(res);
+          
         if (res.data.type == "ok") {
           if (res.data.message.length == 0) {
             this[type]["hasMore"] = false;
           } else {
             let list = res.data.message;
+            this[type]['hasMore'] = true;
             this[type]["list"] = this[type]["list"].concat(list);
             this[type]["page"] += 1;
+            console.log(this[type]);
+            
           }
         }
       });
@@ -669,8 +675,8 @@ export default {
     }
     > .bot {
       > .bot-title {
-        margin: 30px 0 10px;
-        border-bottom: 1px solid #ccc;
+        margin: 30px 0 0;
+        // border-bottom: 1px solid #ccc;
         font-size: 16px;
         line-height: 40px;
         justify-content: space-between;
