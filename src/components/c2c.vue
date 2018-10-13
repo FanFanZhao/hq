@@ -274,7 +274,10 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="item.status_name == '交易中'">确认</div>
+                                <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
+                                <span v-if="item.status_name == '等待中'">{{item.status_name}}</span>
                                 <span v-if="item.status_name == '已成功'">{{item.status_name}}</span>
+                                <span v-if="item.status_name == '已取消'">{{item.status_name}}</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
