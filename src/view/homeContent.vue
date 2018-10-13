@@ -99,12 +99,12 @@
                 <span style="color:#61688a;font-weight:bold">{{li.name}}</span>
               </div>
               <div class="yester">
-                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.last_price}}</span>/
-                <span style="color:#666">{{li.yesterday_last_price}}</span>
+                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.now_price==null?'0':li.now_price}}</span>/
+                <span style="color:#666">{{li.now_price==null?'0':li.now_price}}</span>
               </div>
-              <div class="count">{{li.count}}</div>
+              <div class="count">{{li.volume == null?'0':li.volume}}</div>
               <div class="yes-toa">
-                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{(li.proportion - 0).toFixed(4)}}%</span>
+                <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.change == null?'+0.000':li.change}}%</span>
               </div>
             </li>
           </ul>
@@ -310,7 +310,7 @@ export default {
     },
     getQuotation() {
       this.$http({
-        url: "/api/currency/quotation",
+        url: "/api/currency/quotation_mobile",
         method: "get"
       }).then(res => {
         console.log(res.data);
