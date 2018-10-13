@@ -184,7 +184,7 @@ export default {
             console.log(type)
             var page = this.page;
             this.$http({
-            url: 'api/'+url,
+            url: '/api/'+url,
             method:'post',
             data:{
                 page:page
