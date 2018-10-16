@@ -13,11 +13,11 @@ import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
 Vue.use(VueAwesomeSwiper)
-Vue.prototype.$echarts = echarts 
+Vue.prototype.$echarts = echarts
 window.eventBus = new Vue()
 
 // Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
-Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2120');
+Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2134');
 
 Vue.config.productionTip = false
 Axios.interceptors.request.use(function (config) {
@@ -61,8 +61,8 @@ Vue.prototype.bus = bus
 // 			next()
 // 		}
 // 	}
-	
-	
+
+
 // })
 //Vue.use(Ws, 'http://test.maxf.pub/users/chatRoom');
 /* eslint-disable no-new */

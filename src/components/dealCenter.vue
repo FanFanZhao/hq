@@ -13,8 +13,8 @@
 				<div class="chart_wrap flex">
           <!-- <chart></chart> -->
           <div style="min-width:67%">
-            <kline></kline>
-
+            <!--<kline></kline>-->
+			<tv></tv>
           </div>
           <div class="deadl-wrap part-r" style="width:33%;padding-left:10px">
 						<exchange></exchange>
@@ -37,7 +37,7 @@
         <!-- <div class="deatil_box" style="background: #181b2a;">
             <detail></detail>
         </div> -->
-        
+
 				<div class="currency_box">
           <currency></currency>
         </div>
@@ -47,7 +47,7 @@
 
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 
@@ -65,9 +65,10 @@ import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
 import kline from "@/view/kline";
+import tv from '@/view/tv'
 export default {
   name: "dealCenter",
-  
+
   components: {
     indexHeader,
     load:1,
@@ -82,14 +83,15 @@ export default {
     detail,
     currency,
     complete,
-    kline
+    kline,
+	  tv
   },
   data() {
     return {};
   },
   created() {
     this.address = localStorage.getItem("address") || "";
-   
+
     // console.log(this.address)
   },
   mounted(){
@@ -99,7 +101,7 @@ export default {
     //   window.location.reload();
     //   this.load=2;
     // }
-   
+
   }
 };
 </script>
