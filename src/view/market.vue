@@ -37,7 +37,7 @@
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
             <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
-              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
+              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.currency_id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.name)">
                 <span>{{itm.name}}</span>
                 <span class="redColor" :data-name='currency_name+"/"+itm.name'>${{itm.now_price || 0}}</span>
                 <!-- <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span> -->

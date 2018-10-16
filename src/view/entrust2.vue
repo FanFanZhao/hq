@@ -170,7 +170,8 @@ export default {
                         console.log(res)
                         if(res.type  === 'ok'){
                             layer.msg(res.message)
-                            // that.getdata();
+                            that.getdata(that.urls,that.types);
+                            that.connect();
                         }else{
                             layer.msg(res.message);
                         }
@@ -180,6 +181,12 @@ export default {
                 },
             )
         },
+        connect(){
+                 this.$socket.emit("login", localStorage.getItem('user_id'));
+                this.$socket.on("transaction", msg => {     
+                    console.log(msg)
+                });           
+            },
         getdata(url,type){
             console.log(type)
             var page = this.page;
@@ -277,6 +284,9 @@ export default {
              that.isChoosed = 0;
              that.getdata(that.urls,that.types);
         });
+        eventBus.$on('buyTrade',function(){
+            that.getdata(that.urls,that.types);
+        })
     }
     
 }
