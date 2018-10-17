@@ -17,19 +17,19 @@
 			<tv></tv>
           </div>
           <div class="deadl-wrap part-r" style="width:33%;padding-left:10px">
-						<exchange></exchange>
+						<!--<exchange></exchange>-->
 					</div>
         </div>
 				<div class="parts  flex between" >
 					<div class="trade-wrap part-l">
-						<trade></trade>
+						<!--<trade></trade>-->
 					</div>
 					<div class="deatil_box" style="width:33%">
-          <complete></complete>
+          <!--<complete></complete>-->
         </div>
 				</div>
         <div class="entrust_box" >
-          <entrust></entrust>
+          <!--<entrust></entrust>-->
         </div>
         <!-- <div class="entrust_box">
           <hisentrust></hisentrust>
@@ -39,7 +39,7 @@
         </div> -->
 
 				<div class="currency_box">
-          <currency></currency>
+          <!--<currency></currency>-->
         </div>
 				<!-- <div class="depth-map flex btween" >
 					<deal></deal>

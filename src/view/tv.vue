@@ -22,38 +22,27 @@
 				ws:null,
 				lists:[],
 				newData:'',
-				url:'ws://58.218.68.152:8800/',
-				last_price:100
+
 			}
 		},
 		created(){
 
 		},
-		props:['renew','getupdata'],
+		sockets: {},
+		computed: {
+			listenState() { //监听交易对
+				return this.$store.state.symbol;
+			}
+		},
 		watch: {
-			'renew': {
-				handler(newval, old) {
+			listenState:function(a, b) {  //监听交易对
+				console.log(a)
 
-					// console.log(typeof newval)
-					// this.getSymbol(newval)
-					this.widget.setSymbol(newval,1,function onReadyCallback(){})
-					this.$store.state.symbol=newval
-
-					this.ws.send(JSON.stringify({'cmd':'band','mid': this.$store.state.id}))
-				}
-			},
-			'getupdata':{
-				handler(newval, old) {
-					//   console.log(newval,'0000')
-					this.newData=newval[0]
-
-					// console.log( this.newData,'99999')
-				}
+				this.widget.setSymbol(a,localStorage.getItem('tim'),function onReadyCallback(){}) //切换币种
+				// this.$store.state.symbol=b
 			}
 		},
 		mounted() {
-			this.coin && this.coin.virtualCoinId && this.updateWidget(this.coin);
-
 			this.createWidget()
 
 		},
@@ -61,54 +50,186 @@
 			this.removeWidget();
 		},
 		beforeDestroy(){
-			this.ws.close()
 
 		},
 
 		methods: {
+			connect(real) { //封装推送数据
+				var that=this;
+				console.log('socket')
+				that.$socket.emit("login", localStorage.getItem('user_id'));
+				that.$socket.on("kline", msg => {
 
-			createWebSocket(url) {
-				let th=this
-				let id=th.$store.state.id
-				try{
-					if('WebSocket' in window){
-						th.ws = new WebSocket(url);
-					}else if('MozWebSocket' in window){
-						th.ws = new MozWebSocket(url);
+					let obj={}
+
+					if(that.$store.state.symbol==msg.symbol){
+						obj.open=Number(msg.open)
+						obj.low=Number(msg.low)
+						obj.high=Number(msg.high)
+						obj.close=Number(msg.close)
+						obj.volume=Number(msg.volume)
+						obj.time=Number(msg.time)
+						real(obj)
+
 					}
-					th.ws.onopen = function() {
-						heartCheck.start()
-						th.ws.send(JSON.stringify({'cmd':'band','mid':id}))
-						//('已连接')
-					};
-					let heartCheck = {
-						timeout: 15000,
-						timeoutObj: null,
-						serverTimeoutObj: null,
-						start: function(){
-							console.log(this);
-							let self = this;
-							this.timeoutObj && clearTimeout(this.timeoutObj);
-							this.serverTimeoutObj && clearTimeout(this.serverTimeoutObj);
-							this.timeoutObj = setInterval(function(){
-								//这里发送一个心跳，后端收到后，返回一个心跳消息，
-								let timed=new Date().getTime()
-								th.ws.send(JSON.stringify({'cmd':'ping','args':[timed]}));
-							}, this.timeout)
-						}
-					}
-				}catch(e){
-					console.log(e);
-				}
+
+
+				})
+			},
+
+			createWidget() {
+				let _this = this;
+
+				this.$nextTick(function () {
+					let widget =_this.widget= new TradingView.widget({
+						symbol:_this.$store.state.symbol,
+						interval: 1,
+						debug: true,
+						fullscreen: false,
+						autosize: true,
+						container_id: "tv_chart_container",
+						// datafeed: new Datafeeds.UDFCompatibleDatafeed("http://demo_feed.tradingview.com"),
+						datafeed:_this.createFeed(),
+						library_path: "/static/tradeview/charting_library/",
+						custom_css_url: 'bundles/new.css',
+						locale: "zh",
+						width: "100%",
+						height: 516,
+						drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
+						disabled_features: [  //  禁用的功能
+							'left_toolbar', 'header_indicators', 'header_saveload', 'compare_symbol', 'display_market_status',
+							'go_to_date', 'header_chart_type', 'header_compare', 'header_interval_dialog_button',
+							'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo',
+							'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press',
+							'snapshot_trading_drawings', 'symbol_info', 'timeframes_toolbar', 'use_localstorage_for_settings',
+							'volume_force_overlay'
+						],
+						enabled_features: [ //  启用的功能（备注：disable_resolution_rebuild 功能用于控制当时间范围为1个月时，日期刻度是否都是每个月1号
+							'dont_show_boolean_study_arguments', 'hide_last_na_study_output', 'move_logo_to_main_pane',
+							'same_data_requery', 'side_toolbar_in_fullscreen_mode', 'disable_resolution_rebuild'
+						],
+						charts_storage_url: 'http://saveload.tradingview.com',
+						charts_storage_api_version: "1.1",
+						toolbar_bg: "transparent",
+						timezone: "Asia/Shanghai",
+						studies_overrides: {
+							'volume.precision': '1000'
+						},
+						overrides: _this.overrides()
+					});
+
+					widget.MAStudies = [];
+					widget.selectedIntervalButton = null;
+					// widget.setLanguage('en')
+					widget.onChartReady(function() { //图表方法
+						// document.getElementById('trade-view').childNodes[0].setAttribute('style', 'display:block;width:100%;height:100%;');
+						//let that =this
+
+						// widget.chart().createStudy('Moving Average', false, true, [15,'close', 0],null,{'Plot.color':'#fff'});
+						let buttonArr = [
+							{
+								value: "1min",
+								period: "1",
+								text: "分时",
+								chartType: 3
+							},
+							{
+								value: "1",
+								period: "1m",
+								text: "1分钟",
+								chartType:1
+							},
+							{
+								value: "5",
+								period: "5m",
+								text: "5分钟",
+								chartType: 1
+							},
+							{
+								value: "15",
+								period: "15m",
+								text: "15分钟",
+								chartType: 1
+							},
+							{
+								value: "30",
+								period: "30m",
+								text: "30分钟",
+								chartType:1
+							},
+							{
+								value: "60",
+								period: "60分钟",
+								text: "1小时",
+								chartType: 1
+							},
+							{
+								value: "1D",
+								period: "1D",
+								text: "1天",
+								chartType: 1
+							},
+							{
+								value: "1W",
+								period: "1W",
+								text: "1周",
+								chartType:1
+							}, {
+								value: "1M",
+								period: "1M",
+								text: "1月",
+								chartType: 1
+							}
+						];
+						let btn = {};
+						let nowTime = '';
+						buttonArr.forEach((v, i) => {
+							// console.log(v)
+							let  button=widget.createButton()
+							button.attr('title',v.text)
+								.addClass("my2")
+								.text(v.text)
+
+							if(v.text=='1分钟'){
+								button.css({"background-color":"#4e5b85",'color':'#fff'})
+								localStorage.setItem('tim','1')  //默认为1分钟
+							}
+
+							// console.log($(this),'999999')
+							btn = button.on("click", function (e) {
+								$(this).parents(".left").children().find(".my2").removeAttr("style"); //去掉1分钟的
+								handleClick(e, v.value);
+
+								widget.chart().setChartType(v.chartType); //改变K线类型
+							});
+
+						});
+						let handleClick = (e, value) => {
+							console.log(value)
+							_this.setSymbol = function(symbol,value){
+								gh.chart().setSymbol(symbol,value);
+							};
+							localStorage.setItem('tim',value)
+							widget.chart().setResolution(value,function onReadyCallback(){});  //改变分辨率
+
+							$(e.target)
+								.addClass("mydate")
+								.closest("div.space-single")
+								.siblings("div.space-single")
+								.find("div.button")
+								.removeClass("mydate")
+						};
+
+					});
+
+
+					_this.widget = widget;
+				})
 			},
 			createFeed(){
 				let this_vue = this;
 				let Datafeed = {};
-				//  this_vue.ws=new WebSocket('ws://58.218.68.152:8800/')
 
-
-				this_vue.createWebSocket(this_vue.url)
-				console.log(this_vue.ws)
 
 				Datafeed.DataPulseUpdater = function(datafeed, updateFrequency) {
 					this._datafeed = datafeed;
@@ -293,12 +414,7 @@
 					this._logMessage("GOWNO :: resolve symbol "+ symbolName);
 					Promise.resolve().then(() => {
 						console.log(this_vue.$store.state.priceScale,'12345s313123122adaslast')
-						function adjustScale(){
-							if(this_vue.last_price.length==8)
-								return 100*1000000;
-							else
-								return 100;
-						}
+
 
 						// this._logMessage("GOWNO :: onResultReady inject "+'AAPL');
 						console.log(this_vue.$store.state.priceScale,'123stf')
@@ -316,10 +432,6 @@
 							// "exchange-listed": "sdt",
 							//现在，这两个字段都为某个交易所的略称。将被显示在图表的图例中，以表示此商品。目前此字段不用于其他目的。
 							"has_intraday": true,
-							// "intraday_multipliers": ['1'],  //不要删，(如果设置了这个，那么tv会默认把时间范围缩到一天前，而不能调取从后台返回的数据)
-							//It is an array containing intraday resolutions (in minutes) the datafeed wants to build by itself. E.g.,
-							// if the datafeed reported he supports resolutions ["1", "5", "15"], but in fact it has only 1 minute bars for symbol X,
-							// it should set intraday_multipliers of X = [1]. This will make Charting Library to build 5 and 15 resolutions by itself.
 							"has_weekly_and_monthly": true,
 							"has_no_volume": false, //布尔表示商品是否拥有成交量数据。
 							'session': '24x7',
@@ -342,36 +454,26 @@
 						resolution=resolution
 					}
 					$.ajax({
-						url:'http://test1.fuwuqian.cn/api/currency/timeshar_test?' +
-						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol=imc/cny&period='+resolution,
-						//test1.fuwuqian.cn/api/currency/timeshar_test?start=0&end=999999999999999999&symbol=imc/cny&period=1min
-						// url:'http://172.16.9.97/index.php/get_kline_data?type=sdt2btc&time='+resolution+'&data_type=v1',
-						// url:'http://test1.fuwuqian.cn/api/currency/timeshar_test',
+						url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
+						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',
-						// params:{
-						// 	from: rangeStartDate,
-						// 	to:rangeEndDate,
-						// 	symbol:'imc/cny' ,
-						// 	period:resolution
-						// },
-						success: function(data){
-							console.log(data.data[0].high,'99')
-							if(data.data.length>0){
-								data.data.forEach((item,i)=>{
+						success: function(res){
+							if(res.code==1&&res.data&&res.data.length>0){
+								res.data.forEach((item,i)=>{
 									item.open=Number(item.open)
 									item.close=Number(item.close)
 									item.high=Number(item.high)
 									item.low=Number(item.low)
-									item.volume=Number(item.volume)
 								})
-								onHistoryCallback(data.data,{noData:false})
-								onHistoryCallback([],{noData:true})
-							}else{
+								onHistoryCallback(res.data,{noData:false})
 								onHistoryCallback([],{noData:true})
 							}
-
-
-							// onLoadedCallback([])
+							if(!res.data||res.code==-1){
+								onHistoryCallback([],{noData:true})
+							}
+							if(res.data&&res.data.length==0){
+								onHistoryCallback([],{noData:true})
+							}
 
 						}
 					})
@@ -379,30 +481,8 @@
 				};
 				//实时数据
 				Datafeed.Container.prototype.subscribeBars = function(symbolInfo, resolution, onRealtimeCallback, listenerGUID, onResetCacheNeededCallback) {
+					this_vue.connect(onRealtimeCallback)
 
-					this_vue.ws.onmessage = function (res) {
-
-						if(JSON.parse(res.data).type=="kline"){
-
-							let bar=JSON.parse(res.data).data[0]
-							onRealtimeCallback(bar)
-						}
-						if(JSON.parse(res.data).type=='"kline"'){
-						}
-
-					}
-					this_vue.ws.onclose = function(){
-
-						this_vue.createWebSocket(this_vue.url)
-					}
-
-
-					// this_vue.bars.forEach(function (bar) { // in subscribeBars
-					//   onRealtimeCallback(bar)
-					// });
-					// this.on('pair_change', function() {
-					//   onResetCacheNeededCallback();
-					// });
 					//this._barsPulseUpdater.subscribeDataListener(symbolInfo, resolution, onRealtimeCallback, listenerGUID, onResetCacheNeededCallback);
 				};
 
@@ -420,216 +500,7 @@
 					this.$emit('real-time', data);
 				}
 			},
-			createWidget() {
-				let _this = this;
 
-				this.$nextTick(function () {
-					let widget =_this.widget= new TradingView.widget({
-						symbol:_this.$store.state.symbol,
-						interval: 1,
-						debug: false,
-						fullscreen: false,
-						autosize: true,
-						container_id: "tv_chart_container",
-						// datafeed: new Datafeeds.UDFCompatibleDatafeed("http://demo_feed.tradingview.com"),
-						datafeed:_this.createFeed(),
-						library_path: "/static/tradeview/charting_library/",
-						custom_css_url: 'bundles/new.css',
-						locale: "zh",
-						width: "100%",
-						height: 516,
-						drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
-						disabled_features: [  //  禁用的功能
-							'left_toolbar', 'header_indicators', 'header_saveload', 'compare_symbol', 'display_market_status',
-							'go_to_date', 'header_chart_type', 'header_compare', 'header_interval_dialog_button',
-							'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo',
-							'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press',
-							'snapshot_trading_drawings', 'symbol_info', 'timeframes_toolbar', 'use_localstorage_for_settings',
-							'volume_force_overlay'
-						],
-						enabled_features: [ //  启用的功能（备注：disable_resolution_rebuild 功能用于控制当时间范围为1个月时，日期刻度是否都是每个月1号
-							'dont_show_boolean_study_arguments', 'hide_last_na_study_output', 'move_logo_to_main_pane',
-							'same_data_requery', 'side_toolbar_in_fullscreen_mode', 'disable_resolution_rebuild'
-						],
-						charts_storage_url: 'http://saveload.tradingview.com',
-						charts_storage_api_version: "1.1",
-						toolbar_bg: "transparent",
-						timezone: "Asia/Shanghai",
-						studies_overrides: {
-							'volume.precision': '1000'
-						},
-						overrides: _this.overrides()
-					});
-
-					widget.MAStudies = [];
-					widget.selectedIntervalButton = null;
-					// widget.setLanguage('en')
-					widget.onChartReady(function() { //图表方法
-						// document.getElementById('trade-view').childNodes[0].setAttribute('style', 'display:block;width:100%;height:100%;');
-						//let that =this
-
-						// widget.chart().createStudy('Moving Average', false, true, [15,'close', 0],null,{'Plot.color':'#fff'});
-						let buttonArr = [
-							{
-								value: "1min",
-								period: "1",
-								text: "分时",
-								chartType: 3
-							},
-							{
-								value: "1",
-								period: "1m",
-								text: "1分钟",
-								chartType:1
-							},
-							{
-								value: "5",
-								period: "5m",
-								text: "5分钟",
-								chartType: 1
-							},
-							{
-								value: "15",
-								period: "15m",
-								text: "15分钟",
-								chartType: 1
-							},
-							{
-								value: "30",
-								period: "30m",
-								text: "30分钟",
-								chartType:1
-							},
-							{
-								value: "60",
-								period: "60分钟",
-								text: "1小时",
-								chartType: 1
-							},
-							{
-								value: "1D",
-								period: "1D",
-								text: "1天",
-								chartType: 1
-							},
-							{
-								value: "1W",
-								period: "1W",
-								text: "1周",
-								chartType:1
-							}, {
-								value: "1M",
-								period: "1M",
-								text: "1月",
-								chartType: 1
-							}
-						];
-						let btn = {};
-						let nowTime = '';
-						let handleClick = (e, value) => {
-							console.log(value)
-							_this.setSymbol = function(symbol,value){
-								gh.chart().setSymbol(symbol,value);
-							};
-
-							widget.chart().setResolution(value,function onReadyCallback(){});  //改变分辨率
-
-							$(e.target)
-								.addClass("mydate")
-								.closest("div.space-single")
-								.siblings("div.space-single")
-								.find("div.button")
-								.removeClass("mydate")
-
-						};
-
-						buttonArr.forEach((v, i) => {
-							// console.log(v)
-							let  button=widget.createButton()
-							button.attr('title',v.text)
-								.addClass("my2")
-								.text(v.text)
-
-							if(v.text=='1分钟'){
-								button.css({"background-color":"#4e5b85",'color':'#fff'})
-							}
-
-							// console.log($(this),'999999')
-							btn = button.on("click", function (e) {
-								$(this).parents(".left").children().find(".my2").removeAttr("style"); //去掉1分钟的
-								handleClick(e, v.value);
-
-								widget.chart().setChartType(v.chartType); //改变K线类型
-							});
-
-						});
-
-					});
-//           widget.onChartReady(function () {
-//             let chart = widget.chart();
-//
-//
-//             // mas.forEach(item => {
-//             // chart.createStudy("Moving Average", false, false, [item.day], entity => {
-//             //   widget.MAStudies.push(entity);
-//             // }, {"plot.color": item.color});
-//             // });
-//
-//             chart.onIntervalChanged().subscribe(null, function (interval, obj) {
-//               widget.changingInterval = false;
-//             });
-//
-//             buttons.forEach((item, index) => {
-//               let button = widget.createButton();
-//
-//               // item.resolution === widget.options.interval && updateSelectedIntervalButton(button);
-//               button.attr("data-resolution", item.resolution)
-//                 .attr("data-chart-type", item.chartType === undefined ? 1 : item.chartType)
-//                 .html("<span>"+ item.label +"</span>")
-//                 .on("click", function() {
-//                   console.log(item.resolution)
-//
-//
-//                   if (!widget.changingInterval && !button.hasClass("selected")) {
-//                     let chartType = +button.attr("data-chart-type");
-//                     let resolution = button.attr("data-resolution");
-//
-//                     if (chart.resolution() !== item.resolution) {
-//                       widget.chart().setResolution(item.resolution,function onReadyCallback(){});
-//                       // alert(item.resolution)
-//                       // chart.setResolution(item.resolution,function onReadyCallback(){});
-//                       // widget.changingInterval = true;
-//
-//                     }
-//                     if (chart.chartType() !== chartType) {
-//                       chart.setChartType(chartType);
-// //											widget.applyOverrides({
-// //												"mainSeriesProperties.style": chartType
-// //											});
-//                     }
-//                     updateSelectedIntervalButton(button);
-//                     showMAStudies(chartType !== 3);
-//                   }
-//                 })
-//             });
-//
-//             function updateSelectedIntervalButton(button) {
-//               console.log(button)
-//               widget.selectedIntervalButton && widget.selectedIntervalButton.removeClass("selected");
-//               button.addClass("selected");
-//               widget.selectedIntervalButton = button;
-//             }
-//
-//             function showMAStudies(visible) {
-//               widget.MAStudies.forEach(item => {
-//                 chart.setEntityVisibility(item, visible);
-//               })
-//             }
-//           });
-
-					_this.widget = widget;
-				})
-			},
 			updateWidget(item) {
 				this.symbolInfo = {
 					name: item,

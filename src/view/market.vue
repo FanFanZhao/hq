@@ -37,14 +37,17 @@
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
             <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
-              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
-                <span>{{itm.name}}</span>
-                <span class="redColor" :data-name='currency_name+"/"+itm.name'>${{itm.now_price || 0}}</span>
-                <!-- <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span> -->
-                <span :class="{'green':itm.change>=0}">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
+              <p v-for="(itm,idx) in market"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
+               <a  @click="changePair(itm,index,market)">
+				   <span>{{itm.name}}</span>
+				   <span class="redColor" :data-name='currency_name+"/"+itm.name'>${{itm.now_price || 0}}</span>
+				   <!-- <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span> -->
+				   <span :class="{'green':itm.change>=0}">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
+			   </a>
+
                 </p>
             </li>
-            
+
         </ul>
 	</div>
 </template>
@@ -62,13 +65,13 @@
                 legal_index:this.$route.params.legal_index,
                 currency_index:this.$route.params.currency_index,
                 tradeDatas:'',
-
+				exName:''
             }
         },
         created:function(){
             // this.init();
 
-          
+
             //法币列表
             this.$http({
 					url: this.$utils.laravel_api + 'currency/quotation',
@@ -78,6 +81,10 @@
                     // console.log(res);
                     if(res.data.type == 'ok'){
                       this.tabList = res.data.message;
+                      if(this.exName==''){
+						  this.exName=this.tabList[0].name
+					  }
+
                       var msg = res.data.message;
                       var arr_quota = [];
                       for(var i=0;i<msg.length;i++){
@@ -85,7 +92,9 @@
                       };
                     //   console.log(arr_quota);
                       this.marketList = arr_quota;
-                    //   console.log(this.marketList);
+                      console.log(this.marketList[0][0],'989');
+                      this.$store.state.priceScale=Math.pow(10,this.marketList[0][0].now_price.length)
+                      this.$store.state.symbol=this.marketList[0][0].name+'/'+this.exName
                       //默认法币id和name
                        this.currency_name = msg[0].name;
                        this.currency_id = msg[0].id;
@@ -99,7 +108,7 @@
                         currency_name:this.currency_name,
                         leg_name:legal_name
                  }
-                
+
                  //组件间传值
                  setTimeout(() => {
                    eventBus.$emit('toTrade0',tradeDatas);
@@ -108,11 +117,11 @@
                    eventBus.$emit('toExchange0',tradeDatas);
                  },1000)
                     }
-					
+
 				}).catch(error=>{
 					console.log(error)
                 })
-                
+
         },
         mounted(){
             var that =this;
@@ -122,7 +131,7 @@
                     var newprice=data.newprice;
                     var cname=data.istoken;
                     var newup=data.newup;
-                    console.log(newup) 
+                    console.log(newup)
                     if(newup>=0){
                         newup="+"+newup+'%';
                         $("span[data-name='"+cname+"']").next().css('color','#55a067')
@@ -132,16 +141,31 @@
                     }
                     $("span[data-name='"+cname+"']").html('$'+newprice).next().html(newup);
                }
-            }); 
+            });
         },
         methods:{
+			changePair(list,index,market){
+				console.log(list)
+				console.log(typeof list.now_price)
+				if(list.now_price!=null){
+					let arr=list.now_price.split('.')[1]
+					this.$store.state.priceScale=Math.pow(10,arr.length) //根据最新价小数点后几位改变价格精度
+					this.$store.state.symbol=list.name+'/'+this.exName //交易对
+				}
+
+
+		//	this.$store.state.symbol=list.name+'/'+this.exName
+
+			},
             changeType(index,currency,currency_id){
+
                this.isShow=index;
                this.ids = 'a';
+               this.exName=currency
                this.currency_name = currency;
                this.currency_id = currency_id;
             //    console.log(this.currency_name);
-            //    console.log(this.currency_id)
+               console.log(this.currency_id)
             },
             getSymbols(callback){
                 if(this.address.length<=0){
@@ -160,7 +184,7 @@
                     }else{
                         // console.log(123)
                         // alert(res.message)
-                    }  
+                    }
                 }).catch(error=>{
                     return error
                 })
@@ -196,15 +220,15 @@
                             // console.log(this.marketList)
 
                          })
-                         
+
                     }else{
                         // layer.msg(res.data.message)
                     }
-                    
+
                 }).catch(error=>{
                     console.log(error)
                 })
-            
+
             },
             //币种切换
             quota_shift(idx,id,legal_name){
@@ -220,10 +244,10 @@
                eventBus.$emit('toTrade',tradeDatas);
                eventBus.$emit('toExchange',tradeDatas)
             },
-            
+
 
         },
-        
+
     }
 </script>
 
