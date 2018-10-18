@@ -3,7 +3,7 @@ let state ={
     datas:{
 
     },
-	symbol:'HT/BTC',
+	symbol:'BTC/2',
 	renew:'0',
 	pair:'',
 	id:'1',

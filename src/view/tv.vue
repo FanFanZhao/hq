@@ -37,7 +37,8 @@
 		watch: {
 			listenState:function(a, b) {  //监听交易对
 				console.log(a)
-
+				console.log(b)
+				if(a!=b&&b!='BTC/2')
 				this.widget.setSymbol(a,localStorage.getItem('tim'),function onReadyCallback(){}) //切换币种
 				// this.$store.state.symbol=b
 			}
