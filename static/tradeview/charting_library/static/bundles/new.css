@@ -49,3 +49,9 @@
   background: #344568 !important;
   color: #fff !important;
 }
+.header-chart-panel .group.header-group-properties{
+	display: block !important;
+}
+.pane-legend-item-value-wrap .pane-legend-item-value:first-child{
+	display: none;
+}

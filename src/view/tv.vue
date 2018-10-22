@@ -62,10 +62,10 @@
 				console.log('socket')
 				that.$socket.emit("login", localStorage.getItem('user_id'));
 				that.$socket.on("kline", msg => {
-
+                    console.log(msg)
 					let obj={}
 
-					if(that.$store.state.symbol==msg.symbol){
+					if(that.$store.state.symbol==msg.token){
 						obj.open=Number(msg.open)
 						obj.low=Number(msg.low)
 						obj.high=Number(msg.high)
@@ -96,11 +96,11 @@
 						library_path: "/static/tradeview/charting_library/",
 						custom_css_url: 'bundles/new.css',
 						locale: "zh",
-						width: "100%",
-						height: 516,
+						// width: "100%",
+						// height: 516,
 						drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
 						disabled_features: [  //  禁用的功能
-							'left_toolbar', 'header_indicators', 'header_saveload', 'compare_symbol', 'display_market_status',
+							'left_toolbar', 'header_saveload', 'compare_symbol', 'display_market_status',
 							'go_to_date', 'header_chart_type', 'header_compare', 'header_interval_dialog_button',
 							'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo',
 							'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press',
@@ -457,7 +457,8 @@
 						resolution=resolution
 					}
 					$.ajax({
-						url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
+						url:'http://ice.adminchao.com/api/deal/info?' +
+						// url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
 						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',
 						success: function(res){
