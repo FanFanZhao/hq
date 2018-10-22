@@ -194,7 +194,7 @@
 								.text(v.text)
 
 							if(v.text=='1分钟'){
-								button.css({"background-color":"#4e5b85",'color':'#fff'})
+								button.css({"background-color":"#9194a4",'color':'#fff'})
 								localStorage.setItem('tim','1')  //默认为1分钟
 							}
 
@@ -457,8 +457,8 @@
 						resolution=resolution
 					}
 					$.ajax({
-						url:'http://ice.adminchao.com/api/deal/info?' +
-						// url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
+						// url:'http://ice.adminchao.com/api/deal/info?' +
+						url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
 						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',
 						success: function(res){
@@ -531,11 +531,11 @@
 				let style = {
 					up: "#589065",
 					down: "#AE4E54",
-					bg: "#181b2a",
-					grid: "#1E2740",
-					cross: "#1E2740",
-					border: "#4e5b85",
-					text: "#61688A",
+					bg: "#fff",
+					grid: "#f7f8fa",
+					cross: "#f7f8fa",
+					border: "#9194a4",
+					text: "#9194a4",
 					areatop: "rgba(122, 152, 247, .1)",
 					areadown: "rgba(122, 152, 247, .02)"
 				};

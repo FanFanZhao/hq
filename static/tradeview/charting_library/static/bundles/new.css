@@ -42,12 +42,12 @@
   background: none;
   /*height: 30px;*/
   /*line-height: 15px;*/
-  /*color: #fff;*/
+  color: #9194a4;
 }
 .mydate{
   /*margin-left: 20px;*/
-  background: #344568 !important;
-  color: #fff !important;
+  background: #fff !important;
+  /* color: #fff !important; */
 }
 .header-chart-panel .group.header-group-properties{
 	display: block !important;
