@@ -37,13 +37,13 @@
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
             <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
-              <p v-for="(itm,idx) in market"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
-               <a  @click="changePair(itm,index,market)">
+              <p v-for="(itm,idx) in market"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name,itm,index,market)">
+               <!-- <a  @click="changePair(itm,index,market)"> -->
 				   <span>{{itm.name}}</span>
 				   <span class="redColor" :data-name='currency_name+"/"+itm.name'>${{itm.now_price || 0}}</span>
 				   <!-- <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span> -->
 				   <span :class="{'green':itm.change>=0}">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
-			   </a>
+			   <!-- </a> -->
 
                 </p>
             </li>
@@ -231,8 +231,13 @@
 
             },
             //币种切换
-            quota_shift(idx,id,legal_name){
+            quota_shift(idx,id,legal_name,list,index,market){
                this.ids = idx;
+               if(list.now_price!=null){
+					let arr=list.now_price.split('.')[1]
+					this.$store.state.priceScale=Math.pow(10,arr.length) //根据最新价小数点后几位改变价格精度
+					this.$store.state.symbol=list.name+'/'+this.exName //交易对
+				}
             //    console.log(idx,id,legal_name);
                var tradeDatas = {
                    currency_id:this.currency_id,

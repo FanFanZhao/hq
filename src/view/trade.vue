@@ -2,12 +2,13 @@
     <div class="trade">
         <div class="title_box">
             <div class="tabtitle 1 ft16curPer">
-                <span :class="{active:show == true}">限价交易</span>
-                <!-- <span :class="{active:show == false}" @click="changeType">市价交易</span> -->
+                <!-- <span :class="{active:show == true}">限价交易</span>
+                <span :class="{active:show == false}" @click="changeType">市价交易</span> -->
+                <span v-for="(item,index) in tradetype" :class="{active:index==current}" @click="changeType(index)">{{item.typetext}}</span>
             </div>
         </div>
         <!-- 限价交易 -->
-        <div class="content clear" v-if="show">
+        <div class="content clear">
             <div class="w50 fl first" style="border-right:1px dashed #ccc">
                
                 <div class="ft14">
@@ -21,7 +22,7 @@
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
-                        <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent >
+                        <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent  :disabled="disabled">
                         <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -61,7 +62,7 @@
             </div>
         </div>
         <!-- 市价交易 -->
-        <div class="content clear" v-if="showNone" >
+        <!-- <div class="content clear" v-if="showNone" >
             <div class="w50 fl first">
                 <div class="ft14">
                    <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
@@ -70,7 +71,7 @@
                     </div>
                     <div class="clear available" v-else>
                         <span class="fl 1">可用 {{user_currency}} {{currency_name}}</span>
-                        <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
+                        <span class="fr redColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
@@ -93,7 +94,7 @@
                     </div>
                     <div class="clear available" v-else>
                         <span class="fl 1">可用 {{user_legal}} {{legal_name}}</span>
-                        <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
+                        <span class="fr redColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
@@ -108,7 +109,7 @@
                     <div class="sell_btn curPer mt40 tc redBack 1 ft16">卖{{legal_name}}</div>
                 </div>
             </div>
-        </div>  
+        </div>   -->
     </div>
 </template>
 
@@ -121,11 +122,15 @@
                 legal_name:'',
                 user_currency:'',
                 user_legal:'',
-              show:true,
-              showNone:false,
-              allBalance:0,
-              buyInfo:{buyPrice:0,buyNum:0,url:'transaction/in'},
-              sellInfo:{sellPrice:0,sellNum:0,url:'transaction/out'}
+                show:true,
+                showNone:false,
+                current:0,
+                allBalance:0,
+                disabled:false,
+                buyInfo:{buyPrice:0,buyNum:0,url:'transaction/in'},
+                sellInfo:{sellPrice:0,sellNum:0,url:'transaction/out'},
+                tradetype:[{typetext:'限价交易'},{typetext:'市价交易'}]
+
             }
         },
         created(){
@@ -175,8 +180,14 @@
                 //48-57 96-105 108
                 // console.log(ev.keyCode)
             },
-            changeType(){
-               this.show = !this.show;
+            changeType(index){
+               this.current = index;
+               if(index==1){
+                  this.disabled=true;
+               }else{
+                  this.disabled=false;
+               }
+
             },
             goNext(url){
                 this.$router.push({name: url});
