@@ -281,15 +281,15 @@ export default {
         if(this.token != ''){
 
             that.getdata(this.urls,this.types);
+            eventBus.$on('toTrade',function(){
+                that.isUrl = 0;
+                that.isChoosed = 0;
+                that.getdata(that.urls,that.types);
+            });
+            eventBus.$on('buyTrade',function(){
+                that.getdata(that.urls,that.types);
+            })
         }
-        eventBus.$on('toTrade',function(){
-            that.isUrl = 0;
-             that.isChoosed = 0;
-             that.getdata(that.urls,that.types);
-        });
-        eventBus.$on('buyTrade',function(){
-            that.getdata(that.urls,that.types);
-        })
     }
     
 }

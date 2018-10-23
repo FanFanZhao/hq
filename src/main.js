@@ -17,9 +17,16 @@ Vue.prototype.$echarts = echarts
 window.eventBus = new Vue()
 
 // Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
-Vue.use(VueSocketio, 'http://t.fuwuqian.cn:2120');
+Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2134');
 // Vue.use(VueSocketio, 'http://ice.adminchao.com:2120');
-
+Vue.prototype.$makeSocketId = function (){
+	var d= new Date().getTime();
+	console.log(d);
+	var ran = parseInt(Math.random()*888+101+'');
+	d = d+ ''+ran;
+	return d;
+	
+}
 Vue.config.productionTip = false
 Axios.interceptors.request.use(function (config) {
 	if (config.url.indexOf('?') === -1) {

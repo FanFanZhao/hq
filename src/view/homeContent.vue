@@ -272,7 +272,7 @@ export default {
     connect() { 
       var that=this;
       console.log('socket')
-      that.$socket.emit("login", localStorage.getItem('user_id'));
+      that.$socket.emit("login", this.$makeSocketId());
       that.$socket.on("transaction", msg => {
         console.log(msg);
         var cname=msg.token;

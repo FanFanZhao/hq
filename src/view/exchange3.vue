@@ -81,7 +81,7 @@ export default {
   },
   sockets: {
     connect(legal_id,currency_id) {
-      this.$socket.emit("login", localStorage.getItem('user_id'));
+      this.$socket.emit("login", this.$makeSocketId());
       this.$socket.on("transaction", msg => {
         console.log(msg);
         if (msg.type == "transaction") {
@@ -135,7 +135,7 @@ export default {
     },
     connect(legal_id,currency_id) {
       var that=this;
-      that.$socket.emit("login", localStorage.getItem('user_id'));
+      that.$socket.emit("login", this.$makeSocketId());
       that.$socket.on("transaction", msg => {
         console.log(msg);
         if (msg.type == "transaction") {

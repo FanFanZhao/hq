@@ -73,7 +73,8 @@ export default {
         },
         connect(){
             var that = this;
-             that.$socket.emit("login", localStorage.getItem('user_id'));
+
+             that.$socket.emit("login", this.$makeSocketId());
             that.$socket.on('deal_list',function(msg){
                 if(msg.type == 'deal_list'){
                     var complete = JSON.parse(msg.complete);

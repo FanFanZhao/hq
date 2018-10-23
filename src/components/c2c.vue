@@ -403,14 +403,14 @@ export default {
       currency_list: [],
       currency_name: "",
       showList: true,
-      showDetail:false,
-      detail:{}             //li详情
+      showDetail: false,
+      detail: {} //li详情
     };
   },
   created() {
     this.token = window.localStorage.getItem("token") || "";
-    if(this.token == ''){
-        this.$router.push('/components/login');
+    if (this.token == "") {
+      this.$router.push("/components/login");
     }
     this.get_currency();
     this.getList(1);
@@ -485,7 +485,7 @@ export default {
     },
     // c2c列表买入卖出
     buySell(id, type) {
-        // this.showDetail  = false;
+      // this.showDetail  = false;
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
@@ -531,7 +531,7 @@ export default {
       });
     },
     cancelComplete(type, id, index) {
-        // this.showDetail = false;
+      // this.showDetail = false;
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
@@ -541,6 +541,10 @@ export default {
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           //console.log(res);
+          this.listIn= { page: 1, list: [], hasMore: true };
+          this.listOut= { page: 1, list: [], hasMore: true };
+          this.getList(1);
+          this.getList(0);
           if (type == "complete") {
             this.myBuySell = { hasMore: true, list: [], page: 1 };
             this.getMy("myBuySell");
@@ -551,30 +555,30 @@ export default {
         }
       });
     },
-    getDetail(id,type,e){
-        if(e.target.className == 'btn-last'){
-            return;
+    getDetail(id, type, e) {
+      if (e.target.className == "btn-last") {
+        return;
+      }
+
+      this.$http({
+        url: "/api/c2c/detail?id=" + id,
+        headers: { Authorization: this.token }
+      }).then(res => {
+        console.log(res);
+
+        if (res.data.type == "ok") {
+          //console.log(res.data.message);
+          this.detail.c2c = res.data.message.c2c;
+          this.detail.account_info = res.data.message.account_info;
+          this.detail.user_info = res.data.message.user_info;
+          this.detail.type = type;
+          if (res.data.message.transaction_user) {
+            this.detail.transaction_user = res.data.message.transaction_user;
+          }
+          console.log(this.detail);
+          this.showDetail = true;
         }
-        
-        this.$http({
-            url:'/api/c2c/detail?id='+id,
-             headers: { Authorization: this.token }
-        }).then(res => {
-            console.log(res);
-            
-            if(res.data.type == 'ok'){
-                //console.log(res.data.message);
-                this.detail.c2c = res.data.message.c2c;
-                this.detail.account_info = res.data.message.account_info;
-                this.detail.user_info = res.data.message.user_info;
-                this.detail.type = type;
-                if(res.data.message.transaction_user){
-                    this.detail.transaction_user = res.data.message.transaction_user;
-                }
-                console.log(this.detail);
-                this.showDetail = true;
-            }
-        })
+      });
     },
     //添加买入
     bui_in() {
@@ -650,56 +654,56 @@ export default {
 
 <style lang='scss'>
 #c2c-box {
-    .mask{
-        position: fixed;
+  .mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
+    > .m-content {
+      border-radius: 4px;
+      background: #fff;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 40px 20px 30px;
+      // min-height: 400px;
+      max-height: 550px;
+      width: 400px;
+      > .title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
         width: 100%;
-        height: 100%;
-        z-index: 999;
-        background: rgba(0,0,0,0.7);
-        >.m-content{
-            border-radius: 4px;
-            background: #fff;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            padding: 40px 20px 30px;
-            // min-height: 400px;
-            max-height: 550px;
-            width: 400px;
-            >.title{
-                position: absolute;
-                top: 0;
-                left: 0;
-                text-align: center;
-                width: 100%;
-                height: 40px;
-                line-height: 40px;
-                font-size: 18px;
-                text-align: center;
-                font-weight: 600;
-                >div:last-child{
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    padding: 0 15px;
-                    cursor: pointer;
-                }
-            }
-            >div:not(.title){
-                line-height: 32px;
-                // border-top: 1px solid #eaecef;
-            }
-            div{
-                span:first-child{
-                    margin-right: 5px;
-                    display: inline-block;
-                    width: 70px;
-                    color: #ca4141;
-                }
-            }
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        text-align: center;
+        font-weight: 600;
+        > div:last-child {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 0 15px;
+          cursor: pointer;
         }
+      }
+      > div:not(.title) {
+        line-height: 32px;
+        // border-top: 1px solid #eaecef;
+      }
+      div {
+        span:first-child {
+          margin-right: 5px;
+          display: inline-block;
+          width: 70px;
+          color: #ca4141;
+        }
+      }
     }
+  }
   .more {
     color: #ca4141;
     text-align: center;

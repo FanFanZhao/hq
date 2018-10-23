@@ -60,12 +60,12 @@
 			connect(real) { //封装推送数据
 				var that=this;
 				console.log('socket')
-				that.$socket.emit("login", localStorage.getItem('user_id'));
+				that.$socket.emit("login", this.$makeSocketId());
 				that.$socket.on("kline", msg => {
                     console.log(msg)
 					let obj={}
 
-					if(that.$store.state.symbol==msg.token){
+					if(that.$store.state.symbol==msg.symbol){
 						obj.open=Number(msg.open)
 						obj.low=Number(msg.low)
 						obj.high=Number(msg.high)
@@ -458,7 +458,7 @@
 					}
 					$.ajax({
 						// url:'http://ice.adminchao.com/api/deal/info?' +
-						url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
+						url:'http://t2.fuwuqian.cn/api/currency/new_timeshar?' +
 						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',
 						success: function(res){
