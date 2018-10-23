@@ -234,6 +234,7 @@ export default {
           layer.close(i);
 
           if (res.data.type == "ok") {
+            eventBus.$emit('tradeOk',{status:'ok'});
             layer.msg(res.data.message);
             this.buyInfo.buyPrice = 0;
             this.buyInfo.buyNum = 0;
@@ -280,6 +281,7 @@ export default {
           layer.close(i);
           // layer.msg(res.data.message)
           if (res.data.type == "ok") {
+            eventBus.$emit('tradeOk',{status:'ok'});
             this.sellInfo.sellPrice = 0;
             this.sellInfo.sellNum = 0;
             eventBus.$emit("buyTrade", "tradebuy");

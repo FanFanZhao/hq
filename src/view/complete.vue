@@ -63,7 +63,7 @@ export default {
                         // layer.close(i);
                         if(res.data.type == "ok"){
                            this.deList = res.data.message.complete;
-                           this.connect();
+                        //    this.connect();
                         }else{
                             layer.msg(res.data.message)
                         }
@@ -97,8 +97,14 @@ export default {
                 that.legal_id=data0.legal_id
                 that.complete(data0.legal_id,data0.currency_id)
           })
+          eventBus.$on('tradeOk',function(data){
+              
+              if(data.status == 'ok'){
+                  that.complete(that.legal_id,that.currency_id)
+              }
+          })
           eventBus.$on('buyTrade', function (data) {
-             that.connect();
+            //  that.connect();
         });
        
     }
