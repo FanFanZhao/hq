@@ -90,6 +90,7 @@
             <span>价格({{nowCoin}})</span>
             <span>交易量({{nowCoin}})</span>
             <span>涨跌</span>
+            <span>操作</span>
           </div>
           
           <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
@@ -106,6 +107,9 @@
               <div class="yes-toa">
                 <!-- <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.change == null?'+0.000':li.change}}%</span> -->
                 <span :class="setColor(li.change)">{{(li.change>0?'+':'')+(li.change-0).toFixed(2)}}%</span>
+              </div>
+              <div>
+                <span @click="setData({currency_id:item.id,legal_id:li.currency_id,currency_name:item.name,leg_name:li.name,isShow:index})">交易 </span>
               </div>
             </li>
           </ul>
@@ -188,7 +192,7 @@ import homeLogin from "@/view/homeLogin";
 // var echarts = require("echarts");
 export default {
   name: "homeContent",
-  components: { indexHeader,homeLogin },
+  components: { indexHeader, homeLogin },
   data() {
     return {
       quotation: [],
@@ -203,15 +207,10 @@ export default {
       coinTabList: [{ title: "USDT行情" }, { title: "BTC行情" }],
       coinKlineList: [],
       coinKline: {},
-      swiperList: [
-       
-      ],
-      coinList: [
-        
-      ],
-      coin_list: [
-      ]
-    }
+      swiperList: [],
+      coinList: [],
+      coin_list: []
+    };
   },
   created() {
     // this.init(this.initKline);
@@ -244,69 +243,79 @@ export default {
       url: this.$utils.laravel_api + "news/help",
       method: "post",
       data: {}
-    }).then(res => {
+    })
+      .then(res => {
         console.log(res);
         if (res.status === 200) {
           this.noticeList = res.data.message;
         } else {
           layer.msg(res.message);
         }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
     //  eventBus.$on('toNew', function (data) {
     //   console.log(data);
     //   if(data){
     //         var newprice=data.newprice;
     //         var cname=data.istoken
-    //         console.log(that.currency_name) 
+    //         console.log(that.currency_name)
     //         console.log(newprice)
     //         $("span[data-name='"+cname+"']").html('$'+newprice);
     //     }
-    // }); 
+    // });
     this.connect();
-       
   },
   methods: {
-    connect() { 
-      var that=this;
-      console.log('socket')
+    setData(obj) {
+      window.localStorage.setItem("tradeData", JSON.stringify(obj));
+      this.$router.push("/dealCenter");
+    },
+    connect() {
+      var that = this;
+      console.log("socket");
       that.$socket.emit("login", this.$makeSocketId());
       that.$socket.on("transaction", msg => {
         console.log(msg);
-        var cname=msg.token;
+        var cname = msg.token;
         var yesprice = msg.yesterday;
         var toprice = msg.today;
-        console.log(cname)
-        var zf=0;
-        if((toprice-yesprice )==0){
-            zf='0%'
-        }else if(toprice==0){
-            zf='-100'
-        }else if(yesprice){
-            zf="+100%"
-        }else{
-          zf=((toprice-yesprice)/yesprice/100).toFixed(2);
-          if(zf>0){
-            zf = '+'+zf+ '%';
+        console.log(cname);
+        var zf = 0;
+        if (toprice - yesprice == 0) {
+          zf = "0%";
+        } else if (toprice == 0) {
+          zf = "-100";
+        } else if (yesprice) {
+          zf = "+100%";
+        } else {
+          zf = ((toprice - yesprice) / yesprice / 100).toFixed(2);
+          if (zf > 0) {
+            zf = "+" + zf + "%";
           } else {
-            zf = zf+'%'
+            zf = zf + "%";
           }
         }
-          var zf=toprice-yesprice
-          $("li[data-name='"+cname+"']").find('.yester span').html(yesprice);
-          $("li[data-name='"+cname+"']").find('.today span').html(toprice);
-          $("li[data-name='"+cname+"']").find('.yes-toa span').html(zf);
+        var zf = toprice - yesprice;
+        $("li[data-name='" + cname + "']")
+          .find(".yester span")
+          .html(yesprice);
+        $("li[data-name='" + cname + "']")
+          .find(".today span")
+          .html(toprice);
+        $("li[data-name='" + cname + "']")
+          .find(".yes-toa span")
+          .html(zf);
       });
     },
-    setColor(c){
-      if(c>0){
-        return 'ceilColor';
-      } else if(c<0){
-        return 'redColor';
+    setColor(c) {
+      if (c > 0) {
+        return "ceilColor";
+      } else if (c < 0) {
+        return "redColor";
       } else {
-        return '';
+        return "";
       }
     },
     getQuotation() {
@@ -318,6 +327,16 @@ export default {
         if (res.data.type == "ok" && res.data.message.length != 0) {
           this.quotation = res.data.message;
           this.nowCoin = this.quotation[0].name;
+          let msg = res.data.message[0];
+          let quo = msg.quotation[0];
+          var tradeData = {
+            currency_id: msg.id,
+            legal_id: quo.currency_id,
+            currency_name: msg.name,
+            leg_name: quo.name,
+            isShow:0
+          };
+          window.localStorage.setItem('tradeData',JSON.stringify(tradeData))
         }
       });
     },
@@ -457,7 +476,7 @@ export default {
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
-    },
+    }
     // go_detail(index,inde){
     //   this.$router.push({
     //     path:'/dealCenter',
@@ -472,46 +491,46 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.swiper-container{
+.swiper-container {
   height: 310px;
 }
-.swiper-container a{
+.swiper-container a {
   display: block;
   height: 310px;
 }
-.swiper-container img{
-  display: block;height: 310px;
+.swiper-container img {
+  display: block;
+  height: 310px;
 }
-  .coin-tab {
-    line-height: 52px;
-    height: 52px;
-    background: #252e3e;
-    padding:  0 50px;
-    // color: #c7cce6;
+.coin-tab {
+  line-height: 52px;
+  height: 52px;
+  background: #252e3e;
+  padding: 0 50px;
+  // color: #c7cce6;
+  display: flex;
+  > ul {
+    width: 1280px;
     display: flex;
-    > ul {
-      width: 1280px;
-      display: flex;
-      margin: 0 auto;
-      li {
-        padding: 0 40px;
-        color:#ddd;
-        // box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
-       
-      }
-      .activeCoin {
-        border-bottom: none;
-        color:#d45858;
-      }
+    margin: 0 auto;
+    li {
+      padding: 0 40px;
+      color: #ddd;
+      // box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
+    }
+    .activeCoin {
+      border-bottom: none;
+      color: #d45858;
     }
   }
+}
 /* 币种列表 */
 .coins-list {
   margin: 10px auto;
   max-width: 1280px;
   line-height: 51px;
   text-align: center;
-  
+
   .list-title {
     display: flex;
     padding: 0 30px;
@@ -522,30 +541,34 @@ export default {
       // color: #c7cce6;
       font-size: 14px;
     }
-    >span:first-child{
-        text-align: left;
-      }
-      >span:last-child{text-align: right}
+    > span:first-child {
+      text-align: left;
+    }
+    > span:last-child {
+      text-align: right;
+    }
   }
   .list-con {
     // background: rgb(32, 36, 55);
     max-height: 680px;
     overflow: scroll;
-    
+
     li {
       display: flex;
       border-top: 1px solid #ddd;
       padding: 0 30px;
-      
+
       // color: #c7cce6;
       > div {
         flex: 1;
         text-align: center;
       }
-      >div:first-child{
+      > div:first-child {
         text-align: left;
       }
-      >div:last-child{text-align: right}
+      > div:last-child {
+        text-align: right;
+      }
     }
   }
 }
@@ -592,21 +615,21 @@ export default {
   color: #6b80ae;
   cursor: pointer;
 }
-.coins li{
+.coins li {
   position: relative;
 }
-.arrow{
-    border-width: 16px;
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-    border-top: none;
-    border-bottom: 8px dashed;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    margin-left: -4px;
+.arrow {
+  border-width: 16px;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-top: none;
+  border-bottom: 8px dashed;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -4px;
 }
-.coins li:hover{
+.coins li:hover {
   cursor: pointer;
   background: #303e4c;
 }
