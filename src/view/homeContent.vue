@@ -14,14 +14,20 @@
             <div class="swiper-wrapper">
                <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="../../static/imgs/bnr_dcr_cn.png" />
+                   <img src="../../static/imgs/swp1.jpg" />
                    </a>
                </div>
-                <div class="swiper-slide sliders">
+               <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="../../static/imgs/bnr_lend2_cn.jpeg" />
+                   <img src="../../static/imgs/swp2.jpg" />
                    </a>
                </div>
+               <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../../static/imgs/swp3.jpg" />
+                   </a>
+               </div>
+                
                
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
