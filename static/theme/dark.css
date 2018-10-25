@@ -18,7 +18,9 @@ body,
 #app > .indexBlackes > .box .account {
   margin-bottom: 0;
 }
-#app .indexBlackes .indexBlackes {
+#app > .login,
+#app .indexBlackes .indexBlackes,
+#app > .forget-box {
   background: #131a21;
 }
 #app .box .content_li,
