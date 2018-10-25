@@ -19,14 +19,43 @@ window.eventBus = new Vue()
 // Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
 Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2134');
 // Vue.use(VueSocketio, 'http://ice.adminchao.com:2120');
-Vue.prototype.$makeSocketId = function (){
-	var d= new Date().getTime();
-	console.log(d);
-	var ran = parseInt(Math.random()*888+101+'');
-	d = d+ ''+ran;
-	return d;
-	
-}
+Vue.prototype.$changeTheme = function (type) {
+		var head = document.querySelector('head');
+		var link = document.querySelector('link#darkTheme');
+		console.log(head,link);
+		
+		var theme = window.localStorage.getItem('theme');
+		if (theme != type) {
+			window.localStorage.setItem('theme', type);
+		}
+		if (type == 'light') {
+			if (link == null) {
+				console.log('lalalal');
+				
+				return;
+			} else {
+				head.removeChild(link);
+			}
+		} else {
+			if (link == null) {
+				link = document.createElement('link');
+				link.id = 'darkTheme';
+				link.rel = 'stylesheet';
+				link.href = './static/theme/dark.css';
+				head.appendChild(link);
+			} else {
+				return;
+			}
+		}
+	}
+	Vue.prototype.$makeSocketId = function () {
+		var d = new Date().getTime();
+		console.log(d);
+		var ran = parseInt(Math.random() * 888 + 101 + '');
+		d = d + '' + ran;
+		return d;
+
+	}
 Vue.config.productionTip = false
 Axios.interceptors.request.use(function (config) {
 	if (config.url.indexOf('?') === -1) {
@@ -53,7 +82,7 @@ Vue.filter('numFilter', function (value) {
 	//截取当前数据到小数点后五位
 	let transformVal = Number(value).toFixed(5)
 	return Number(transformVal)
-  })
+})
 
 let bus = new Vue()
 Vue.prototype.bus = bus
@@ -78,6 +107,8 @@ new Vue({
 	el: '#app',
 	router,
 	store,
-	components: { App },
+	components: {
+		App
+	},
 	template: '<App/>'
 })

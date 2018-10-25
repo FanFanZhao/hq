@@ -25,7 +25,7 @@ export default {
     data(){
         return{
             list:[
-                {lebal_name:'您的Email：',placeholder:'gate.io账号',type:'text',name:'email',val:''},
+                {lebal_name:'您的Email：',placeholder:'Email',type:'text',name:'email',val:''},
                 {lebal_name:'团队联系方式：',placeholder:'Email等',type:'email',name:'tel',val:''},
                 {lebal_name:'币种英文名：',placeholder:'比如Bitcoin',type:'text',name:'english_name',val:''},
                 {lebal_name:'币种中文名：',placeholder:'比如 比特币',type:'text',name:'chinese_name',val:''},

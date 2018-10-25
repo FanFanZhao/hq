@@ -64,7 +64,6 @@ import hisentrust from "@/view/hisentrust";
 import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
-import kline from "@/view/kline";
 import tv from '@/view/tv'
 export default {
   name: "dealCenter",
@@ -83,7 +82,6 @@ export default {
     detail,
     currency,
     complete,
-    kline,
 	  tv
   },
   data() {
@@ -115,7 +113,7 @@ export default {
       height: 100%;
       margin: 10px 10px  0 0;
       > div {
-        background: #fff;
+        // background: #fff;
         border: 1px solid #C8DAE2;
         // background: #181b2a;
         margin: 0 10px 10px;

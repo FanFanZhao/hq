@@ -199,7 +199,7 @@ export default {
 .no_data{padding: 50px 0;}
 .containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}
-.list-item li span{display: inline-block;float: left;}
+.list-item li span{display: inline-block;float: left;color: #333;}
 .list-item li span:nth-child(3){color:#cc4951;}
 .list-item li:hover{background-color: #eee;color: #de5959;}
 .list-item li span.green{color: #55a067}

@@ -206,6 +206,7 @@ input {
   border-radius: 3px;
   //background-color: transparent;
   outline: none;
+  color: #333 !important;
 }
 .add {
   text-align: right;

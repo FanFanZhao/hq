@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
-        <div class="title fColor1 topshadow">
-            <div class="inblock color">
+        <div class="title  topshadow">
+            <div class="inblock">
                 <span>全站交易</span>
             </div>
         </div>

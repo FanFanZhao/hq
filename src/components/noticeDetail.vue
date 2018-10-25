@@ -45,8 +45,9 @@ export default {
         this.id = this.$route.query.id;
         var id = this.id;
         this.$http({
-            url: this.$utils.laravel_api + 'news/detail?'+'id='+id,
-            method:'get',
+            url:  '/api/news/detail?'+'id='+id,
+            method:'post',
+            headers: { 'Authorization': window.localStorage.getItem('token') }
         }).then(res=>{
             res = res.data;
             if(res.type  === 'ok'){

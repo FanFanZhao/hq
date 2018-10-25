@@ -4,7 +4,7 @@
         <div class="account-wrap">
             <div class="account" style="width:auto">
                 <div>
-                    <div class="back-nav fColor1 ft20 clear" style="padding:0 20px;color:#333;"> 公告
+                    <div class="back-nav  ft20 clear" style="padding:0 20px;"> 公告
                         
                     </div>
                     
@@ -70,7 +70,7 @@ export default {
   methods: {
     getNotice(){
       this.$http({
-        url:this.$utils.laravel_api + 'news/list',
+        url:  '/api/news/list',
         method:'post',
       }).then(res => {
         // console.log(res);
@@ -123,15 +123,15 @@ export default {
       .account-content {
         width: 100%;
         min-height: 450px;
-        background-color: #fff;
+        // background-color: #fff;
         ul {
           padding: 0 20px;
           font-size: 14px;
           li {
             border-bottom: 1px dashed #eee;
-            height: 72px;
+            // height: 72px;
             padding: 10px 0 7px;
-            color: #333;
+            // color: #333;
                 font-size: 12px;
             > div {
               > div {

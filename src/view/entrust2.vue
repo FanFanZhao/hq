@@ -8,7 +8,7 @@
                 <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.type)">{{way.title}}</span>
             </div>
         </div>
-        <div class="content" v-show="isUrl==0" style="border:1px solid #ccc">
+        <div class="content" v-show="isUrl==0" >
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w12">交易对</li>
@@ -295,16 +295,19 @@ export default {
 }
 </script>
 <style scoped>
+.entrust{
+    color: #333;
+}
 .title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;}
 .tab_title{display: inline-block;line-height: 46px;height: 46px;}
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
-.content{padding: 0 40px 0 30px;height: 300px;}
+.content{padding: 0 40px 0 30px;height: 300px;border: 1px solid rgb(204, 204, 204)}
 .list-title{line-height: 40px; border-bottom: 1px solid #ccc;height: 40px;}
 .no_data{padding: 50px 0;}
 .container{height: 260px;overflow: auto;}
-.list-item li{line-height: 30px; color: #333;}
-.list-item li span{display: inline-block;float: left; color: #333;}
+.list-item li{line-height: 30px; }
+.list-item li span{display: inline-block;float: left;}
 .list-item li span:nth-child(3){color:#cc4951;}
 .list-item li:hover{}
 .list-item li span.green{color: #55a067}

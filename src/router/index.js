@@ -89,6 +89,11 @@ export default new Router({
 					path:'/currencyList',
 					name:'currencyList',
 					component:currencyList
+				},
+				{
+					path:'/components/noticeList',
+					name:'noticeList',
+					component:noticeList
 				}
 			]
 		},
@@ -117,11 +122,7 @@ export default new Router({
 			name: 'register',
 			component: register
 		},
-		{
-			path:'/components/noticeList',
-			name:'noticeList',
-			component:noticeList
-		},
+		
 		{
 			path:'/components/noticeDetail',
 			name:'noticeDetail',

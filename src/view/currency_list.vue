@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="wrap currency-lst">
         <ul class="ul">
             <li class="flex alcenter list_title ft14">
                 <span class="flex1 tc">账号</span>

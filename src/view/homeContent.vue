@@ -96,7 +96,7 @@
             <span>价格({{nowCoin}})</span>
             <span>交易量({{nowCoin}})</span>
             <span>涨跌</span>
-            <span>操作</span>
+            <!-- <span>操作</span> -->
           </div>
           
           <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
@@ -107,16 +107,16 @@
               </div>
               <div class="yester">
                 <!-- <span :class="setColor(li.change)">{{li.now_price==null?'0':li.now_price}}</span>/ -->
-                <span style="color:#666">{{li.now_price==null?'0':li.now_price}}</span>
+                <span >{{li.now_price==null?'0':li.now_price}}</span>
               </div>
               <div class="count">{{li.volume == null?'0':li.volume}}</div>
               <div class="yes-toa">
                 <!-- <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.change == null?'+0.000':li.change}}%</span> -->
                 <span :class="setColor(li.change)">{{(li.change>0?'+':'')+(li.change-0).toFixed(2)}}%</span>
               </div>
-              <div>
+              <!-- <div>
                 <span @click="setData({currency_id:item.id,legal_id:li.currency_id,currency_name:item.name,leg_name:li.name,isShow:index})">交易 </span>
-              </div>
+              </div> -->
             </li>
           </ul>
         </div>

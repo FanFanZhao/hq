@@ -1,7 +1,7 @@
 <template>
 	<div class="nav_bar">
 		<div class="content clear" style="height:45px">
-			<div class="fl" style="margin-top:7.5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
+			<div class="fl" style="margin-top:7.5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff" @click="setBlack"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList" :key="index" @mouseover="liMouseover(index)" @mouseout="liMouseout(index)">
           <span @click="goto(index,tabs.page)">{{tabs.title}}</span>
@@ -71,6 +71,11 @@
 						<span  class="ml20">注册</span>
 					</router-link>
 				</div>
+        <div class="fl theme">
+          <img src="../assets/images/light.png" @click="$changeTheme('light')" alt="">
+          <img src="../assets/images/dark.png"  @click="$changeTheme('dark')" alt="">
+          
+        </div>
 			</div>
 		</div>
 	</div>
@@ -99,9 +104,9 @@ export default {
         // { title: "杠杆交易", page: "" },
         // { title: "我的财务", page: "" },
         { title: "安全设置", page: "userSetting" },
-        { title: "公告", page: "" },
+        { title: "公告", page: "noticeList" },
         { title: "上币申请", page: "currencyApply" },
-        { title: "帮助", page: "" },
+        // { title: "帮助", page: "" },
         // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
@@ -197,6 +202,16 @@ export default {
     });
   },
   methods: {
+    
+    setBlack(){
+      var head = document.querySelector('head');
+      console.log(head);
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = './static/theme/dark.css';
+      // var link = '<link rel="stylesheet" href="./static/black.css">';
+      head.appendChild(link)
+    },
     liMouseover(index){
       if(index == 5){
          this.isShow = true;
@@ -493,5 +508,11 @@ export default {
       }
     }
   }
+}
+.theme img{
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  cursor: pointer;
 }
 </style>
