@@ -94,6 +94,41 @@ export default new Router({
 					path:'/components/noticeList',
 					name:'noticeList',
 					component:noticeList
+				},
+				{
+					path:'/new_account',
+					name:'new_account',
+					component:new_account,
+					children: [
+					
+						{
+							path:'/finance',
+							name:'finance',
+							component:finance
+						},
+						{
+							path:'/lever',
+							name:'lever',
+							component:lever
+						},
+						{
+							path:'/legal',
+							name:'legal',
+							component:legal
+						},
+						{
+							path:'/legalAccount',
+							name:'legalAccount',
+							component:legalAccount
+						},
+						{
+							path:'/transferLegal',
+							component:transferLegal
+						}
+						
+		
+					]
+		
 				}
 			]
 		},
@@ -187,41 +222,7 @@ export default new Router({
 			]
 
 		},
-		{
-			path:'/new_account',
-			name:'new_account',
-			component:new_account,
-			children: [
-			
-				{
-					path:'/finance',
-					name:'finance',
-					component:finance
-				},
-				{
-					path:'/lever',
-					name:'lever',
-					component:lever
-				},
-				{
-					path:'/legal',
-					name:'legal',
-					component:legal
-				},
-				{
-					path:'/legalAccount',
-					name:'legalAccount',
-					component:legalAccount
-				},
-				{
-					path:'/transferLegal',
-					component:transferLegal
-				}
-				
-
-			]
-
-		},
+		
 	    // 杠杆管理
 		{
 			

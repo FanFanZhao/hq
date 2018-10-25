@@ -1,7 +1,7 @@
 <template>
 	<div class="nav_bar">
 		<div class="content clear" style="height:45px">
-			<div class="fl" style="margin-top:7.5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff" @click="setBlack"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
+			<div class="fl" style="margin-top:7.5px;border-radius:50%;over-flow:hidden;width:30px;height:30px;background:#fff"><img src="@/assets/images/logo.png" class="navbar-logo" style="display:block;width:30px;height:30px"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList" :key="index" @mouseover="liMouseover(index)" @mouseout="liMouseout(index)">
           <span @click="goto(index,tabs.page)">{{tabs.title}}</span>

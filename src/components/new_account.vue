@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <indexHeader></indexHeader>
+        <!-- <indexHeader></indexHeader> -->
         <div class="account">
             <div class="topcontent ft20 ">
                 <span>资产</span>
@@ -15,10 +15,10 @@
     </div>
 </template>
 <script>
-	import indexHeader from '@/view/indexHeader'
+	// import indexHeader from '@/view/indexHeader'
 	import left from '@/view/accounts/left_account'
     export default {
-        name:'account',
+        // name:'account',
         data(){
             return {
                 lang:'',
@@ -26,7 +26,7 @@
             }
         },
         components:{
-            indexHeader,
+            // indexHeader,
             left,
         },
         mounted(){
