@@ -63,7 +63,7 @@
                         <span class="fl w8">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">已成交</span>
-                        <span class="fl w10">{{item.type=='in'? item.in_fee:item.out_fee}}</span>
+                        <span class="fl w10">{{item.type=='in'? item.in_fee||'无':item.out_fee||'无'}}</span>
                         <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>

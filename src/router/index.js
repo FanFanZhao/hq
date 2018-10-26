@@ -30,13 +30,13 @@ import legal from '@/view/accounts/legal'
 import legalAccount from '@/view/accounts/legalAccount'
 import transferLegal from '@/view/accounts/transferLegal'
 import currencyApply from '@/view/currency_apply'
-import payOpts from '@/view/payOpts'		
-import currencyList from '@/view/currency_list'	
-import currencyEdit from '@/view/edit_currency'	
-			//收款方式
+import payOpts from '@/view/payOpts'
+import currencyList from '@/view/currency_list'
+import currencyEdit from '@/view/edit_currency'
+//收款方式
 
-import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
-import ResetPwd from '@/components/ResetPwd'  //重置密码密码
+import ForgetPwd from '@/components/ForgetPwd' //忘记密码
+import ResetPwd from '@/components/ResetPwd' //重置密码密码
 import withdraw_address from '@/view/accounts/withdraw_address'
 Vue.use(Router)
 export default new Router({
@@ -46,89 +46,89 @@ export default new Router({
 			path: '/',
 			name: 'home',
 			component: home,
+
+			children: [{
+					path: '',
+					name: 'homeContent',
+					component: homeContent
+
+				},
+				
+				
+				{
+					path: '/dealCenter',
+					name: 'dealCenter',
+					component: dealCenter
+				},
 			
-			children:[
 				{
-					path:'',
-					name:'homeContent',
-					component:homeContent
-					
+					path: '/userSetting',
+					name: 'userSetting',
+					component: userSetting,
+					children: [{
+						path: '',
+						component: payOpts
+					}]
 				},
 				{
-					path:'/dealCenter',
-					name:'dealCenter',
-					component:dealCenter
+					path: '/c2c',
+					name: 'c2c',
+					component: c2c
 				},
 				{
-					path:'/userSetting',
-					name:'userSetting',
-					component:userSetting,
-					children:[
-						{
-							path:'',
-							component:payOpts
-						}
-					]
+					path: '/currencyApply',
+					name: 'currencyApply',
+					component: currencyApply
 				},
 				{
-					path:'/c2c',
-					name:'c2c',
-					component:c2c
+					path: '/currencyEdit',
+					name: 'currencyEdit',
+					component: currencyEdit
 				},
 				{
-					path:'/currencyApply',
-					name:'currencyApply',
-					component:currencyApply
+					path: '/currencyList',
+					name: 'currencyList',
+					component: currencyList
 				},
 				{
-					path:'/currencyEdit',
-					name:'currencyEdit',
-					component:currencyEdit
+					path: '/components/noticeList',
+					name: 'noticeList',
+					component: noticeList
 				},
 				{
-					path:'/currencyList',
-					name:'currencyList',
-					component:currencyList
-				},
-				{
-					path:'/components/noticeList',
-					name:'noticeList',
-					component:noticeList
-				},
-				{
-					path:'/new_account',
-					name:'new_account',
-					component:new_account,
+					path: '/new_account',
+					name: 'new_account',
+					component: new_account,
 					children: [
-					
+
 						{
-							path:'/finance',
-							name:'finance',
-							component:finance
+							path: '/finance',
+							name: 'finance',
+							component: finance
 						},
 						{
-							path:'/lever',
-							name:'lever',
-							component:lever
+							path: '/lever',
+							name: 'lever',
+							component: lever
 						},
 						{
-							path:'/legal',
-							name:'legal',
-							component:legal
+							path: '/legal',
+							name: 'legal',
+							component: legal
 						},
 						{
-							path:'/legalAccount',
-							name:'legalAccount',
-							component:legalAccount
+							path: '/legalAccount',
+							name: 'legalAccount',
+							component: legalAccount
 						},
 						{
-							path:'/transferLegal',
-							component:transferLegal
+							path: '/transferLegal',
+							component: transferLegal
 						}
-						
-		
+
+
 					]
-		
+
 				}
 			]
 		},
@@ -137,119 +137,120 @@ export default new Router({
 		// 	name:'dealCenter',
 		// 	component:dealCenter
 		// },
+
 		{
-			path:'/components/login',
+			path: '/components/login',
 			name: 'login',
 			component: login
 		},
 		{
-			path:'/forgetPwd',
+			path: '/components/register',
+			name: 'register',
+			component: register
+		},
+		{
+			path: '/forgetPwd',
 			name: 'forgetPwd',
 			component: ForgetPwd
 		},
 		{
-			path:'/resetPwd',
+			path: '/resetPwd',
 			name: 'resetPwd',
 			component: ResetPwd
 		},
+
+
 		{
-			path:'/components/register',
-			name: 'register',
-			component: register
-		},
-		
-		{
-			path:'/components/noticeDetail',
-			name:'noticeDetail',
-			component:noticeDetail
+			path: '/components/noticeDetail',
+			name: 'noticeDetail',
+			component: noticeDetail
 		},
 		{
-			path:'/account',
-			name:'account',
-			component:account,
-			children: [
-				{
-				  path: '/accountCenter',
-				  name: 'accountCenter',
-				  component: accountCenter
+			path: '/account',
+			name: 'account',
+			component: account,
+			children: [{
+					path: '/accountCenter',
+					name: 'accountCenter',
+					component: accountCenter
 				},
 				{
 					path: '/accountEntrust',
-				  	name: 'accountEntrust',
-				  	component: accountEntrust
+					name: 'accountEntrust',
+					component: accountEntrust
 				},
 				{
 					path: '/accountMessage',
-				  	name: 'accountMessage',
-				  	component: accountMessage
+					name: 'accountMessage',
+					component: accountMessage
 				},
 				{
 					path: '/accountSet',
-				  	name: 'accountSet',
-				  	component: accountSet
+					name: 'accountSet',
+					component: accountSet
 				},
 				{
-					path:'/recharge',
-					name:'recharge',
-					component:recharge
+					path: '/recharge',
+					name: 'recharge',
+					component: recharge
 				},
 				{
-					path:'/coinRecord',
-					name:'coinRecord',
-					component:coinRecord
+					path: '/coinRecord',
+					name: 'coinRecord',
+					component: coinRecord
 				},
 				{
-					path:'/rechargeMoney',
-					name:'rechargeMoney',
-					component:rechargeMoney
+					path: '/rechargeMoney',
+					name: 'rechargeMoney',
+					component: rechargeMoney
 				},
 				{
-					path:'/aceite',
-					name:'aceite',
-					component:aceite
+					path: '/aceite',
+					name: 'aceite',
+					component: aceite
 				},
 				{
-					path:'/region',
-					name:'region',
-					component:region
+					path: '/region',
+					name: 'region',
+					component: region
 				},
 				{
-					path:'/chargeRecord',
-					name:'chargeRecord',
-					component:chargeRecord
+					path: '/chargeRecord',
+					name: 'chargeRecord',
+					component: chargeRecord
 				}
 
 			]
 
 		},
-		
-	    // 杠杆管理
+
+		// 杠杆管理
 		{
-			
-			path:'/lever_manger',
-			name:'manger',
-			component:manger,
+
+			path: '/lever_manger',
+			name: 'manger',
+			component: manger,
 		},
 		// 财务记录
 		{
-			
-			path:'/finanrec',
-			name:'finanrec',
-			component:finanrec,
+
+			path: '/finanrec',
+			name: 'finanrec',
+			component: finanrec,
 		},
 		// 地址管理
 		{
-			
-			path:'/withdraw_address',
-			name:'withdraw_address',
-			component:withdraw_address,
+
+			path: '/withdraw_address',
+			name: 'withdraw_address',
+			component: withdraw_address,
 		},
 		{
-			path:'/setCash',
+			path: '/setCash',
 			name: 'setCash',
 			component: setCash
 		},
-		
+
 
 
 	]

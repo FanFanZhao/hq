@@ -330,6 +330,7 @@ export default {
       width: 520px;
       height: 46px;
       //background-color: #1e2235;
+      background: #fff;
       border: 1px solid #ccc;
       input {
         border: none;

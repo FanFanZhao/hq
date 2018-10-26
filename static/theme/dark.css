@@ -18,6 +18,11 @@ body,
 #app > .indexBlackes > .box .account {
   margin-bottom: 0;
 }
+#app > .indexBlackes > .login,
+#app > .indexBlackes .forget-box,
+#app > .indexBlackes #register-box {
+  background: #131a21;
+}
 #app > .login,
 #app .indexBlackes .indexBlackes,
 #app > .forget-box {
