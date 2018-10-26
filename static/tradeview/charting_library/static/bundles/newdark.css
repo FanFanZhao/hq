@@ -58,4 +58,26 @@
   .pane-legend-item-value-wrap .pane-legend-item-value:first-child{
       display: none;
   }
-  
+  .tv-dialog{
+    background-color: #131a21;
+    color: #c7cce6
+  }
+  .tv-dialog__section {
+    border-bottom-color: #080d13;
+  }
+  .tv-dialog__title{
+    color: #fff
+  }
+  .tv-insert-indicator-dialog__search-control {
+    background-color: #080d13;
+}
+.tv-insert-indicator-dialog__search-control input {
+  background-color: #080d13;
+}
+.tv-search-row {
+  border-bottom-color: #131a21;
+}
+.tv-insert-indicator-dialog__pages::-webkit-scrollbar-thumb {
+  border-color: #080d13 !important;
+  background-color: #080d13 !important;
+}
