@@ -233,3 +233,7 @@ body,
 #app .notice .account-content li {
   border-bottom: 1px dashed #61688a;
 }
+#loading-indicator,
+body.chart-page {
+  background: #131a21 !important;
+}

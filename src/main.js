@@ -15,10 +15,9 @@ import store from './store'
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts
 window.eventBus = new Vue()
-
-// Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
+let bus = new Vue()
+Vue.prototype.bus = bus
 Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2134');
-// Vue.use(VueSocketio, 'http://ice.adminchao.com:2120');
 Vue.prototype.$changeTheme = function (type) {
 		var head = document.querySelector('head');
 		var link = document.querySelector('link#darkTheme');
@@ -35,6 +34,7 @@ Vue.prototype.$changeTheme = function (type) {
 				return;
 			} else {
 				head.removeChild(link);
+				eventBus.$emit('theme','light')
 			}
 		} else {
 			if (link == null) {
@@ -43,6 +43,7 @@ Vue.prototype.$changeTheme = function (type) {
 				link.rel = 'stylesheet';
 				link.href = './static/theme/dark.css';
 				head.appendChild(link);
+                eventBus.$emit('theme','dark')
 			} else {
 				return;
 			}
@@ -84,8 +85,7 @@ Vue.filter('numFilter', function (value) {
 	return Number(transformVal)
 })
 
-let bus = new Vue()
-Vue.prototype.bus = bus
+
 // router.beforeEach((to,from,next) => {
 // 	if(to.meta.requireLogin == 'no'){
 // 		next()
