@@ -24,7 +24,8 @@
 				newData:'',
 				bg:'#fff',
 				grid:'#f7f8fa',
-				theme:''
+				theme:'',
+				csspath:'bundles/new.css'
 
 			}
 		},
@@ -51,19 +52,21 @@
 		},
 		mounted() {
 			var that = this;
+			$('.chart-page').css('background','#131a21')
+ 
+
 			var theme=window.localStorage.getItem('theme') || '';
 			if(theme=='dark'){
 				that.bg='#131a21';
 				that.grid='#1E2740';
+				that.csspath='bundles/newdark.css';
 				that.createWidget();
-				// $('#loading-indicator').css('background','#131a21 !important')
-				// $('.chart-page').css('background','#131a21 !important')
 			}else{
 				that.bg='#fff';
 				that.grid='#f7f8fa';
+				that.csspath='bundles/new.css'
 				that.createWidget();
-				// $('#loading-indicator').css('background','#fff !important')
-				// $('.chart-page').css('background','#fff !important')
+				
 			}
 			eventBus.$on('theme',function(data){
 				console.log(data)
@@ -73,15 +76,15 @@
 				if(data=='dark'){
 					that.bg='#131a21';
 					that.grid='#1E2740';
+					that.csspath='bundles/newdark.css'
 					that.createWidget();
-					// $('#loading-indicator').css('background','#131a21 !important')
-				    // $('.chart-page').css('background','#131a21 !important')
+					
 				}else{
 					that.bg='#fff';
 					that.grid='#f7f8fa';
+					that.csspath='bundles/new.css'
 					that.createWidget();
-					// $('#loading-indicator').css('background','#fff !important')
-				    // $('.chart-page').css('background','#fff !important')
+					
 				}
 				
 			})
@@ -132,7 +135,7 @@
 						// datafeed: new Datafeeds.UDFCompatibleDatafeed("http://demo_feed.tradingview.com"),
 						datafeed:_this.createFeed(),
 						library_path: "/static/tradeview/charting_library/",
-						custom_css_url: 'bundles/new.css',
+						custom_css_url: _this.csspath,
 						locale: "zh",
 						// width: "100%",
 						// height: 516,
