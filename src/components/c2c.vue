@@ -190,7 +190,7 @@
                 </div>
                 <div class="ul-box" v-if="nowList == 'listIn'">
                     <ul class="ul-out" v-if="showList&&listOut.list.length">
-                        <li v-for="(item,index) in listOut.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
+                        <li v-for="(item,index) in listOut.list" :key="index" class="flex">
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
@@ -203,6 +203,7 @@
                             <div class="last">
 
                                 <div class="btn-last" @click="buySell(item.id,'buy')">买入</div>
+                                <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -212,7 +213,7 @@
                     </ul>
                     <!-- <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div> -->
                     <ul class="ul-in" v-if="showList&&listIn.list.length">
-                        <li v-for="(item,index) in listIn.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
+                        <li v-for="(item,index) in listIn.list" :key="index" class="flex">
                             <div>买入</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
@@ -225,6 +226,7 @@
                             <div class="last">
 
                                 <div v-if="item.status_name == '等待中'" @click="buySell(item.id,'sell')" class="btn-last">卖出</div>
+                                <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
                             </div>
                         </li>
                         
@@ -234,7 +236,7 @@
                 </div>
                 <div class="ul-box" v-if="nowList == 'myAdd'">
                     <ul class="ul-out" v-if="showList&&myAdd.list.length">
-                        <li v-for="(item,index) in myAdd.list" :key="index" class="flex" @click="getDetail(item.id,'myC2c',$event)">
+                        <li v-for="(item,index) in myAdd.list" :key="index" class="flex" >
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
@@ -251,6 +253,7 @@
                                 <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div>
                                 <span v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                                 <span v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
+                                <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -263,7 +266,7 @@
                 </div>
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
-                        <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" @click="getDetail(item.id,'trade',$event)">
+                        <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" >
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
@@ -279,6 +282,7 @@
                                 <span v-if="item.status_name == '等待中'">{{item.status_name}}</span>
                                 <span v-if="item.status_name == '已成功'">{{item.status_name}}</span>
                                 <span v-if="item.status_name == '已取消'">{{item.status_name}}</span>
+                                <span class="show-detail" @click="getDetail(item.id,'trade',$event)">详情</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -354,13 +358,13 @@
                             <span>姓  名：</span><span>{{detail.c2c.name}}</span>
                         </div>
                         <div>
-                            <span>微信账号：</span><span>{{detail.account_info.wechat}}</span>
+                            <span>微信账号：</span><span>{{detail.account_info.wechat_account}}</span>
                         </div>
                         <div>
-                            <span>银行卡 ：</span><span>{{detail.account_info.bank_card}}</span>
+                            <span>银行卡 ：</span><span>{{detail.account_info.bank_account}}</span>
                         </div>
                         <div>
-                            <span>支付宝 ：</span><span>{{detail.account_info.alipay}}</span>
+                            <span>支付宝 ：</span><span>{{detail.account_info.alipay_account}}</span>
                         </div>
                     </div>
                     <div class="num">
@@ -567,7 +571,7 @@ export default {
         console.log(res);
 
         if (res.data.type == "ok") {
-          //console.log(res.data.message);
+          console.log(res.data.message);
           this.detail.c2c = res.data.message.c2c;
           this.detail.account_info = res.data.message.account_info;
           this.detail.user_info = res.data.message.user_info;
@@ -841,6 +845,12 @@ export default {
       }
     }
     > .bot {
+      .show-detail{
+        float: right;
+        margin: 0 8px;
+        padding: 0 10px;
+        background: #d5d6dc;
+      }
       > .bot-title {
         margin: 30px 0 0;
         // border-bottom: 1px solid #ccc;
