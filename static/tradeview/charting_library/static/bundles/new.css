@@ -5,6 +5,9 @@
   /*position: absolute;*/
   /*left: 20px;*/
 }
+#loading-indicator,body.chart-page {
+  background: #fff;
+}
 .my2{
   /*background: none;不能删*/
 }

@@ -130,6 +130,9 @@ body,
 #app .home .main .main-r .entrust span {
   color: #aaa;
 }
+#app .home .main .main-r .entrust .active {
+  color: #d45858;
+}
 #app .home .main .main-r .currency {
   border: 1px solid #343a48;
 }
@@ -240,4 +243,7 @@ body,
 }
 #app .notice .account-content li {
   border-bottom: 1px dashed #61688a;
+}
+.brcolor {
+  border-right: 1px dashed #2f3440;
 }

@@ -22,10 +22,15 @@
 				ws:null,
 				lists:[],
 				newData:'',
+				bg:'#fff',
+				grid:'#f7f8fa',
+				theme:'',
+				csspath:'bundles/new.css'
 
 			}
 		},
 		created(){
+			
 
 		},
 		sockets: {},
@@ -46,7 +51,43 @@
 			}
 		},
 		mounted() {
-			this.createWidget()
+			var that = this;
+			$('.chart-page').css('background','#131a21')
+ 
+
+			var theme=window.localStorage.getItem('theme') || '';
+			if(theme=='dark'){
+				that.bg='#131a21';
+				that.grid='#1E2740';
+				that.csspath='bundles/newdark.css';
+				that.createWidget();
+			}else{
+				that.bg='#fff';
+				that.grid='#f7f8fa';
+				that.csspath='bundles/new.css'
+				that.createWidget();
+				
+			}
+			eventBus.$on('theme',function(data){
+				console.log(data)
+				if(that.theme==data){
+					return;
+				}
+				if(data=='dark'){
+					that.bg='#131a21';
+					that.grid='#1E2740';
+					that.csspath='bundles/newdark.css'
+					that.createWidget();
+					
+				}else{
+					that.bg='#fff';
+					that.grid='#f7f8fa';
+					that.csspath='bundles/new.css'
+					that.createWidget();
+					
+				}
+				
+			})
 
 		},
 		destroyed() {
@@ -62,7 +103,7 @@
 				console.log('socket')
 				that.$socket.emit("login", this.$makeSocketId());
 				that.$socket.on("kline", msg => {
-                    console.log(msg)
+                    // console.log(msg)
 					let obj={}
 
 					if(that.$store.state.symbol==msg.symbol){
@@ -94,7 +135,7 @@
 						// datafeed: new Datafeeds.UDFCompatibleDatafeed("http://demo_feed.tradingview.com"),
 						datafeed:_this.createFeed(),
 						library_path: "/static/tradeview/charting_library/",
-						custom_css_url: 'bundles/new.css',
+						custom_css_url: _this.csspath,
 						locale: "zh",
 						// width: "100%",
 						// height: 516,
@@ -105,7 +146,7 @@
 							'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo',
 							'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press',
 							'snapshot_trading_drawings', 'symbol_info', 'timeframes_toolbar', 'use_localstorage_for_settings',
-							'volume_force_overlay'
+							'volume_force_overlay','widget_logo'
 						],
 						enabled_features: [ //  启用的功能（备注：disable_resolution_rebuild 功能用于控制当时间范围为1个月时，日期刻度是否都是每个月1号
 							'dont_show_boolean_study_arguments', 'hide_last_na_study_output', 'move_logo_to_main_pane',
@@ -128,7 +169,8 @@
 						// document.getElementById('trade-view').childNodes[0].setAttribute('style', 'display:block;width:100%;height:100%;');
 						//let that =this
 
-						// widget.chart().createStudy('Moving Average', false, true, [15,'close', 0],null,{'Plot.color':'#fff'});
+						widget.chart().createStudy('Moving Average', false, true, [15,'close', 0],null,{'Plot.color':'#e843da'});
+						widget.chart().createStudy("MA Cross", false, false, [10, 20]);
 						let buttonArr = [
 							{
 								value: "1min",
@@ -171,18 +213,18 @@
 								period: "1D",
 								text: "1天",
 								chartType: 1
-							},
-							{
-								value: "1W",
-								period: "1W",
-								text: "1周",
-								chartType:1
-							}, {
-								value: "1M",
-								period: "1M",
-								text: "1月",
-								chartType: 1
 							}
+							// {
+							// 	value: "1W",
+							// 	period: "1W",
+							// 	text: "1周",
+							// 	chartType:1
+							// }, {
+							// 	value: "1M",
+							// 	period: "1M",
+							// 	text: "1月",
+							// 	chartType: 1
+							// }
 						];
 						let btn = {};
 						let nowTime = '';
@@ -355,7 +397,7 @@
 					this._configuration = {
 						supports_search: false,
 						supports_group_request: false,
-						supported_resolutions: ['1', '3', '5', '15', '30', '60', '120', '240', '360', '720', '1D', '3D', '1W', '1M'],
+						supported_resolutions: ['1', '3', '5', '15', '30', '60', '120', '240', '360', '720', '1D', '3D'],
 						supports_marks: true,
 						supports_timescale_marks: true,
 						exchanges: ['gh']
@@ -511,7 +553,7 @@
 					ticker: item,
 					description: "",
 					session: "24x7",
-					supported_resolutions: ['1', '5', '15', '30', '60', '240', '1D', '3D', '1W', '1M'],
+					supported_resolutions: ['1', '5', '15', '30', '60', '240', '1D', '3D'],
 					has_intraday: true,
 					has_daily: true,
 					has_weekly_and_monthly: true,
@@ -531,8 +573,8 @@
 				let style = {
 					up: "#589065",
 					down: "#AE4E54",
-					bg: "#fff",
-					grid: "#f7f8fa",
+					bg: this.bg,
+					grid: this.grid,
 					cross: "#f7f8fa",
 					border: "#9194a4",
 					text: "#9194a4",
