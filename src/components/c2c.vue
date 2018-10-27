@@ -166,9 +166,9 @@
                 
                 <div class="bot-title flex">
                     <div>
-                        <span @click="nowList ='listIn'" :class="{'active':nowList == 'listIn'}">c2c</span>
-                        <span @click="nowList =  'myAdd';" :class="{'active':nowList == 'myAdd'}">我发布的c2c</span>
-                        <span @click="nowList = 'myBuySell'" :class="{'active':nowList == 'myBuySell'}">我交易的c2c</span>
+                        <span @click="nowList ='listIn';reloadC2c()" :class="{'active':nowList == 'listIn'}">c2c</span>
+                        <span @click="nowList =  'myAdd';reloadMyAdd()" :class="{'active':nowList == 'myAdd'}">我发布的c2c</span>
+                        <span @click="nowList = 'myBuySell';reloadMyBuySell()" :class="{'active':nowList == 'myBuySell'}">我交易的c2c</span>
                     
                     </div>
                     <div class="flex" @click="showList = !showList">
@@ -251,8 +251,9 @@
 
                                 <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
                                 <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div>
-                                <span v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
-                                <span v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
+                                <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
+                                <span class="show-detail" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
+                                <span class="show-detail" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
                                 <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
                             </div>
                         </li>
@@ -267,7 +268,7 @@
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
                         <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" >
-                            <div style="color:#25796a">卖出</div>
+                            <div style="color:#25796a">{{item.type_name}}</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -277,11 +278,11 @@
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
-                                <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="item.status_name == '交易中'">确认</div>
+                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
-                                <span v-if="item.status_name == '等待中'">{{item.status_name}}</span>
-                                <span v-if="item.status_name == '已成功'">{{item.status_name}}</span>
-                                <span v-if="item.status_name == '已取消'">{{item.status_name}}</span>
+                                <span class="show-detail" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
+                                <span class="show-detail" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
+                                <span class="show-detail" v-if="item.status_name == '已取消'">{{item.status_name}}</span>
                                 <span class="show-detail" @click="getDetail(item.id,'trade',$event)">详情</span>
                             </div>
                         </li>
@@ -396,12 +397,12 @@ export default {
       id: "",
       price: "",
       num: "",
-      pay: "",
+      pay: "支付宝",
       user_name: "",
       content: "",
       price01: "",
       num01: "",
-      pay01: "",
+      pay01: "支付宝",
       user_name01: "",
       content01: "",
       currency_list: [],
@@ -423,6 +424,20 @@ export default {
     this.getMy("myBuySell");
   },
   methods: {
+    reloadC2c() {
+      this.listIn = { page: 1, list: [], hasMore: true };
+      this.listOut = { page: 1, list: [], hasMore: true };
+      this.getList(1);
+      this.getList(0);
+    },
+    reloadMyAdd(){
+       this.myAdd= { page: 1, list: [], hasMore: true };
+       this.getMy('myAdd')
+    },
+    reloadMyBuySell(){
+        this.myBuySell= { page: 1, list: [], hasMore: true };
+        this.getMy('myBuySell')
+    },
     // 获取币种列表
     get_currency() {
       this.$http({
@@ -449,13 +464,14 @@ export default {
       let page = 1;
       page = type == 1 ? this.listOut.page : this.listIn.page;
       ////console.log(type);
-
+      let  i = layer.load();
       this.$http({
         url: "/api/c2c/list?type=" + type + "&page=" + page,
 
         method: "get",
         headers: { Authorization: this.token }
       }).then(res => {
+        layer.close(i);
         if (res.data.type == "ok") {
           let list = res.data.message.list;
           ////console.log(list);
@@ -490,12 +506,14 @@ export default {
     // c2c列表买入卖出
     buySell(id, type) {
       // this.showDetail  = false;
+      let  i = layer.load();
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
         data: { id: id },
         headers: { Authorization: this.token }
       }).then(res => {
+        layer.close(i);
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           if (type == "buy") {
@@ -514,13 +532,14 @@ export default {
     getMy(type) {
       let t = "";
       t = type == "myAdd" ? "my_add" : "my_transaction";
+      let  i =layer.load();
       this.$http({
         url: "/api/c2c/" + t + "?page=" + this[type].page,
 
         headers: { Authorization: this.token }
       }).then(res => {
         //console.log(res);
-
+        layer.close(i);
         if (res.data.type == "ok") {
           if (res.data.message.length == 0) {
             this[type]["hasMore"] = false;
@@ -551,7 +570,9 @@ export default {
           this.getList(0);
           if (type == "complete") {
             this.myBuySell = { hasMore: true, list: [], page: 1 };
+            this.myAdd = { hasMore: true, list: [], page: 1 };
             this.getMy("myBuySell");
+            this.getMy("myAdd");
           } else {
             this.myAdd = { hasMore: true, list: [], page: 1 };
             this.getMy("myAdd");

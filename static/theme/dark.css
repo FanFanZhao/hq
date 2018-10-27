@@ -12,6 +12,9 @@ body,
   /* 币币交易 */
   /* c2c */
 }
+#app #c2c-box .show-detail {
+  background: #3a4067;
+}
 #app > .indexBlackes > .box {
   background: #080d13;
 }
