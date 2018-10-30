@@ -15,9 +15,11 @@ body,
 #app #c2c-box .show-detail {
   background: #3a4067;
 }
+#app .add-mycoin,
 #app > .indexBlackes > .box {
   background: #080d13;
 }
+#app .add-mycoin .account,
 #app > .indexBlackes > .box .account {
   margin-bottom: 0;
 }

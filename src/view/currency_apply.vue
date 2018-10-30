@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="wrap add-mycoin">
         <h1 class="title tc bold mb10">优质项目（币种）上线申请</h1>
         <p class="ft16 tc">请填写以下项目资料（前10名中提供最详细最准确的用户如被采纳，<span class="red">立即获得1ETH奖励</span>）</p>
         <div class="main">
@@ -105,6 +105,9 @@ export default {
 }
 </script>
 <style scoped>
+.add-mycoin{
+    min-height: 1050px;
+}
     .wrap{
         padding-top: 20px;
     }
