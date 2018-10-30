@@ -2,7 +2,7 @@
     <div class="market" >
 		<div class="m_title  clear">
             <span class=" fl">市场</span>
-            <div class="m_search fr">
+            <div class="m_search fr hide">
                <input type="text" >
                <img src="../assets/images/search.png" alt="">
             </div>
@@ -270,7 +270,7 @@ export default {
 <style scoped>
 .m_title {
   height: 55px;
-  padding: 15px 30px;
+  padding: 15px 30px 0;
   line-height: 25px;
   position: relative;
 }
