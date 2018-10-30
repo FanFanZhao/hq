@@ -52,11 +52,11 @@
                             </div> -->
                             <div class="inp-box">
                                 <span>买入量{{currency_name}}</span>
-                                <input type="text" v-model="num">
+                                <input  v-model="num" type="number">
                             </div>
                             <div class="inp-box">
                                 <span>单价CNY</span>
-                                <input type="text" v-model="price">
+                                <input v-model="price" type="number">
                             </div>
                             <div class="inp-box">
                                 <span>姓名</span>
@@ -114,11 +114,11 @@
                             </div> -->
                             <div class="inp-box">
                                 <span>卖出量{{currency_name}}</span>
-                                <input type="text" v-model="num01">
+                                <input type="number" v-model="num01">
                             </div>
                             <div class="inp-box">
                                 <span>单价CNY</span>
-                                <input type="text" v-model="price01">
+                                <input type="number" v-model="price01">
                             </div>
                              <div class="inp-box">
                                 <span>姓名</span>
