@@ -345,6 +345,14 @@ export default {
   float: left;
   text-align: center;
 }
+.coin-wrap li span:first-child {
+  display: inline-block;
+  padding-left: 20px;
+  background-image: url('../assets/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 30%;
+}
 .coin-wrap li span:last-child {
   color: #cc4951;
 }
