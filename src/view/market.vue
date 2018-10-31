@@ -348,7 +348,7 @@ export default {
 .coin-wrap li span:first-child {
   display: inline-block;
   padding-left: 20px;
-  background-image: url('../assets/images/logo.png');
+  background-image: url('../../static/imgs/logo.png');
   background-repeat: no-repeat;
   background-size: 16px;
   background-position: 30%;
