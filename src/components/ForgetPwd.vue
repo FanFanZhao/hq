@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <indexFooter></indexFooter>
+    <!-- <indexFooter></indexFooter> -->
 </div>
 
 </template>
@@ -189,6 +189,9 @@ export default {
 </script>
 
 <style scoped>
+.forget-box{
+  min-height: 1050px;
+}
 /* .content-wrap {
   background: url(../assets/images/bg_login.png) center bottom 316px repeat-x,
     -webkit-linear-gradient(top, #21263f, #262a42);

@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <indexFooter></indexFooter>
+    <!-- <indexFooter></indexFooter> -->
 </div>
 
 </template>

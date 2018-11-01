@@ -295,6 +295,7 @@ export default {
 
 <style lang='scss'>
 #register-box {
+  min-height: 1050px;
   .tip {
     margin: 10px 0;
     // color: #61688a;

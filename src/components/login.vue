@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <indexFooter></indexFooter>
+    <!-- <indexFooter></indexFooter> -->
 </div>
 
 </template>
@@ -115,6 +115,9 @@ export default {
 </script>
 
 <style scoped>
+.login{
+  min-height: 1050px;
+}
 /* .content-wrap{background: #fff center bottom 316px repeat-x,-webkit-linear-gradient(top,#21263f,#262a42);} */
 .account {
   width: 1200px;

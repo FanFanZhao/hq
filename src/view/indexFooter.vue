@@ -19,6 +19,7 @@ export default {
 
 <style lang='scss'>
 #footer{
+   
     background: #09162e;
     color:#aabdbc;
     font-size: 14px;

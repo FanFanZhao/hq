@@ -2,7 +2,7 @@
     <div class="indexBlackes">
         <indexHeader></indexHeader>
         <router-view></router-view>
-        <indexFooter></indexFooter>      
+        <!-- <indexFooter></indexFooter>       -->
     </div>  
 </template>
 <script>
@@ -34,6 +34,12 @@ export default {
     }
 }
 </script>
+<style>
+.indexBlackes{
+    min-height: 1080px;
+}
+</style>
+
 
 
 
