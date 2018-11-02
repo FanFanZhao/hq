@@ -102,7 +102,7 @@
           <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
             <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='item.name+"/"+li.name'>
               <div class="two-coin">
-                
+                <img :src="li.logo" alt="" style="width:30px;">
                 <span style="color:#61688a;font-weight:bold">{{li.name}}</span>
               </div>
               <div class="yester">
@@ -497,6 +497,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+
 .swiper-container {
   height: 310px;
 }
@@ -562,9 +563,12 @@ export default {
     li {
       display: flex;
       border-top: 1px solid #ddd;
-      padding: 0 30px;
-
+      padding: 10px 30px;
+      line-height: 30px;
       // color: #c7cce6;
+      img{
+        vertical-align: bottom;
+      }
       > div {
         flex: 1;
         text-align: center;
@@ -575,6 +579,9 @@ export default {
       > div:last-child {
         text-align: right;
       }
+    }
+    li:last-child{
+      border-bottom: 1px solid #ddd;
     }
   }
 }
