@@ -67,6 +67,9 @@ body,
 #app .coins-list .list-con li {
   border-top: 1px solid #19222b !important;
 }
+#app .coins-list .list-con li:last-child {
+  border-bottom: 1px solid #19222b !important;
+}
 #app #footer {
   background: #080d13;
 }
