@@ -252,3 +252,6 @@ body,
 .brcolor {
   border-right: 1px dashed #2f3440;
 }
+.noticeDetail {
+  background: #131a21;
+}
