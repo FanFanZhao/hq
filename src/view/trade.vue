@@ -31,6 +31,10 @@
                         <input type="number" v-model="buyInfo.buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
                         <span>{{legal_name}}</span>
                     </div>
+                    <div class="mt40 input-item clear">
+                        <label>资金密码</label>
+                        <input type="password" v-model="buyInfo.pwd" @keydown.69.prevent>
+                    </div>
                     <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div>
                     <div class="mt50 1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
                     <div class="sell_btn curPer mt40 tc greenBack 1 ft16" @click="buyCoin">买{{legal_name}}</div>
@@ -56,6 +60,10 @@
                         <label>卖出量</label>
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellInfo.sellNum">
                         <span>{{legal_name}}</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>资金密码</label>
+                        <input type="password" v-model="sellInfo.pwd" @keydown.69.prevent>
                     </div>
                     <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div>
                     <div class="mt50 1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
@@ -130,8 +138,9 @@ export default {
       allBalance: 0,
       disabled: false,
       lastPrice: "111",
-      buyInfo: { buyPrice: 0, buyNum: 0, url: "transaction/in" },
-      sellInfo: { sellPrice: 0, sellNum: 0, url: "transaction/out" },
+      pwd:'',
+      buyInfo: { buyPrice: 0, buyNum: 0,pwd:'', url: "transaction/in" },
+      sellInfo: { sellPrice: 0, sellNum: 0,pwd:'', url: "transaction/out" },
       tradetype: [{ typetext: "限价交易" }, { typetext: "市价交易" }]
     };
   },
@@ -217,6 +226,10 @@ export default {
         layer.msg("请输入买入量");
         return;
       }
+      if(!this.buyInfo.pwd || this.buyInfo.pwd.length< 6){
+        layer.msg("请输入资金密码");
+        return;
+      }
       var i = layer.load();
       this.$http({
         url: "/api/" + this.buyInfo.url,
@@ -225,7 +238,8 @@ export default {
           legal_id: this.currency_id,
           currency_id: this.legal_id,
           price: this.disabled ? this.lastPrice : this.buyInfo.buyPrice,
-          num: this.buyInfo.buyNum
+          num: this.buyInfo.buyNum,
+          pay_password:this.buyInfo.pwd
         },
         headers: { Authorization: localStorage.getItem("token") }
       })
@@ -238,6 +252,7 @@ export default {
             layer.msg(res.data.message);
             this.buyInfo.buyPrice = 0;
             this.buyInfo.buyNum = 0;
+            this.buyInfo.pwd='';
             // that.buy_sell(that.legal_id,that.currency_id)
             eventBus.$emit("buyTrade", "tradebuy");
             eventBus.$emit("tocel", "updata");
@@ -264,6 +279,10 @@ export default {
         layer.msg("请输入卖出量");
         return;
       }
+      if(!this.sellInfo.pwd || this.sellInfo.pwd.length< 6){
+        layer.msg("请输入资金密码");
+        return;
+      }
       var i = layer.load();
       this.$http({
         url: "/api/" + this.sellInfo.url,
@@ -272,7 +291,8 @@ export default {
           legal_id: this.currency_id,
           currency_id: this.legal_id,
           price: this.disabled?this.lastPrice:this.sellInfo.sellPrice,
-          num: this.sellInfo.sellNum
+          num: this.sellInfo.sellNum,
+          pay_password:this.sellInfo.pwd
         },
         headers: { Authorization: localStorage.getItem("token") }
       })
@@ -284,6 +304,7 @@ export default {
             eventBus.$emit('tradeOk',{status:'ok'});
             this.sellInfo.sellPrice = 0;
             this.sellInfo.sellNum = 0;
+            this.sellInfo.pwd = '';
             eventBus.$emit("buyTrade", "tradebuy");
             eventBus.$emit("tocel", "updata");
             // that.buy_sell(that.legal_id,that.currency_id)
