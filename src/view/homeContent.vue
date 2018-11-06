@@ -103,7 +103,7 @@
             <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='item.name+"/"+li.name'>
               <div class="two-coin">
                 <img :src="li.logo" alt="" style="width:30px;">
-                <span style="color:#61688a;font-weight:bold">{{li.name}}</span>
+                <span style="color:#61688a;font-weight:bold">{{li.currency_name}}/{{li.legal_name}}</span>
               </div>
               <div class="yester">
                 <!-- <span :class="setColor(li.change)">{{li.now_price==null?'0':li.now_price}}</span>/ -->
@@ -326,7 +326,7 @@ export default {
     },
     getQuotation() {
       this.$http({
-        url: "/api/currency/quotation",
+        url: "/api/currency/quotation_new",
         method: "get"
       }).then(res => {
         console.log(res.data);
