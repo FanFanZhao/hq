@@ -37,16 +37,20 @@
             <li>
                 <img  :src="esrc">
                 <span  class="ml20">绑定邮箱</span>
-                <p  class="fl">{{email}} </p>
+                <p  class="fl">
+                  <span>{{email}}</span>
+                </p>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <span  class="fr red mouseDefault"></span>
-                <router-link class="fr red" to="/bindEmail" v-if="email">{{email == ''?'去绑定':'已绑定'}}</router-link>
+                <span class="fr" v-if="email != '去绑定'">已绑定</span>
+                <router-link class="fr red" to="/components/bindEmail" v-if="email == '去绑定'">去绑定</router-link>
             </li>
             <li ><img  src="@/assets/images/success.png">
                 <span  class="ml20">登录密码</span>
                 <p  class="fl">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</p>
                 <span  class="fr red ml25 mouseDefault"></span>
-                <span  class="fr red mouseDefault"  @click="goPwd()">修改</span>
+                <!-- <span  class="fr red mouseDefault"  @click="goPwd()">修改</span> -->
+                <router-link to="/components/resetPwd" class="fr red">修改</router-link>
             </li>
             <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">提币密码</span>
@@ -77,6 +81,7 @@
 </template>
 
 <script>
+import "@/lib/clipboard.min.js";
 export default {
   name: "accountSet",
   data() {
@@ -118,15 +123,17 @@ export default {
         headers: { Authorization: localStorage.getItem("token") }
       })
         .then(res => {
-          // console.log(res);
+          console.log(res);
           if (res.data.type == "ok") {
-            if (res.data.message.phone != null) {
+            this.email = res.data.message.email;
+            console.log(this.email);
+            this.esrc = require("@/assets/images/success.png");
+            if (res.data.message.phone) {
               this.account = res.data.message.phone;
               this.psrc = require("@/assets/images/success.png");
             }
-            if (res.data.message.email != null) {
-              this.email = res.data.message.email;
-              this.esrc = require("@/assets/images/success.png");
+            if (res.data.message.email) {
+              
             }
             this.extension_code = res.data.message.extension_code;
           }
@@ -138,8 +145,8 @@ export default {
       var clipboard = new Clipboard("#copy", {
         text: function() {
           return (
-            that.$utils.host +
-            "/dist/#/components/register?extension_code=" +
+            
+            
             that.extension_code
           );
         }

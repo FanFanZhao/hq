@@ -7,6 +7,7 @@ import userSetting from '@/components/userSetting'
 import c2c from '@/components/c2c'
 import login from '@/components/login'
 import UserCenter from '@/components/UserCenter'
+import BindEmail from '@/view/BindEmail'
 import UserSecurity from '@/view/UserSecurity'
 import register from '@/components/register'
 import account from '@/components/account'
@@ -98,6 +99,16 @@ export default new Router({
 					component: noticeList
 				},
 				{
+					path: '/components/bindEmail',
+					name: 'BindEmail',
+					component: BindEmail
+				},
+				{
+					path: '/components/resetPwd',
+					name: 'ResetPwd',
+					component: ResetPwd
+				},
+				{
 					path: '/userCenter',
 					name: 'UserCenter',
 					component: UserCenter,
@@ -168,13 +179,7 @@ export default new Router({
 			name: 'forgetPwd',
 			component: ForgetPwd
 		},
-		{
-			path: '/resetPwd',
-			name: 'resetPwd',
-			component: ResetPwd
-		},
-
-
+		
 		{
 			path: '/components/noticeDetail',
 			name: 'noticeDetail',
