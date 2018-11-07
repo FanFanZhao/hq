@@ -70,7 +70,7 @@ Axios.interceptors.request.use(function (config) {
 	// 对请求错误做些什么
 	return Promise.reject(error)
 })
-axios.interceptors.response.use(function (response) {
+Axios.interceptors.response.use(function (response) {
 	if(response.data.type == '999'){
 		window.localStorage.removeItem("token");
 		window.localStorage.removeItem("accountNum");
