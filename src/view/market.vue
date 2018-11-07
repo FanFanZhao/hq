@@ -104,9 +104,9 @@ export default {
         this.$store.state.symbol =
           this.marketList[0][0].currency_name + "/" + this.exName;
         //默认法币id和name
-
-        this.currency_id = msg[0].id;
-        var id = arr_quota[0][0].id;
+        console.log(arr_quota)
+        this.currency_id = arr_quota[0][0].legal_id;
+        var id = arr_quota[0][0].currency_id;
         var legal_name = arr_quota[0][0].currency_name;
         // console.log(this.currency_name);
         // console.log(this.currency_id);
