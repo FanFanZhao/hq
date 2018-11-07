@@ -145,8 +145,8 @@ export default {
       var clipboard = new Clipboard("#copy", {
         text: function() {
           return (
-            that.$utils.host +
-            "/dist/#/components/register?extension_code=" +
+            
+            
             that.extension_code
           );
         }
