@@ -140,6 +140,9 @@ body,
 #app .home .main .main-r .entrust .active {
   color: #d45858;
 }
+#app .home .main .main-r .entrust .ceilColor {
+  color: #009688;
+}
 #app .home .main .main-r .currency {
   border: 1px solid #343a48;
 }

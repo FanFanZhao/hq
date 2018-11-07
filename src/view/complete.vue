@@ -12,10 +12,10 @@
                 <li class="fl w12">交易量</li>
             </ul>
             <div class="containers scroll" v-if="deList.length>0">
-                <ul v-for="itm in deList" class="list-item color ft14">
+                <ul v-for="itm in deList" class="list-item color ft12">
                     <li class="clear flex">
-                        <span class=" ">{{itm.time}}</span>
-                        <span class=" ">{{itm.price}}</span>
+                        <span class=" ">{{itm.time | capitalize}}</span>
+                        <span class="green">{{itm.price}}</span>
                         <span class="">{{itm.number}}</span>
                     </li>
                 </ul>
@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+
 export default {
     name:"detail",
     data (){
@@ -41,6 +42,11 @@ export default {
             currency_id:''
         }
     },
+    filters:{
+		capitalize:function(value){
+			return value.substring(11,19)
+		}
+	},
     created(){
         this.address = localStorage.getItem('address') || '';
     },
@@ -63,7 +69,7 @@ export default {
                         // layer.close(i);
                         if(res.data.type == "ok"){
                            this.deList = res.data.message.complete;
-                        //    this.connect();
+                           this.connect();
                         }else{
                             layer.msg(res.data.message)
                         }
@@ -72,9 +78,9 @@ export default {
                     })
         },
         connect(){
+            console.log('completesocket')
             var that = this;
-
-             that.$socket.emit("login", this.$makeSocketId());
+            that.$socket.emit("login", this.$makeSocketId());
             that.$socket.on('deal_list',function(msg){
                 if(msg.type == 'deal_list'){
                     var complete = JSON.parse(msg.complete);
@@ -126,10 +132,10 @@ export default {
 .no_data{padding: 50px 0;}
 .containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 45px; display: flex;}
-/* .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;} */
+.list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
 
 .list-item li:hover{background-color: #eee; color: #de5959;}
-.list-item li span.green{color: #55a067}
+.list-item li span.green{color: #36a792}
 .containers ul li{
     display: flex;
     justify-content: space-around;
