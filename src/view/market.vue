@@ -353,7 +353,7 @@ export default {
   /* display: flex; */
 }
 .coin-wrap li span:first-child img {
-  /* margin-left: 20px; */
+  margin-right: 2px;
   width: 16px;
   vertical-align: sub;
 }

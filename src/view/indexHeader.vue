@@ -37,6 +37,7 @@
         <div class="links-box">
           <div class="account_number">{{account_number}} (邀请码 {{extension_code}})</div>
           <div class="links">
+            <router-link to="/userCenter">个人中心</router-link>
             <div @click="signOut">退出登录</div>
           </div>
         </div>
@@ -218,12 +219,16 @@ export default {
         position: absolute;
         right: 0;
         z-index: 999;
-        padding: 0 14px;
         background: #181b2a;
         display: none;
+        a{
+          border-bottom: 1px solid #383d54;
+        }
         a,
         div {
           display: block;
+          padding: 0 14px;
+          margin: 0;
           text-align: center;
           &:hover {
             color: #d45858;

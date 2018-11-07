@@ -6,6 +6,8 @@ import dealCenter from '@/components/dealCenter'
 import userSetting from '@/components/userSetting'
 import c2c from '@/components/c2c'
 import login from '@/components/login'
+import UserCenter from '@/components/UserCenter'
+import UserSecurity from '@/view/UserSecurity'
 import register from '@/components/register'
 import account from '@/components/account'
 import accountCenter from '@/view/accountCenter'
@@ -96,6 +98,17 @@ export default new Router({
 					component: noticeList
 				},
 				{
+					path: '/userCenter',
+					name: 'UserCenter',
+					component: UserCenter,
+					children:[
+						{
+							path:'',
+							component:UserSecurity
+						}
+					]
+				},
+				{
 					path: '/new_account',
 					name: 'new_account',
 					component: new_account,
@@ -124,7 +137,8 @@ export default new Router({
 						{
 							path: '/transferLegal',
 							component: transferLegal
-						}
+						},
+						
 
 
 					]
@@ -143,6 +157,7 @@ export default new Router({
 			name: 'login',
 			component: login
 		},
+		
 		{
 			path: '/components/register',
 			name: 'register',
