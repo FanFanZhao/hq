@@ -157,12 +157,12 @@ export default {
       console.log("socket");
       that.$socket.emit("login", that.token);
       that.$socket.on("daymarket", msg => {
-        console.log(msg);
+        // console.log(msg);
         if (msg.type == "daymarket") {
             var cname = msg.currency_name+'/'+msg.legal_name;
             var newprice = msg.now_price;
             var newup = msg.change;
-            console.log(cname)
+            // console.log(cname)
             if(newup<0){
               newup = newup + "%";
               $("span[data-name='" + cname + "']")

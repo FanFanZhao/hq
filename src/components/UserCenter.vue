@@ -1,20 +1,20 @@
 <template>
   <div id="user-center">
     <!-- <div class="title">个人中心</div> -->
-    <div class="content flex">
+    <div class="content">
       <ul class="content-l">
         <li>
-          <img src="../assets/images/logo.png" alt="">
+          <!-- <img src="../assets/images/logo.png" alt=""> -->
           <router-link to="/userCenter">账户设置</router-link>
         </li>
-        <li>
+        <!-- <li>
           <img src="../assets/images/logo.png" alt="">
           <router-link to="/">账户设置</router-link>
         </li>
         <li>
           <img src="../assets/images/logo.png" alt="">
           <router-link to="/dealCenter">账户设置</router-link>
-        </li>
+        </li> -->
       </ul>
       <div class="content-r">
         <router-view></router-view>
@@ -36,15 +36,21 @@ export default {};
     color: #d45858;
   }
   >.content{
-    padding-top: 50px;
+    position: relative;
+    margin-top: 50px;
+    padding-left: 180px;
     >ul,>div{
       padding: 0 30px;
       background: #f8f8f8;
     }
     >.content-l{
-      margin-right: 30px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 150px;
       line-height: 40px;
       text-align: center;
+      min-height: 200px;
       img{
         width: 20px;
         height: 20px;
