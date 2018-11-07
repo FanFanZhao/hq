@@ -39,8 +39,8 @@
             <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
               <p v-for="(itm,idx) in market"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.currency_name,itm,index,market)">
                <!-- <a  @click="changePair(itm,index,market)"> -->
-				   <span><img :src="itm.logo" alt=""><i>{{itm.currency_name}}/{{itm.legal_name}}</i></span>
-				   <span class="redColor" :data-name='itm.currency_name+"/"+itm.legal_name'>${{itm.now_price || 0}}</span>
+				   <span class="w36"><img :src="itm.logo" alt=""><i>{{itm.currency_name}}/{{itm.legal_name}}</i></span>
+				   <span class="w30 tr redColor" :data-name='itm.currency_name+"/"+itm.legal_name'>${{itm.now_price || 0}}</span>
 				   <!-- <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span> -->
 				   <span :class="{'green':itm.change>=0}">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
 			   <!-- </a> -->
@@ -155,7 +155,7 @@ export default {
     connect() {
       var that = this;
       console.log("socket");
-      that.$socket.emit("login", that.token);
+      that.$socket.emit("login", this.$makeSocketId());
       that.$socket.on("daymarket", msg => {
         console.log(msg);
         if (msg.type == "daymarket") {
@@ -372,6 +372,9 @@ export default {
   text-align: center;
   height: 30px;
 }
+.coin-wrap li span.w36{width: 36%}
+.coin-wrap li span.w36 i{padding-left: 5px;}
+.coin-wrap li span.w30{width: 30%;text-align: right;}
 .coin-wrap li span:first-child{
   padding-left: 18px;
   text-align: left;
