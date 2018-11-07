@@ -107,7 +107,7 @@ export default {
 
         this.currency_id = msg[0].id;
         var id = arr_quota[0][0].id;
-        var legal_name = arr_quota[0][0].name;
+        var legal_name = arr_quota[0][0].currency_name;
         // console.log(this.currency_name);
         // console.log(this.currency_id);
         var tradeDatas = {
@@ -116,7 +116,7 @@ export default {
           currency_name: this.currency_name,
           leg_name: legal_name
         };
-
+        console.log(tradeDatas)
         //组件间传值
         setTimeout(() => {
           eventBus.$emit("toTrade0", tradeDatas);

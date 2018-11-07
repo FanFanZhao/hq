@@ -147,10 +147,10 @@ body,
 #app .home .main .main-r .detail ul {
   color: #aaa;
 }
-#app .home .main .main-r .detail ul li:nth-child(even) {
+#app .home .main .main-r .detail .list-item li:nth-child(even) {
   background: rgba(0, 0, 0, 0.1) !important;
 }
-#app .home .main .main-r .detail ul li:hover {
+#app .home .main .main-r .detail .list-item li:hover {
   background: #1b232b !important;
 }
 #app .home .trade .available {
