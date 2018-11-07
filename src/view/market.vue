@@ -345,8 +345,15 @@ export default {
   width: 33%;
   float: left;
   text-align: center;
+  height: 30px;
+}
+.coin-wrap li span:first-child{
+  padding-left: 18px;
+  text-align: left;
+  /* display: flex; */
 }
 .coin-wrap li span:first-child img {
+  /* margin-left: 20px; */
   width: 16px;
   vertical-align: sub;
 }
