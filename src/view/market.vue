@@ -91,12 +91,14 @@ export default {
           arr_quota[i] = msg[i].quotation;
         }
         this.marketList = arr_quota;
-        this.$store.state.priceScale = Math.pow(
-          10,
-          this.marketList[0][0].now_price
-            ? this.marketList[0][0].now_price.length
-            : 0
-        );
+        // this.$store.state.priceScale = Math.pow(
+        //   10,
+        //   this.marketList[0][0].now_price
+        //     ? this.marketList[0][0].now_price.length
+        //     : 0
+        // );
+        this.$store.state.priceScale =100000;
+        console.log(this.$store.state.priceScale )
         this.$store.state.symbol =
         this.marketList[0][0].currency_name + "/" + this.exName;
         //默认法币id和name
@@ -350,8 +352,8 @@ export default {
   border-bottom: 1px solid rgb(48, 59, 75);
 }
 .coin-wrap {
-  height: 395px;
-  overflow: auto;
+  height: 500px;
+  overflow-y: auto;
 }
 .coin-wrap li p:nth-child(even) {
   background: #f8f8f8;

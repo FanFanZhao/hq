@@ -10,7 +10,7 @@
                 <span>价格({{currency_name}})</span>
                 <span>数量({{legal_name}})</span>
             </div>
-            <ul class="list-item ft14 tc">
+            <ul class="list-item ft12 tc">
                 <li class="curPer ceilColor" v-for="(out,index) in outlist" @click="price(out.price)">
                     <span >卖 {{outlist.length-index}}</span>
                     <span style="font-weight:600">{{out.price}}</span>

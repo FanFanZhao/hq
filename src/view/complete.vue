@@ -14,7 +14,7 @@
             <div class="containers scroll" v-if="deList.length>0">
                 <ul v-for="itm in deList" class="list-item color ft12">
                     <li class="clear flex">
-                        <span class=" ">{{itm.time}}</span>
+                        <span class=" ">{{itm.time | capitalize}}</span>
                         <span class="green">{{itm.price}}</span>
                         <span class="">{{itm.number}}</span>
                     </li>
@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+
 export default {
     name:"detail",
     data (){
@@ -41,6 +42,11 @@ export default {
             currency_id:''
         }
     },
+    filters:{
+		capitalize:function(value){
+			return value.substring(11,19)
+		}
+	},
     created(){
         this.address = localStorage.getItem('address') || '';
     },
