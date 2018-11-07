@@ -71,7 +71,7 @@ export default {
   },
   created: function() {
     // this.init();
-
+    this.token = localStorage.getItem("token") || "";
     //法币列表
     this.$http({
       url: this.$utils.laravel_api + "currency/quotation_new",
@@ -84,17 +84,13 @@ export default {
         if (this.exName == "") {
           this.exName = this.tabList[0].name;
         }
-
         var msg = res.data.message;
         this.currency_name = msg[0].name;
-
         var arr_quota = [];
         for (var i = 0; i < msg.length; i++) {
           arr_quota[i] = msg[i].quotation;
         }
-        //   console.log(arr_quota);
         this.marketList = arr_quota;
-
         this.$store.state.priceScale = Math.pow(
           10,
           this.marketList[0][0].now_price
@@ -102,14 +98,11 @@ export default {
             : 0
         );
         this.$store.state.symbol =
-          this.marketList[0][0].currency_name + "/" + this.exName;
+        this.marketList[0][0].currency_name + "/" + this.exName;
         //默认法币id和name
-        console.log(arr_quota)
         this.currency_id = arr_quota[0][0].legal_id;
         var id = arr_quota[0][0].currency_id;
         var legal_name = arr_quota[0][0].currency_name;
-        // console.log(this.currency_name);
-        // console.log(this.currency_id);
         var tradeDatas = {
           currency_id: this.currency_id,
           legal_id: id,
@@ -124,37 +117,69 @@ export default {
         setTimeout(() => {
           eventBus.$emit("toExchange0", tradeDatas);
         }, 1000);
+        // socket连接
+        this.connect()
       }
     });
   },
   mounted() {
     var that = this;
-    eventBus.$on("toNew", function(data) {
-      console.log(data);
-      if (data) {
-        var newprice = data.newprice;
-        var cname = data.istoken;
-        var newup = data.newup;
-        console.log(newup);
-        if (newup >= 0) {
-          newup = "+" + newup + "%";
-          $("span[data-name='" + cname + "']")
-            .next()
-            .css("color", "#55a067");
-        } else {
-          newup = newup + "%";
-          $("span[data-name='" + cname + "']")
-            .next()
-            .css("color", "#cc4951");
-        }
-        $("span[data-name='" + cname + "']")
-          .html("$" + newprice)
-          .next()
-          .html(newup);
-      }
-    });
+
+    // eventBus.$on("toNew", function(data) {
+    //   console.log(data);
+    //   if (data) {
+    //     var newprice = data.newprice;
+    //     var cname = data.istoken;
+    //     var newup = data.newup;
+    //     console.log(newup);
+    //     if (newup >= 0) {
+    //       newup = "+" + newup + "%";
+    //       $("span[data-name='" + cname + "']")
+    //         .next()
+    //         .css("color", "#55a067");
+    //     } else {
+    //       newup = newup + "%";
+    //       $("span[data-name='" + cname + "']")
+    //         .next()
+    //         .css("color", "#cc4951");
+    //     }
+    //     $("span[data-name='" + cname + "']")
+    //       .html("$" + newprice)
+    //       .next()
+    //       .html(newup);
+    //   }
+    // });
   },
   methods: {
+    // socket封装
+    connect() {
+      var that = this;
+      console.log("socket");
+      that.$socket.emit("login", that.token);
+      that.$socket.on("daymarket", msg => {
+        console.log(msg);
+        if (msg.type == "daymarket") {
+            var cname = msg.currency_name+'/'+msg.legal_name;
+            var newprice = msg.now_price;
+            var newup = msg.change;
+            console.log(cname)
+            if(newup<0){
+              newup = newup + "%";
+              $("span[data-name='" + cname + "']")
+                .next()
+                .css("color", "#cc4951");
+            }else{
+              newup = newup + "%";
+              $("span[data-name='" + cname + "']")
+                .next()
+                .css("color", "#55a067");
+            }
+            $("span[data-name='" + cname + "']")
+                .html("$" + newprice)
+                .next().html(newup)
+        }
+      });
+    },
     changePair(list, index, market) {
       console.log(list);
       console.log(typeof list.now_price);
