@@ -19,44 +19,44 @@ let bus = new Vue()
 Vue.prototype.bus = bus
 Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2134');
 Vue.prototype.$changeTheme = function (type) {
-		var head = document.querySelector('head');
-		var link = document.querySelector('link#darkTheme');
-		console.log(head,link);
-		
-		var theme = window.localStorage.getItem('theme');
-		if (theme != type) {
-			window.localStorage.setItem('theme', type);
-		}
-		if (type == 'light') {
-			if (link == null) {
-				console.log('lalalal');
-				
-				return;
-			} else {
-				head.removeChild(link);
-				eventBus.$emit('theme','light')
-			}
-		} else {
-			if (link == null) {
-				link = document.createElement('link');
-				link.id = 'darkTheme';
-				link.rel = 'stylesheet';
-				link.href = './static/theme/dark.css';
-				head.appendChild(link);
-                eventBus.$emit('theme','dark')
-			} else {
-				return;
-			}
-		}
-	}
-	Vue.prototype.$makeSocketId = function () {
-		var d = new Date().getTime();
-		console.log(d);
-		var ran = parseInt(Math.random() * 888 + 101 + '');
-		d = d + '' + ran;
-		return d;
+	var head = document.querySelector('head');
+	var link = document.querySelector('link#darkTheme');
+	console.log(head, link);
 
+	var theme = window.localStorage.getItem('theme');
+	if (theme != type) {
+		window.localStorage.setItem('theme', type);
 	}
+	if (type == 'light') {
+		if (link == null) {
+			console.log('lalalal');
+
+			return;
+		} else {
+			head.removeChild(link);
+			eventBus.$emit('theme', 'light')
+		}
+	} else {
+		if (link == null) {
+			link = document.createElement('link');
+			link.id = 'darkTheme';
+			link.rel = 'stylesheet';
+			link.href = './static/theme/dark.css';
+			head.appendChild(link);
+			eventBus.$emit('theme', 'dark')
+		} else {
+			return;
+		}
+	}
+}
+Vue.prototype.$makeSocketId = function () {
+	var d = new Date().getTime();
+	console.log(d);
+	var ran = parseInt(Math.random() * 888 + 101 + '');
+	d = d + '' + ran;
+	return d;
+
+}
 Vue.config.productionTip = false
 Axios.interceptors.request.use(function (config) {
 	if (config.url.indexOf('?') === -1) {
@@ -70,6 +70,18 @@ Axios.interceptors.request.use(function (config) {
 	// 对请求错误做些什么
 	return Promise.reject(error)
 })
+Axios.interceptors.response.use(function (response) {
+	if(response.data.type == '999'){
+		window.localStorage.removeItem("token");
+		window.localStorage.removeItem("accountNum");
+		window.localStorage.removeItem("user_id");
+		window.localStorage.removeItem("extension_code");
+		router.push('/components/login');
+	}
+	return response;
+}, function (error) {
+	return Promise.reject(error);
+});
 //Axios.defaults.baseURL = ''
 // Axios.defaults.headers = { 'Content-Type': 'application/json;charset=UTF-8' }application/x-www-form-urlencoded
 // Axios.defaults.withCredentials = true;
