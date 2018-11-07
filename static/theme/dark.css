@@ -28,6 +28,8 @@ body,
 #app > .indexBlackes #register-box {
   background: #131a21;
 }
+#app #user-center > .content > ul,
+#app #user-center > .content > div,
 #app > .login,
 #app .indexBlackes .indexBlackes,
 #app > .forget-box {
