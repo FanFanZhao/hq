@@ -17,7 +17,7 @@
                 <div class="top-title flex">
                     <div>
                         <router-link tag="span" to="/c2c" class="link-span">tether {{currency_name}}</router-link>
-                        <span>对cny</span>
+                        <span>对CNY</span>
                     </div>
                 </div>
                 <!-- <div class="top-price flex">
@@ -607,16 +607,43 @@ export default {
     },
     //添加买入
     bui_in() {
+      // if(this.price == ""){
+      //   return layer.msg('请输入单价');
+      // }
+      // if(this.num == ""){
+      //   return layer.msg('请输入数量');
+      // }
+      // if(this.user_name == ""){
+      //   return layer.msg('请输入姓名');
+      // }
+      // if(this.content == ""){
+      //   return layer.msg('请填写详细信息');
+      // }
+      // return layer.confirm('确定下单？jdasfgcb还是骄傲和大家都好福彩二手房策暗示法测啊非常', {
+      //   btn: ['是的','取消'] //按钮
+      //   }, function(){
+      //     layer.msg('下单咯', {icon: 1});
+      //   }, function(){
+      //     layer.msg('取消成功',{icon: 1})
+      // });
+      return layer.open({
+         type: 1 //Page层类型
+        ,area: ['500px', '300px']
+        ,title: '你好，layer。'
+        ,shade: 0.6 //遮罩透明度
+        ,anim: 1 //0-6的动画形式，-1不开启
+        ,content: '<div style="padding:50px;">这是一个非常普通的页面层，传入了自定义的html</div>',
+        btn: ['是的'],
+         yes: function(index){
+            layer.close(index);
+            console.log(123456789)
+        }
+
+      });    
       this.$http({
         url: "/api/c2c/add",
         method: "post",
         data: {
-          // price:this.price,
-          // number:this.num,
-          // name:this.user_name,
-          // pay_mode:'微信',
-          // content:this.content,
-          // token:this.currency_name
           price: this.price,
           number: this.num,
           name: this.user_name,
@@ -642,6 +669,18 @@ export default {
     },
     //添加卖出
     sell_out() {
+      if(this.price01 == ""){
+        return layer.msg('请输入单价');
+      }
+      if(this.num01 == ""){
+        return layer.msg('请输入数量');
+      }
+      if(this.user_name01 == ""){
+        return layer.msg('请输入姓名');
+      }
+      if(this.content01 == ""){
+        return layer.msg('请填写详细信息');
+      }
       this.$http({
         url: "/api/c2c/add",
         method: "post",
