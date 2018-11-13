@@ -12,6 +12,11 @@ import VueSocketio from 'vue-socket.io'
 import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
+
+// var protocol=window.location.protocol;
+// protocol=protocol=='http:'?'http://www.t2.fuwuqian.cn/':'https://www.t2.fuwuqian.cn/'
+// Axios.defaults.baseURL=protocol;
+
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts
 window.eventBus = new Vue()

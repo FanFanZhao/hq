@@ -30,32 +30,41 @@ export default {};
 
 <style lang='scss'>
 #user-center {
-  margin: 0 auto;
-  width: 1200px;
+  // margin: 0 auto;
+  min-width: 1200px;
+  width: 100%;
   .router-link-active{
     color: #d45858;
   }
   >.content{
     position: relative;
-    margin-top: 50px;
-    padding-left: 180px;
+    // margin-top: 50px;
+    // padding-left: 180px;
     >ul,>div{
       padding: 0 30px;
       background: #f8f8f8;
     }
     >.content-l{
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 150px;
+      // position: absolute;
+      // left: 0;
+      // top: 0;
+      // width: 150px;
+      width: 23%;
+      float: left;
       line-height: 40px;
       text-align: center;
-      min-height: 200px;
+      height: 1080px;
+      border-right: 1px solid #ddd;
+
       img{
         width: 20px;
         height: 20px;
         vertical-align: sub;
       }
+    }
+    >.content-r{
+      width: 77%;
+      float: right;
     }
   }
 }
