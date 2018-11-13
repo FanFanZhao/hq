@@ -125,7 +125,6 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.type == "ok") {
-            this.esrc = require("@/assets/images/success.png");
             if (res.data.message.phone) {
               this.account = res.data.message.phone;
               this.psrc = require("@/assets/images/success.png");
