@@ -42,8 +42,8 @@
                 </p>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <span  class="fr red mouseDefault"></span>
-                <span class="fr" v-if="email != '去绑定'">已绑定</span>
-                <router-link class="fr red" to="/components/bindEmail" v-if="email == '去绑定'">去绑定</router-link>
+                <router-link class="fr red" to="/components/bindEmail" v-if="email == '未绑定'">去绑定</router-link>
+                <span class="fr" v-else>已绑定</span>
             </li>
             <li ><img  src="@/assets/images/success.png">
                 <span  class="ml20">登录密码</span>
@@ -125,15 +125,14 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.type == "ok") {
-            this.email = res.data.message.email;
-            console.log(this.email);
             this.esrc = require("@/assets/images/success.png");
             if (res.data.message.phone) {
               this.account = res.data.message.phone;
               this.psrc = require("@/assets/images/success.png");
             }
-            if (res.data.message.email) {
-              
+            if(res.data.message.email!=null){
+                this.email=res.data.message.email;
+                this.esrc=require('@/assets/images/success.png')
             }
             this.extension_code = res.data.message.extension_code;
           }

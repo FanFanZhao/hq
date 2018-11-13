@@ -3,7 +3,7 @@
         <div class="c2c-l">
             
             <ul>
-                <li class="flex" v-for="(item,index) in currency_list" :key="index" :class="index == active?'bg_active':''" :data-id="item.id" @click="currency_click(item.id,item.name,index)">
+                <li class="flex" v-for="(item,index) in currency_list" :key="index" :class="index == active?'bg_active':''" :data-id="item.id" @click="currency_click(item.id,item.name,index,item.rate)">
                     <div class="flex">
                         <div>{{item.name}}/CNY</div>
                         <div class="redColor">{{item.name}}/人民币</div>
@@ -395,6 +395,7 @@ export default {
       currency_list: [],
       currency_name: "",
       id: "",
+      rate:0,
       price: "",
       num: "",
       pay: "支付宝",
@@ -450,14 +451,16 @@ export default {
           this.currency_list = res.data.message.legal;
           this.currency_name = res.data.message.legal[0].name;
           this.id = res.data.message.legal[0].id;
+          this.rate = res.data.message.legal[0].rate;
         }
       });
     },
     //选择币种
-    currency_click(id, name, index) {
+    currency_click(id, name, index,rate) {
       this.currency_name = name;
       this.active = index;
       this.id = id;
+      this.rate = rate;
     },
     // 获取c2clist
     getList(type) {
@@ -607,68 +610,71 @@ export default {
     },
     //添加买入
     bui_in() {
-      // if(this.price == ""){
-      //   return layer.msg('请输入单价');
-      // }
-      // if(this.num == ""){
-      //   return layer.msg('请输入数量');
-      // }
-      // if(this.user_name == ""){
-      //   return layer.msg('请输入姓名');
-      // }
-      // if(this.content == ""){
-      //   return layer.msg('请填写详细信息');
-      // }
-      // return layer.confirm('确定下单？jdasfgcb还是骄傲和大家都好福彩二手房策暗示法测啊非常', {
-      //   btn: ['是的','取消'] //按钮
-      //   }, function(){
-      //     layer.msg('下单咯', {icon: 1});
-      //   }, function(){
-      //     layer.msg('取消成功',{icon: 1})
-      // });
-      return layer.open({
-         type: 1 //Page层类型
-        ,area: ['500px', '300px']
-        ,title: '你好，layer。'
-        ,shade: 0.6 //遮罩透明度
-        ,anim: 1 //0-6的动画形式，-1不开启
-        ,content: '<div style="padding:50px;">这是一个非常普通的页面层，传入了自定义的html</div>',
-        btn: ['是的'],
-         yes: function(index){
-            layer.close(index);
-            console.log(123456789)
-        }
-
-      });    
-      this.$http({
-        url: "/api/c2c/add",
-        method: "post",
-        data: {
-          price: this.price,
-          number: this.num,
-          name: this.user_name,
-          pay_mode: this.pay,
-          content: this.content,
-          token: this.currency_name,
-          type: 0
-        },
-        headers: { Authorization: this.token }
-      }).then(res => {
-        //console.log(res);
-        layer.msg(res.data.message);
-        this.price = "";
-        this.num = "";
-        this.user_name = "";
-        this.pay = "";
-        this.content = "";
-        this.listIn = { page: 1, list: [], hasMore: true };
-        this.getList(0);
-        this.myAdd = { hasMore: true, list: [], page: 1 };
-        this.getMy("myAdd");
+      var that =this;
+      if(this.price == ""){
+        return layer.msg('请输入单价');
+      }
+      if(this.num == ""){
+        return layer.msg('请输入数量');
+      }
+      if(this.user_name == ""){
+        return layer.msg('请输入姓名');
+      }
+      if(this.content == ""){
+        return layer.msg('请填写详细信息');
+      }
+      console.log(this.rate,this.num)
+      var ratenum=(this.rate*this.num).toFixed(4)
+      return layer.confirm('数量:'+that.num+',所需手续费:'+ratenum, {
+        btn: ['确认','取消'] //按钮
+        }, function(){
+        that.$http({
+          url: "/api/c2c/add",
+          method: "post",
+          data: {
+            price: that.price,
+            number: that.num,
+            name: that.user_name,
+            pay_mode: that.pay,
+            content: that.content,
+            token: that.currency_name,
+            type: 0
+          },
+            headers: { Authorization: that.token }
+          }).then(res => {
+            layer.msg(res.data.message);
+            that.price = "";
+            that.num = "";
+            that.user_name = "";
+            that.pay = "";
+            that.content = "";
+            that.listIn = { page: 1, list: [], hasMore: true };
+            that.getList(0);
+            that.myAdd = { hasMore: true, list: [], page: 1 };
+            that.getMy("myAdd");
+          });
+        }, function(){
+          layer.msg('取消成功',{icon: 1})
       });
+      // return layer.open({
+      //    type: 1 //Page层类型
+      //   ,area: ['500px', '300px']
+      //   ,title: '你好，layer。'
+      //   ,shade: 0.6 //遮罩透明度
+      //   ,anim: 1 //0-6的动画形式，-1不开启
+      //   ,content: '<div style="padding:50px;">这是一个非常普通的页面层，传入了自定义的html</div>',
+      //   btn: ['是的'],
+      //    yes: function(index){
+      //       layer.close(index);
+      //       console.log(123456789)
+      //   }
+
+      // });    
+      
     },
     //添加卖出
     sell_out() {
+      var that = this;
       if(this.price01 == ""){
         return layer.msg('请输入单价');
       }
@@ -681,36 +687,44 @@ export default {
       if(this.content01 == ""){
         return layer.msg('请填写详细信息');
       }
-      this.$http({
-        url: "/api/c2c/add",
-        method: "post",
-        data: {
-          price: this.price01,
-          number: this.num01,
-          name: this.user_name01,
-          pay_mode: this.pay01,
-          content: this.content01,
-          token: this.currency_name,
-          type: 1
-        },
-        headers: { Authorization: this.token }
-      })
-        .then(res => {
-          //console.log(res);
-          layer.msg(res.data.message);
-          this.price = "";
-          this.num = "";
-          this.user_name = "";
-          this.pay = "";
-          this.content = "";
-          this.listOut = { page: 1, list: [], hasMore: true };
-          this.getList(1);
-          this.myAdd = { hasMore: true, list: [], page: 1 };
-          this.getMy("myAdd");
-        })
-        .catch(res => {
-          layer.msg(res.data.message);
-        });
+      var ratenum=(this.rate*this.num01).toFixed(4)
+      return layer.confirm('数量:'+that.num01+',所需手续费:'+ratenum, {
+        btn: ['确认','取消'] //按钮
+        }, function(){
+         that.$http({
+            url: "/api/c2c/add",
+            method: "post",
+            data: {
+              price: that.price01,
+              number: that.num01,
+              name: that.user_name01,
+              pay_mode: that.pay01,
+              content: that.content01,
+              token: that.currency_name,
+              type: 1
+            },
+            headers: { Authorization: that.token }
+          })
+            .then(res => {
+              //console.log(res);
+              layer.msg(res.data.message);
+              that.price = "";
+              that.num = "";
+              that.user_name = "";
+              that.pay = "";
+              that.content = "";
+              that.listOut = { page: 1, list: [], hasMore: true };
+              that.getList(1);
+              that.myAdd = { hasMore: true, list: [], page: 1 };
+              that.getMy("myAdd");
+            })
+            .catch(res => {
+              layer.msg(res.data.message);
+            });
+        }, function(){
+          layer.msg('取消成功',{icon: 1})
+      });
+
     }
   }
 };
