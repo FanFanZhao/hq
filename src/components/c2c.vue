@@ -3,7 +3,7 @@
         <div class="c2c-l">
             
             <ul>
-                <li class="flex" v-for="(item,index) in currency_list" :key="index" :class="index == active?'bg_active':''" :data-id="item.id" @click="currency_click(item.id,item.name,index,item.rate)">
+                <li class="flex" v-for="(item,index) in currency_list" :key="index" :class="index == active?'bg_active':''" :data-id="item.id" @click="currency_click(item.id,item.name,index,item.c2c_ratio)">
                     <div class="flex">
                         <div>{{item.name}}/CNY</div>
                         <div class="redColor">{{item.name}}/人民币</div>
@@ -67,7 +67,7 @@
                                 <input type="text" v-model="content">
                             </div>
                         </div>
-                        <div class="pay-opts flex">
+                        <div class="pay-opts flex hide">
                             <div>支付方式</div>
                             <div>
                     
@@ -129,7 +129,7 @@
                                 <input type="text" v-model="content01" />
                             </div>
                         </div>
-                        <div class="pay-opts flex">
+                        <div class="pay-opts flex hide">
                             <div>支付方式</div>
                             <div>
                     
@@ -185,13 +185,14 @@
                     <div>商家</div>
                     <!-- <div>成交单数</div> -->
                     <!-- <div>平均用时</div> -->
-                    <div>付款方式</div>
-                    <div style="visibility: hidden;">一一24234234</div>
+                    <!-- <div>付款方式</div> -->
+                    <div class="tr">操作</div>
                 </div>
                 <div class="ul-box" v-if="nowList == 'listIn'">
+                    <!-- c2c卖出 -->
                     <ul class="ul-out" v-if="showList&&listOut.list.length">
                         <li v-for="(item,index) in listOut.list" :key="index" class="flex">
-                            <div style="color:#25796a">卖出</div>
+                            <div class="blue">卖出</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -199,7 +200,7 @@
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
                             <!-- <div></div> -->
-                            <div>{{item.pay_mode}}</div>
+                            <!-- <div>{{item.pay_mode}}</div> -->
                             <div class="last">
 
                                 <div class="btn-last" @click="buySell(item.id,'buy')">买入</div>
@@ -212,9 +213,10 @@
                         
                     </ul>
                     <!-- <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div> -->
+                    <!-- c2c买入 -->
                     <ul class="ul-in" v-if="showList&&listIn.list.length">
                         <li v-for="(item,index) in listIn.list" :key="index" class="flex">
-                            <div>买入</div>
+                            <div class="red">买入</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -222,7 +224,7 @@
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
                             <!-- <div></div> -->
-                            <div>{{item.pay_mode}}</div>
+                            <!-- <div>{{item.pay_mode}}</div> -->
                             <div class="last">
 
                                 <div v-if="item.status_name == '等待中'" @click="buySell(item.id,'sell')" class="btn-last">卖出</div>
@@ -234,10 +236,11 @@
                     <div class="more"  v-if="(listIn.list.length&&listIn.hasMore) || (listOut.list.length&&listOut.hasMore)" @click="getList(0);getList(1)">加载更多</div>
 
                 </div>
+                <!-- 我发布的买入卖出 -->
                 <div class="ul-box" v-if="nowList == 'myAdd'">
                     <ul class="ul-out" v-if="showList&&myAdd.list.length">
                         <li v-for="(item,index) in myAdd.list" :key="index" class="flex" >
-                            <div style="color:#25796a">卖出</div>
+                            <div :class='item.type_name=="挂买"?"red":"blue"'>{{item.type_name}}</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -245,7 +248,7 @@
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
                             <!-- <div></div> -->
-                            <div>{{item.pay_mode}}</div>
+                            <!-- <div>{{item.pay_mode}}</div> -->
                             <div class="last">
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #ca4141;">取消交易</div> -->
 
@@ -265,10 +268,11 @@
                     <div class="more"  v-if="myAdd.list.length&&myAdd.hasMore&&this.showList" @click="getMy('myAdd')">加载更多</div>
                     
                 </div>
+                <!-- 我交易的 -->
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
                         <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" >
-                            <div style="color:#25796a">{{item.type_name}}</div>
+                            <div :class='item.transaction_name=="买入"?"red":"blue"'>{{item.transaction_name}}</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -276,7 +280,7 @@
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
                             <!-- <div></div> -->
-                            <div>{{item.pay_mode}}</div>
+                            <!-- <div>{{item.pay_mode}}</div> -->
                             <div class="last">
                                  <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
@@ -313,16 +317,16 @@
                     
                     <div class="c2c-detail" v-if="detail.type=='c2c'">
                         <div>
-                            <span>买家账号：</span><span>{{detail.user_info.account_number}}</span>
+                            <span>{{detail.c2c.type==0?'买家':'卖家'}}账号：</span><span>{{detail.user_info.account_number}}</span>
                         </div>
                         <div>
-                            <span>买家姓名：</span><span>{{detail.c2c.name}}</span>
+                            <span>{{detail.c2c.type==0?'买家':'卖家'}}姓名：</span><span>{{detail.c2c.name}}</span>
                         </div>
                     </div>
                     <div class="myC2cDetail" v-if="detail.type=='myC2c'">
-                        <div>
-                            <span>我的账号：</span><span>{{detail.user_info.account_number}}</span>
-                        </div>
+                        <!-- <div>
+                          <span>我的账号：</span><span>{{detail.user_info.account_number}}</span>
+                        </div> -->
                         <div>
                             <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
                         </div>
@@ -341,7 +345,7 @@
                             <span>我的账号：</span>{{detail.transaction_user.account_number}}<span></span>
                         </div>
                         <div>
-                            <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
+                            <span>交易类型：</span><span>{{detail.c2c.transaction_name}}</span>
                         </div>
                         <div>
                             <span>币  种：</span><span>{{detail.c2c.token}}</span>
@@ -362,7 +366,7 @@
                             <span>微信账号：</span><span>{{detail.account_info.wechat_account}}</span>
                         </div>
                         <div>
-                            <span>银行卡 ：</span><span>{{detail.account_info.bank_account}}</span>
+                            <span>银行卡 ：</span><span>{{detail.account_info.bank_name}}{{detail.account_info.bank_account}}</span>
                         </div>
                         <div>
                             <span>支付宝 ：</span><span>{{detail.account_info.alipay_account}}</span>
@@ -371,9 +375,12 @@
                     <div class="num">
                         <span>数  量：</span><span>{{detail.c2c.number}}</span>
                     </div>
-                    <div class="pay">
-                        <span>支付方式：</span><span>{{detail.c2c.pay_mode}}</span>
+                    <div>
+                        <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
                     </div>
+                    <!-- <div class="pay">
+                        <span>支付方式：</span><span>{{detail.c2c.pay_mode}}</span>
+                    </div> -->
                 </div>
                 
             </div>
@@ -395,7 +402,7 @@ export default {
       currency_list: [],
       currency_name: "",
       id: "",
-      rate:0,
+      c2c_ratio:0,
       price: "",
       num: "",
       pay: "支付宝",
@@ -451,16 +458,16 @@ export default {
           this.currency_list = res.data.message.legal;
           this.currency_name = res.data.message.legal[0].name;
           this.id = res.data.message.legal[0].id;
-          this.rate = res.data.message.legal[0].rate;
+          this.c2c_ratio = res.data.message.legal[0].c2c_ratio;
         }
       });
     },
     //选择币种
-    currency_click(id, name, index,rate) {
+    currency_click(id, name, index,c2c_ratio) {
       this.currency_name = name;
       this.active = index;
       this.id = id;
-      this.rate = rate;
+      this.c2c_ratio = c2c_ratio;
     },
     // 获取c2clist
     getList(type) {
@@ -623,11 +630,12 @@ export default {
       if(this.content == ""){
         return layer.msg('请填写详细信息');
       }
-      console.log(this.rate,this.num)
-      var ratenum=(this.rate*this.num).toFixed(4)
-      return layer.confirm('数量:'+that.num+',所需手续费:'+ratenum, {
+      console.log(this.c2c_ratio,this.num)
+      var c2c_rationum=(this.c2c_ratio*this.num).toFixed(4)
+      layer.confirm('数量:'+that.num+',所需手续费:'+c2c_rationum, {
         btn: ['确认','取消'] //按钮
         }, function(){
+        let  i = layer.load();
         that.$http({
           url: "/api/c2c/add",
           method: "post",
@@ -642,6 +650,7 @@ export default {
           },
             headers: { Authorization: that.token }
           }).then(res => {
+            layer.close(i);
             layer.msg(res.data.message);
             that.price = "";
             that.num = "";
@@ -687,10 +696,11 @@ export default {
       if(this.content01 == ""){
         return layer.msg('请填写详细信息');
       }
-      var ratenum=(this.rate*this.num01).toFixed(4)
-      return layer.confirm('数量:'+that.num01+',所需手续费:'+ratenum, {
+      var c2c_rationum=(this.c2c_ratio*this.num01).toFixed(4)
+      return layer.confirm('数量:'+that.num01+',所需手续费:'+c2c_rationum, {
         btn: ['确认','取消'] //按钮
         }, function(){
+        let  i = layer.load();
          that.$http({
             url: "/api/c2c/add",
             method: "post",
@@ -706,7 +716,7 @@ export default {
             headers: { Authorization: that.token }
           })
             .then(res => {
-              //console.log(res);
+              layer.close(i);
               layer.msg(res.data.message);
               that.price = "";
               that.num = "";
@@ -788,7 +798,7 @@ export default {
     cursor: pointer;
   }
   .bg_active {
-    background: #f8f8f8;
+    background: #dfe8f3;
   }
   border-top: 1px solid #ddd;
   font-size: 14px;
@@ -797,7 +807,7 @@ export default {
     padding: 30px;
     width: 23%;
     ul {
-      background: #dfe8f3;
+      background: #f8f8f8;
     }
     li {
       padding: 0 10px;
@@ -806,7 +816,7 @@ export default {
 
       line-height: 40px;
       &:hover {
-        background: #f8f8f8;
+        background: #dfe8f3;
       }
       .redColor {
         margin-left: 10px;
@@ -995,7 +1005,7 @@ export default {
           text-align: left;
         }
         > div:nth-child(n + 2) {
-          width: 15.38%;
+          width: 25.38%;
         }
         > .last {
           text-align: right;
@@ -1003,8 +1013,9 @@ export default {
             float: right;
             padding: 0 10px;
             min-width: 55px;
-            max-width: 80px;
+            // max-width: 80px;
             color: #fff;
+            margin-left: 5px;
 
             //   margin-left: 70px;
             text-align: center !important;
@@ -1019,7 +1030,7 @@ export default {
         }
 
         .btn-last {
-          background: #25796a;
+          background: #ca4141;
         }
       }
       .ul-in li {
@@ -1028,10 +1039,12 @@ export default {
         }
 
         .btn-last {
-          background: #ca4141;
+          background: #25796a;
         }
       }
     }
   }
 }
+#c2c-box > .c2c-r > .bot .ul-out li > div.red{color:#ca4141}
+#c2c-box > .c2c-r > .bot .ul-out li > div.blue{color: #25796a}
 </style>

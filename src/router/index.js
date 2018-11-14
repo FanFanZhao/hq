@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import homeContent from '@/view/homeContent'
 import dealCenter from '@/components/dealCenter'
+import fiatradCenter from '@/components/fiatradCenter'
 import userSetting from '@/components/userSetting'
 import c2c from '@/components/c2c'
 import login from '@/components/login'
@@ -56,12 +57,16 @@ export default new Router({
 					component: homeContent
 
 				},
-				
-				
+
 				{
 					path: '/dealCenter',
 					name: 'dealCenter',
 					component: dealCenter
+				},
+				{
+					path: '/fiatradCenter',
+					name: 'fiatradCenter',
+					component: fiatradCenter
 				},
 			
 				{

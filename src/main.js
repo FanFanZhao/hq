@@ -14,7 +14,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
 
 // var protocol=window.location.protocol;
-// protocol=protocol=='http:'?'http://www.www.guiguu.com/':'https://www.www.guiguu.com/'
+// protocol=protocol=='http:'?'http://www.t2.fuwuqian.cn/':'https://www.t2.fuwuqian.cn/'
 // Axios.defaults.baseURL=protocol;
 
 Vue.use(VueAwesomeSwiper)
@@ -22,7 +22,7 @@ Vue.prototype.$echarts = echarts
 window.eventBus = new Vue()
 let bus = new Vue()
 Vue.prototype.bus = bus
-Vue.use(VueSocketio, 'http://www.guiguu.com:2134');
+Vue.use(VueSocketio, 'http://t2.fuwuqian.cn:2134');
 Vue.prototype.$changeTheme = function (type) {
 	var head = document.querySelector('head');
 	var link = document.querySelector('link#darkTheme');

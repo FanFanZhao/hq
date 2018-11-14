@@ -7,6 +7,7 @@
       <router-link to="/" exact>首页</router-link>
       <router-link to="/c2c">c2c交易</router-link>
       <router-link to="/dealCenter">币币交易</router-link>
+      <!-- <router-link to="/fiatradCenter">法币交易</router-link> -->
       <router-link to="/userSetting">安全设置</router-link>
       <router-link to="/components/noticeList">公告</router-link>
       <div class="coin-box">
