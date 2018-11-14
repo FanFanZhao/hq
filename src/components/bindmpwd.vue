@@ -4,8 +4,8 @@
         <div class="content-wrap">
             <div class="account">
                 <div class="main">
-                    <p class="main_title">重置密码</p>
-                    <div class="register-input">
+                    <p class="main_title">设置密码</p>
+                    <div class="register-input" v-if="old">
                         <span class="register-item">请输入原密码</span>
                         <input type="password" class="input-main input-content" maxlength="20" v-model="oldPwd" id="account">
                     </div>
@@ -43,6 +43,7 @@
 export default {
   data() {
     return {
+      old:false,
       oldPwd: "",
       pwd: "",
       rePwd: "",
@@ -50,20 +51,39 @@ export default {
       resetSeconds: "发送验证码"
     };
   },
-
+  created(){
+    this.mexit();
+  },
   methods: {
+    mexit(){
+      var that = this;
+      this.$http({
+        url: "/api/" + "safe/judge_password",
+        method: "post",
+        data:{},
+        headers: { Authorization: localStorage.getItem("token") }
+      })
+      .then(res => {
+        console.log(res)
+        if(res.data.type=='ok'){
+          that.old=true
+        }
+      })
+      .catch(error => {});
+    },
     sendCode() {
+
       if (this.resetSeconds != "发送验证码") {
+       console.log(123)
         return;
       }
       let msg = "";
       let oldpassword = this.oldPwd;
-
       let password = this.pwd;
       let re_password = this.rePwd;
 
-      if (oldpassword == "" || password == "" || re_password == "") {
-        return;
+      if (password == "" || re_password == "") {
+        return layer.msg("请输入两次密码");
       } else if (password != re_password) {
         layer.msg("两次输入的密码不一致");
         return;
@@ -71,7 +91,7 @@ export default {
       this.$http({
         url: "/api/password_send",
         method: "post",
-        data: { type: 1 },
+        data: { type: 2 },
         headers: { Authorization: localStorage.getItem("token") }
       }).then(res => {
         layer.msg(res.data.message);
@@ -93,12 +113,11 @@ export default {
     reset() {
       let msg = "";
       let oldpassword = this.oldPwd;
-
       let password = this.pwd;
       let re_password = this.rePwd;
       let login_password_code = this.code;
       if (
-        oldpassword == "" ||
+        // oldpassword == "" ||
         password == "" ||
         re_password == "" ||
         login_password_code == ""
@@ -109,25 +128,18 @@ export default {
         return;
       } else {
         this.$http({
-          url: "/api/safe/alter_password",
+          url: "/api/safe/update_password",
           method: "post",
           data: {
             oldpassword: oldpassword,
             password: password,
             re_password: re_password,
-            login_password_code: login_password_code
+            code: login_password_code
           },
           headers: { Authorization: localStorage.getItem("token") }
         }).then(res => {
           console.log(res);
           layer.msg(res.data.message);
-          if (res.data.type == "ok") {
-            window.localStorage.removeItem("token");
-            window.localStorage.removeItem("accountNum");
-            window.localStorage.removeItem("user_id");
-            window.localStorage.removeItem("extension_code");
-            this.$router.push("/components/login");
-          }
         });
       }
     }

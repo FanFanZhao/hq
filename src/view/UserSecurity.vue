@@ -45,6 +45,17 @@
                 <router-link class="fr red" to="/components/bindEmail" v-if="email == '未绑定'">去绑定</router-link>
                 <span class="fr" v-else>已绑定</span>
             </li>
+            <li>
+                <img  :src="msrc">
+                <span  class="ml20">资金密码</span>
+                <p  class="fl">
+                  <span>{{mpwd}}</span>
+                </p>
+                <span  class="fr red ml25 mouseDefault"></span>
+                <span  class="fr red mouseDefault"></span>
+                <!-- <router-link class="fr red" to="/components/bindmpwd" v-if="email == '未设置'">未设置</router-link> -->
+                <router-link class="fr red" to="/components/bindmpwd">{{goset}}</router-link>
+            </li>
             <li ><img  src="@/assets/images/success.png">
                 <span  class="ml20">登录密码</span>
                 <p  class="fl">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</p>
@@ -96,9 +107,12 @@ export default {
       ],
       account: "未绑定",
       email: "未绑定",
+      mpwd:"未设置",
+      goset:"去设置",
       extension_code: "",
       psrc: require("@/assets/images/icon_error.png"),
-      esrc: require("@/assets/images/icon_error.png")
+      esrc: require("@/assets/images/icon_error.png"),
+      msrc: require("@/assets/images/icon_error.png")
     };
   },
   created() {
@@ -138,6 +152,33 @@ export default {
         })
         .catch(error => {});
     },
+    mexit(){
+      var that = this;
+      this.$http({
+        url: "/api/" + "safe/judge_password",
+        method: "post",
+        data:{},
+        headers: { Authorization: localStorage.getItem("token") }
+      })
+        .then(res => {
+          console.log(res);
+          if(res.data.type=='ok'){
+            that.mpwd='已设置',
+            that.goset='修改',
+            that.msrc = require("@/assets/images/success.png");
+          }
+            // if (res.data.message.phone) {
+            //   this.account = res.data.message.phone;
+            //   this.psrc = require("@/assets/images/success.png");
+            // }
+            // if(res.data.message.email!=null){
+            //     this.email=res.data.message.email;
+            //     this.esrc=require('@/assets/images/success.png')
+            // }
+            // this.extension_code = res.data.message.extension_code;
+        })
+        .catch(error => {});
+    },
     copy() {
       var that = this;
       var clipboard = new Clipboard("#copy", {
@@ -158,6 +199,9 @@ export default {
         layer.msg("请重新复制");
       });
     }
+  },
+  mounted(){
+    this.mexit()
   }
 };
 </script>

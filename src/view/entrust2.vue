@@ -132,10 +132,12 @@ export default {
       if (index == 1) {
         this.urls = "transaction_out";
         this.types = "out";
+        this.type = "out";
         this.getdata(this.urls, this.types);
       } else if (index == 0) {
         this.urls = "transaction_in";
         this.types = "in";
+        this.type = "in";
         this.getdata(this.urls, this.types);
       }
     },
@@ -152,6 +154,7 @@ export default {
       this.getHistory();
     },
     revoke(id) {
+      console.log(this.type)
       var that = this;
       layer.confirm("确认要删除吗？", ["确定", "取消"], () => {
         // var id = id;

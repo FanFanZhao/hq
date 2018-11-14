@@ -209,7 +209,7 @@ export default {
 }
 .code-box {
   width: 520px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
 }
 .code-box .input-main {
   width: 419px;

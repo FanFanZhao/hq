@@ -23,6 +23,7 @@ body,
 		}
 	}
 	>.indexBlackes{
+		background: #131a21;
 		>.login,.forget-box,#register-box,{
 			background: @bg-part;
 		}
@@ -326,10 +327,22 @@ body,
     li{
       border-bottom: 1px dashed #61688a;
     }
-  }
+	}
+	.brcolor{border-right: 1px dashed #2f3440}
+	// 公告
+	.noticeDetail{
+		background: @bg-part;
+	}	
+	// 个人
+	#user-center > .content > .content-l{
+		border-right: 1px solid #1e272f;
+	}
+	#user-security ul li {
+    border-top: 1px solid #1e272f;
 }
-.brcolor{border-right: 1px dashed #2f3440}
-// 公告
-.noticeDetail{
-	background: @bg-part;
-}	
+	.input-main{
+		border-color: #4b535f;
+		color: #fff;
+		background: #1b212f;
+	}
+}

@@ -41,6 +41,7 @@ import currencyEdit from '@/view/edit_currency'
 
 import ForgetPwd from '@/components/ForgetPwd' //忘记密码
 import ResetPwd from '@/components/ResetPwd' //重置密码密码
+import bindmpwd from '@/components/bindmpwd' //资金密码
 import withdraw_address from '@/view/accounts/withdraw_address'
 Vue.use(Router)
 export default new Router({
@@ -112,6 +113,11 @@ export default new Router({
 					path: '/components/resetPwd',
 					name: 'ResetPwd',
 					component: ResetPwd
+				},
+				{
+					path: '/components/bindmpwd',
+					name: 'bindmpwd',
+					component: bindmpwd
 				},
 				{
 					path: '/userCenter',
