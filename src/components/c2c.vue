@@ -322,10 +322,13 @@
                         <div>
                             <span>{{detail.c2c.type==0?'买家':'卖家'}}姓名：</span><span>{{detail.c2c.name}}</span>
                         </div>
+                        <div v-if="detail.c2c.type=1">
+                          <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
+                        </div>
                     </div>
-                    
+                    <!-- 我发布的内容 -->
                     <div class="myC2cDetail" v-if="detail.type=='myc2c'">
-                     
+                        
                         <div>
                             <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
                         </div>
@@ -353,6 +356,7 @@
                           </div>
                         </div>
                     </div>
+                    <!-- 我交易的内容 -->
                     <div class="trade-detail" v-if="detail.type=='trade'">
                         <div>
                             <span>我的账号：</span>{{detail.transaction_user.account_number}}<span></span>
@@ -384,21 +388,29 @@
                         <div>
                             <span>支付宝：</span><span>{{detail.account_info.alipay_account}}</span>
                         </div>
+                        <!-- <div v-if="detail.c2c=">
+                          <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
+                        </div> -->
                     </div>
                     <div class="num">
                       <span>数  量：</span><span>{{detail.c2c.number}}</span>
                     </div>
                     <div>
-                      <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
-                    </div>
-                    <div>
                       <span>状 态：</span><span class="blue">{{detail.c2c.status_name}}</span>
                     </div>
-                    <!-- <div class="pay">
-                        <span>支付方式：</span><span>{{detail.c2c.pay_mode}}</span>
+                    <!-- <div v-if="detail.type=='myc2c'">
+                      <div class="upbox" v-if="detail.c2c.status == 1&&detail.c2c.type == 0&&detail.c2c.pay_time<=0">
+                        <div class="updev">上传付款凭证</div>
+                        <input id="photo" type="file" name="image" accept="image/*" multiple="" class="input_avator" @change="updev(detail.c2c.id)">
+                      </div>
+                    </div>
+                    <div v-if="detail.type=='trade'">
+                      <div class="upbox" v-if="detail.c2c.status == 1&&detail.c2c.type == 1&&detail.c2c.pay_time<=0">
+                        <div class="updev">上传付款凭证</div>
+                        <input id="photo" type="file" name="image" accept="image/*" multiple="" class="input_avator" @change="updev(detail.c2c.id)">
+                      </div>
                     </div> -->
-                </div>
-                
+                </div>            
             </div>
         </div>
     </div>
@@ -433,6 +445,7 @@ export default {
       currency_name: "",
       showList: true,
       showDetail: false,
+      src:'',
       detail: {} //li详情
     };
   },
@@ -766,7 +779,51 @@ export default {
           layer.msg('取消成功',{icon: 1})
       });
 
+    },
+    // 上传打款凭证
+    updev(id){
+      var that =this;
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); 
+      reader.onload = function(e){
+        console.log(e.target.result)
+        that.src=e.target.result
+      } 
+      var formData = new FormData();
+      formData.append("file", event.target.files[0]); 
+      $.ajax({
+          url: '/api/'+'upload',
+          type: 'post',
+          data: formData,
+          processData: false,
+          contentType: false,
+          headers: { Authorization: that.token },
+          success: function (msg) {
+            console.log(msg)
+            // that.src=msg.message
+            that.upimg(id,msg.message);
+        }
+      });     
+    },
+    upimg(id,avatar){
+      var that = this;
+      this.$http({
+        url: '/api/'+'c2c/pay',
+        method:'post',
+        headers: { Authorization: that.token },
+        data:{
+            id:id,
+            pay_voucher:avatar
+        },    
+      }).then(res=>{
+          console.log(res);
+              layer.msg(res.data.message)
+          }).catch(error=>{
+              
+      }) 
+
     }
+
   }
 };
 </script>
@@ -837,6 +894,7 @@ export default {
     border-right: 1px solid #ddd;
     padding: 30px;
     width: 23%;
+
     ul {
       background: #f8f8f8;
     }
@@ -1079,4 +1137,17 @@ export default {
 #c2c-box > .c2c-r > .bot .ul-out li > div.red{color:#ca4141}
 #c2c-box > .c2c-r > .bot .ul-out li > div.blue{color: #25796a}
 .blue{color: #25796a}
+.upbox{
+  position: relative; 
+  cursor: pointer;
+  .updev{width: 80%;height: 40px;line-height: 40px;color: #fff;background:#ca4141;margin: 0 auto;text-align: center;border-radius: 4px;margin-top: 5px;cursor: pointer; }
+  #photo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
 </style>
