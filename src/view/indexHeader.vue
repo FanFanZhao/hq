@@ -16,7 +16,7 @@
       </div>
       <div>
         <div class="download">
-          <div>app下载</div>
+          <div class="curPer">app下载</div>
           <img src="../assets/images/ewm.png" alt="">
         </div>
       </div>
@@ -151,6 +151,7 @@ export default {
     }
     .download{
       position: relative;
+      
       img{
         position: absolute;
         display: none;
@@ -160,6 +161,7 @@ export default {
         left: -20px;
       }
       &:hover{
+        color: #d45858;
         img{
           display: block;
         }

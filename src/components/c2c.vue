@@ -257,7 +257,7 @@
                                 <div v-if="item.type == 1&&item.status == 1" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
                                 <span class="show-detail" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                                 <span class="show-detail" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
-                                <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
+                                <span class="show-detail" @click="getDetail(item.id,'myc2c',$event)">详情</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -323,10 +323,9 @@
                             <span>{{detail.c2c.type==0?'买家':'卖家'}}姓名：</span><span>{{detail.c2c.name}}</span>
                         </div>
                     </div>
-                    <div class="myC2cDetail" v-if="detail.type=='myC2c'">
-                        <!-- <div>
-                          <span>我的账号：</span><span>{{detail.user_info.account_number}}</span>
-                        </div> -->
+                    
+                    <div class="myC2cDetail" v-if="detail.type=='myc2c'">
+                     
                         <div>
                             <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
                         </div>
@@ -336,8 +335,22 @@
                         <div>
                             <span>价  格：</span><span>{{detail.c2c.price}}</span>
                         </div>
-                        <div>
-                            <span>详  情：</span><span>{{detail.c2c.content}}</span>
+                        <div v-if="detail.c2c.status!=0"> 
+                          <div>
+                            <span>交易人：</span><span>{{detail.transaction_account_info.account_number}}</span>
+                          </div>
+                          <div>
+                            <span>姓 名：</span><span>{{detail.transaction_account_info.real_name}}</span>
+                          </div>
+                          <div>
+                            <span>微 信:</span><span>{{detail.transaction_account_info.wechat_account}}</span>
+                          </div>
+                          <div>
+                            <span>支付宝:</span><span>{{detail.transaction_account_info.alipay_account}}</span>
+                          </div>
+                          <div>
+                            <span>银行卡:</span><span>{{detail.transaction_account_info.bank_name}}{{detail.transaction_account_info.bank_account}}</span>
+                          </div>
                         </div>
                     </div>
                     <div class="trade-detail" v-if="detail.type=='trade'">
@@ -357,7 +370,7 @@
                             <span>详  情：</span><span>{{detail.c2c.content}}</span>
                         </div>
                         <div>
-                            <span>交易人 ：</span><span>{{detail.user_info.account_number}}</span>
+                            <span>交易人：</span><span>{{detail.user_info.account_number}}</span>
                         </div>
                         <div>
                             <span>姓  名：</span><span>{{detail.c2c.name}}</span>
@@ -366,17 +379,20 @@
                             <span>微信账号：</span><span>{{detail.account_info.wechat_account}}</span>
                         </div>
                         <div>
-                            <span>银行卡 ：</span><span>{{detail.account_info.bank_name}}{{detail.account_info.bank_account}}</span>
+                            <span>银行卡：</span><span>{{detail.account_info.bank_name}}{{detail.account_info.bank_account}}</span>
                         </div>
                         <div>
-                            <span>支付宝 ：</span><span>{{detail.account_info.alipay_account}}</span>
+                            <span>支付宝：</span><span>{{detail.account_info.alipay_account}}</span>
                         </div>
                     </div>
                     <div class="num">
-                        <span>数  量：</span><span>{{detail.c2c.number}}</span>
+                      <span>数  量：</span><span>{{detail.c2c.number}}</span>
                     </div>
                     <div>
-                        <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
+                      <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
+                    </div>
+                    <div>
+                      <span>状 态：</span><span class="blue">{{detail.c2c.status_name}}</span>
                     </div>
                     <!-- <div class="pay">
                         <span>支付方式：</span><span>{{detail.c2c.pay_mode}}</span>
@@ -515,7 +531,21 @@ export default {
     },
     // c2c列表买入卖出
     buySell(id, type) {
+      var that = this;
       // this.showDetail  = false;
+      if(type=='buy'){
+      layer.confirm('必须在30分钟内完成付款，否则将会被冻结账号确认下单？', {
+          btn: ['确认','取消'] //按钮
+        }, function(){
+          that.buyandsell(id,type);
+        }, function(){
+          layer.msg('取消成功');
+        });
+      }else{
+        that.buyandsell(id,type);
+      }
+    },
+    buyandsell(id,type){
       let  i = layer.load();
       this.$http({
         url: "/api/c2c/" + type,
@@ -606,6 +636,7 @@ export default {
           this.detail.c2c = res.data.message.c2c;
           this.detail.account_info = res.data.message.account_info;
           this.detail.user_info = res.data.message.user_info;
+          this.detail.transaction_account_info = res.data.message.transaction_account_info;
           this.detail.type = type;
           if (res.data.message.transaction_user) {
             this.detail.transaction_user = res.data.message.transaction_user;
@@ -1047,4 +1078,5 @@ export default {
 }
 #c2c-box > .c2c-r > .bot .ul-out li > div.red{color:#ca4141}
 #c2c-box > .c2c-r > .bot .ul-out li > div.blue{color: #25796a}
+.blue{color: #25796a}
 </style>
