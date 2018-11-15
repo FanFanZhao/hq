@@ -253,8 +253,8 @@
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #ca4141;">取消交易</div> -->
 
                                 <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
-                                <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div>
-                                <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
+                                <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div> -->
+                                <div v-if="item.type == 1&&item.status == 1" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
                                 <span class="show-detail" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                                 <span class="show-detail" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
                                 <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
@@ -282,7 +282,7 @@
                             <!-- <div></div> -->
                             <!-- <div>{{item.pay_mode}}</div> -->
                             <div class="last">
-                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
+                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type == 0)&&item.status==1">确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                                 <span class="show-detail" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
                                 <span class="show-detail" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
