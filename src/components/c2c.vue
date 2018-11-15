@@ -335,7 +335,7 @@
                         <div>
                             <span>价  格：</span><span>{{detail.c2c.price}}</span>
                         </div>
-                        <div v-if="detail.c2c.status!=0"> 
+                        <div v-if="detail.c2c.status!=0&&detail.c2c.status!=3"> 
                           <div>
                             <span>交易人：</span><span>{{detail.transaction_account_info.account_number}}</span>
                           </div>

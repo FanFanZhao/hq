@@ -176,6 +176,9 @@ body,
 #app #c2c-box > div {
   background: #131a21;
 }
+#app #c2c-box .mask {
+  background: rgba(0, 0, 0, 0.7);
+}
 #app #c2c-box .c2c-l {
   margin-right: 10px;
   border: none;
