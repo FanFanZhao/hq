@@ -58,7 +58,7 @@
                                 <span>单价CNY</span>
                                 <input v-model="price" type="number">
                             </div>
-                            <div class="inp-box">
+                            <div class="inp-box hide">
                                 <span>姓名</span>
                                 <input type="text" v-model="user_name">
                             </div>
@@ -120,7 +120,7 @@
                                 <span>单价CNY</span>
                                 <input type="number" v-model="price01">
                             </div>
-                             <div class="inp-box">
+                             <div class="inp-box hide">
                                 <span>姓名</span>
                                 <input type="text" v-model="user_name01">
                             </div>
@@ -319,9 +319,9 @@
                         <div>
                             <span>{{detail.c2c.type==0?'买家':'卖家'}}账号：</span><span>{{detail.user_info.account_number}}</span>
                         </div>
-                        <div>
+                        <!-- <div>
                             <span>{{detail.c2c.type==0?'买家':'卖家'}}姓名：</span><span>{{detail.c2c.name}}</span>
-                        </div>
+                        </div> -->
                         <div v-if="detail.c2c.type=1">
                           <span>手续费：</span><span>{{((detail.c2c.c2c_ratio-0)*(detail.c2c.number-0).toFixed(4))}}</span>
                         </div>
@@ -342,9 +342,9 @@
                           <div>
                             <span>交易人：</span><span>{{detail.transaction_account_info.account_number}}</span>
                           </div>
-                          <div>
+                          <!-- <div class="hide">
                             <span>姓 名：</span><span>{{detail.transaction_account_info.real_name}}</span>
-                          </div>
+                          </div> -->
                           <div>
                             <span>微 信:</span><span>{{detail.transaction_account_info.wechat_account}}</span>
                           </div>
@@ -376,9 +376,9 @@
                         <div>
                             <span>交易人：</span><span>{{detail.user_info.account_number}}</span>
                         </div>
-                        <div>
+                        <!-- <div>
                             <span>姓  名：</span><span>{{detail.c2c.name}}</span>
-                        </div>
+                        </div> -->
                         <div>
                             <span>微信账号：</span><span>{{detail.account_info.wechat_account}}</span>
                         </div>
@@ -398,7 +398,7 @@
                     <div>
                       <span>状 态：</span><span class="blue">{{detail.c2c.status_name}}</span>
                     </div>
-                    <!-- <div v-if="detail.type=='myc2c'">
+                    <div v-if="detail.type=='myc2c'">
                       <div class="upbox" v-if="detail.c2c.status == 1&&detail.c2c.type == 0&&detail.c2c.pay_time<=0">
                         <div class="updev">上传付款凭证</div>
                         <input id="photo" type="file" name="image" accept="image/*" multiple="" class="input_avator" @change="updev(detail.c2c.id)">
@@ -409,7 +409,7 @@
                         <div class="updev">上传付款凭证</div>
                         <input id="photo" type="file" name="image" accept="image/*" multiple="" class="input_avator" @change="updev(detail.c2c.id)">
                       </div>
-                    </div> -->
+                    </div>
                 </div>            
             </div>
         </div>
@@ -668,9 +668,9 @@ export default {
       if(this.num == ""){
         return layer.msg('请输入数量');
       }
-      if(this.user_name == ""){
-        return layer.msg('请输入姓名');
-      }
+      // if(this.user_name == ""){
+      //   return layer.msg('请输入姓名');
+      // }
       if(this.content == ""){
         return layer.msg('请填写详细信息');
       }
@@ -686,7 +686,7 @@ export default {
           data: {
             price: that.price,
             number: that.num,
-            name: that.user_name,
+            name: '',
             pay_mode: that.pay,
             content: that.content,
             token: that.currency_name,
@@ -734,9 +734,9 @@ export default {
       if(this.num01 == ""){
         return layer.msg('请输入数量');
       }
-      if(this.user_name01 == ""){
-        return layer.msg('请输入姓名');
-      }
+      // if(this.user_name01 == ""){
+      //   return layer.msg('请输入姓名');
+      // }
       if(this.content01 == ""){
         return layer.msg('请填写详细信息');
       }
@@ -751,7 +751,7 @@ export default {
             data: {
               price: that.price01,
               number: that.num01,
-              name: that.user_name01,
+              name: '',
               pay_mode: that.pay01,
               content: that.content01,
               token: that.currency_name,
