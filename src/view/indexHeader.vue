@@ -38,7 +38,8 @@
         <div class="links-box">
           <div class="account_number">{{account_number}} (邀请码 {{extension_code}})</div>
           <div class="links">
-            <router-link to="/userCenter">个人中心</router-link>
+            <!-- <router-link to="/userCenter">个人中心</router-link> -->
+            <router-link to="/workOrder">提交工单</router-link>
             <div v-for="(item,index) in accountList" @click="goto(null,item.page)">{{item.title}}</div>
             <div @click="signOut">退出登录</div>
           </div>

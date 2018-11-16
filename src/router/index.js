@@ -37,6 +37,8 @@ import currencyApply from '@/view/currency_apply'
 import payOpts from '@/view/payOpts'
 import currencyList from '@/view/currency_list'
 import currencyEdit from '@/view/edit_currency'
+import workOrder from '@/components/workOrder'
+import orderDetail from '@/view/orderDetail'
 //收款方式
 
 import ForgetPwd from '@/components/ForgetPwd' //忘记密码
@@ -131,6 +133,11 @@ export default new Router({
 					]
 				},
 				{
+					path: '/workOrder',
+					name: 'workOrder',
+					component: workOrder,
+				},
+				{
 					path: '/new_account',
 					name: 'new_account',
 					component: new_account,
@@ -195,6 +202,11 @@ export default new Router({
 			path: '/components/noticeDetail',
 			name: 'noticeDetail',
 			component: noticeDetail
+		},
+		{
+			path: '/orderDetail',
+			name: 'orderDetail',
+			component: orderDetail
 		},
 		{
 			path: '/account',
