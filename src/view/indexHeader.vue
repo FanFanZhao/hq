@@ -39,6 +39,7 @@
           <div class="account_number">{{account_number}} (邀请码 {{extension_code}})</div>
           <div class="links">
             <router-link to="/userCenter">个人中心</router-link>
+            <div v-for="(item,index) in accountList" @click="goto(null,item.page)">{{item.title}}</div>
             <div @click="signOut">退出登录</div>
           </div>
         </div>
@@ -57,7 +58,13 @@ export default {
   data() {
     return {
       account_number: "",
-      extension_code: ""
+      extension_code: "",
+      accountList:[
+        {
+          title: "账户设置",
+          page: "accountSet"
+        },
+      ]
     };
   },
   created() {
@@ -88,7 +95,16 @@ export default {
       window.localStorage.removeItem("user_id");
       window.localStorage.removeItem("extension_code");
       this.$router.push('/components/login');
-    }
+    },
+     goto(index, name) {
+      this.current = index;
+      this.bus.$emit('nav_name',name);
+      if(name == 'userSetting'){
+        this.$router.push('/userSetting')
+      } else {
+        this.$router.push({ name: name });
+      }
+    },
   }
 };
 </script>
@@ -233,9 +249,13 @@ export default {
           padding: 0 14px;
           margin: 0;
           text-align: center;
+          border-bottom: 1px solid #383d54;
           &:hover {
             color: #d45858;
           }
+        }
+        div:last-child(){
+          border-bottom: none;
         }
       }
     }

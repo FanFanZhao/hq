@@ -22,37 +22,11 @@
 					// 	page:'accountCenter',
 					// 	children:['recharge']
 					// },
-
-					// {
-					// 	src1: require("@/assets/images/icon_delegate.png"),
-					// 	src2: require("@/assets/images/icon_delegate_s.png"),
-					// 	text: '我的交易',
-					// 	page:'accountEntrust'
-					// },
 					{
 						src1: require("@/assets/images/icon_account_settings.png"),
 						src2: require("@/assets/images/icon_account_settings_s.png"),
 						text: '账户设置',
 						page:'accountSet'
-					},
-					{
-						src1: require("@/assets/images/icon_news.png"),
-						src2: require("@/assets/images/icon_news_s.png"),
-						text: '我的消息',
-						page:'accountMessage'
-					},
-					// {
-					// 	src1: require("@/assets/images/icon_mine.png"),
-					// 	src2: require("@/assets/images/icon_mine_s.png"),
-					// 	text: '承兑商',
-					// 	page:'aceite',
-					// 	children: ['chargeRecord']
-					// },
-					{
-						src1: require("@/assets/images/icon_mine.png"),
-						src2: require("@/assets/images/icon_mine_s.png"),
-						text: '区域代理',
-						page:'region',
 					}
 				],
 			}
@@ -78,13 +52,12 @@
 </script>
 <style lang="scss" scoped>
 	.leftNav{
-		margin-right:20px;
-		padding:4px;
-		background-color: rgb(26, 35, 48);
-		width:210px;
-		float:left;
-		margin-bottom: -10000px;
-		padding-bottom: 10000px;
+		margin-right: 20px;
+		padding: 4px;
+		background-color: #eee;
+		width: 210px;
+		float: left;
+		min-height: 800px;
 		ul{
 			height:820px;
 			li{
@@ -102,7 +75,7 @@
 			}
 			.active{
 				color:rgb(86, 151, 244);
-				background-color: rgb(39, 49, 66);
+				// background-color: rgb(39, 49, 66);
 				border-bottom: none;
 				display: block;
 			}

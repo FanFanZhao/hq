@@ -236,7 +236,7 @@ export default {
 }
 .code-box input {
   width: 406px;
-  border: none;
+  /* border: none; */
 }
 .code-box button {
   padding: 0 20px;

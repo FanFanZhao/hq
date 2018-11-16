@@ -213,7 +213,7 @@ export default {
 }
 .code-box .input-main {
   width: 419px;
-  border: none;
+  /* border: none; */
 }
 .code-box button {
   border: none;
