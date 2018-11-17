@@ -360,7 +360,7 @@ export default {
       }).then(res => {
         if (res.data.type == "ok") {
           layer.msg(res.data.message);
-          this.
+          this.isShow=false
          
         }
       });
