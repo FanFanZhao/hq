@@ -27,7 +27,13 @@
 						src2: require("@/assets/images/icon_account_settings_s.png"),
 						text: '账户设置',
 						page:'accountSet'
-					}
+					},
+					{
+						src1: require("@/assets/images/icon_mine.png"),
+						src2: require("@/assets/images/icon_mine_s.png"),
+						text: '身份认证',
+						page:'authentication',
+					},
 				],
 			}
 		},
