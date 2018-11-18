@@ -1,5 +1,5 @@
 <template>
-<div class="account-main">
+<div class="account-main bgf8">
   <div id="user-security">
     <div  class="clear mb50">
             <div  class="fl">
@@ -64,6 +64,13 @@
                 <!-- <span  class="fr red mouseDefault"  @click="goPwd()">修改</span> -->
                 <router-link to="/components/resetPwd" class="fr red">修改</router-link>
             </li>
+            <li class="bdr-part"><img  :src="asrc">
+              <span  class="ml20">身份认证</span>
+              <p  class="fl">互联网账号存在被盗风险，进行身份认证以保护账户安全。</p>
+              <span  class="fr red ml25 mouseDefault"></span>
+              <router-link to="/components/authentication" class="fr red" v-if="authen==0">去认证</router-link>
+              <span class="fr red" v-else>{{authen==1?'审核中':'已认证'}}</span>       
+          </li>
             <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">提币密码</span>
                 <p  class="fl">请设置提币专用密码，建议提现密码区别于登录密码。</p>
@@ -112,9 +119,12 @@ export default {
       mpwd:"未设置",
       goset:"去设置",
       extension_code: "",
+      austatus:'去认证',
+      authen:0,
       psrc: require("@/assets/images/icon_error.png"),
       esrc: require("@/assets/images/icon_error.png"),
-      msrc: require("@/assets/images/icon_error.png")
+      msrc: require("@/assets/images/icon_error.png"),
+      asrc: require("@/assets/images/icon_error.png"),
     };
   },
   created() {
@@ -150,6 +160,8 @@ export default {
                 this.esrc=require('@/assets/images/success.png')
             }
             this.extension_code = res.data.message.extension_code;
+            this.authen=res.data.message.review_status;
+            if(this.authen==2){this.asrc=require("@/assets/images/success.png")}
           }
         })
         .catch(error => {});
@@ -219,12 +231,8 @@ $fColor2: #637085;
     padding-top: 34px;
     width: 970px;
     min-height: 800px;
-    background: #eeeeee;
 }
 #user-security {
-//   padding-left: 34px;
-//   padding-right: 34px;
-//   padding-top: 34px;
   .bar-bottom {
     width: 320px;
     height: 8px;

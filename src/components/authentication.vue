@@ -1,46 +1,50 @@
 <template>
-    <div class="account-main bgf8">
-            <div class="title">
+    <div class="account-box wrap fColor1">
+        <div class="title bgf8">
                 身份认证
-            </div>
-            <div class="main-content mt20">
-                <div v-show="review_status==0">
-                    <div class="main-input">
-                        <div class="flex alcenter center">
-                            <span>姓名：</span>
-                            <input type="text" placeholder="请输入真实姓名" id="name" v-model="name">
-                        </div>
-                        <div class="flex alcenter center mt20">
-                            <span>身份证：</span>
-                            <input type="number" placeholder="请输入身份证号" id="card" v-model="card_id">
-                        </div>
+        </div>
+        <div class="main-content mt20 bgf8">
+            <div v-show="review_status==0">
+                <div class="main-input">
+                    <div class="flex alcenter center">
+                        <span>姓名：</span>
+                        <input type="text" placeholder="请输入真实姓名" id="name" v-model="name">
                     </div>
-                    <div class="mt40 fColor1 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
-                    <div class="idimg flex center mt40">
-                        <div>
-                            <img :src="src01" alt="">
-                            <input type="file" id="file" accept="image/*" name="file" @change="file1">
-                        </div>
-                        <div>
-                            <img :src="src02" alt="">
-                            <input type="file" id="file" accept="image/*" name="file" @change="file2">
-                        </div>
-                    </div>
-                    <div class="updata tc">
-                        <input type="button" value="提交" @click="updata">
+                    <div class="flex alcenter center mt20">
+                        <span>身份证：</span>
+                        <input type="number" placeholder="请输入身份证号" id="card" v-model="card_id">
                     </div>
                 </div>
-                <div  v-show="review_status==1">
-                    <div class="tc ft30 au-statue">
-                        审核中...  
-                    </div> 
-                </div>
-                <div v-show="review_status==2">
-                    <div class="tc ft30 au-statue">
-                        已认证!
+                <div class="mt40 fColor1 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
+                <div class="idimg flex center mt40">
+                    <div>
+                        <img :src="src01" alt="">
+                        <input type="file" id="file" accept="image/*" name="file" @change="file1">
                     </div>
+                    <div>
+                        <img :src="src02" alt="">
+                        <input type="file" id="file" accept="image/*" name="file" @change="file2">
+                    </div>
+                </div>
+                <div class="updata tc">
+                    <input type="button" value="提交" @click="updata">
                 </div>
             </div>
+            <div  v-show="review_status==1">
+                <div class="tc ft30 au-statue">
+                    审核中...  
+                </div> 
+            </div>
+            <div v-show="review_status==2">
+                <div class="tc ft30 au-statue">
+                    已认证!
+                </div>
+            </div>
+            
+        </div>
+
+
+       
     </div>
 </template>
 <script>
@@ -163,20 +167,20 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-.account-main{
-    padding-left: 34px;
-    padding-right: 34px;
-    padding-top: 34px;
-    width: 970px;
-    min-height: 800px;
-    .title{
+<style scoped lang="scss">
+    .account-box{
+        margin: 30px auto 0;
+        width: 1200px;
+        min-height: 1080px;
+        .title{
             width: 100%;
             line-height: 60px;
             border-radius: 4px;
             padding-left: 20px;
         }
         .main-content{
+            min-height: 1080px;
+            border-radius: 2px;
             .main-input{
                 margin: 0 auto;
                 text-align: center;
@@ -232,7 +236,7 @@ export default {
                 font-size: 30px
             }
         }
-}
-
+        
+    }
+    
 </style>
-

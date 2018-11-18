@@ -371,7 +371,7 @@ export default {
   margin-right: 40px;
 }
 .content .first {
-  padding: 0 15px 0 25px;
+  padding: 0 15px 0 15px;
 }
 .content .second {
   padding: 0 25px 0 15px;

@@ -15,6 +15,8 @@ import account from '@/components/account'
 import accountCenter from '@/view/accountCenter'
 import accountEntrust from '@/view/accountEntrust'
 import accountSet from '@/view/accountSet'
+// import authentication from '@/view/authentication'
+import authentication from '@/components/authentication'
 import accountMessage from '@/view/accountMessage'
 import setCash from '@/components/setCash'
 import recharge from '@/view/recharge'
@@ -153,6 +155,11 @@ export default new Router({
 					component: BindEmail
 				},
 				{
+					path: '/components/authentication',
+					name: 'authentication',
+					component: authentication
+				},
+				{
 					path: '/components/resetPwd',
 					name: 'ResetPwd',
 					component: ResetPwd
@@ -268,6 +275,11 @@ export default new Router({
 					name: 'accountMessage',
 					component: accountMessage
 				},
+				// {
+				// 	path: '/authentication',
+				// 	name: 'authentication',
+				// 	component: authentication
+				// },
 				{
 					path: '/accountSet',
 					name: 'accountSet',

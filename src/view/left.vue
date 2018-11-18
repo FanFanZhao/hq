@@ -1,5 +1,5 @@
 <template>
-	<div class="leftNav ft16">
+	<div class="leftNav ft16 bgf8">
 		<ul class="fColor1">
 			<li v-for="(item,index) in array" :class="index == curActive ? 'active' :''" @click="goto(index,item.page)">
 				<img :src="index == curActive ? item.src2 : item.src1"/>
@@ -28,12 +28,12 @@
 						text: '账户设置',
 						page:'accountSet'
 					},
-					{
-						src1: require("@/assets/images/icon_mine.png"),
-						src2: require("@/assets/images/icon_mine_s.png"),
-						text: '身份认证',
-						page:'authentication',
-					},
+					// {
+					// 	src1: require("@/assets/images/icon_mine.png"),
+					// 	src2: require("@/assets/images/icon_mine_s.png"),
+					// 	text: '身份认证',
+					// 	page:'authentication',
+					// },
 				],
 			}
 		},
@@ -60,7 +60,6 @@
 	.leftNav{
 		margin-right: 20px;
 		padding: 4px;
-		background-color: #eee;
 		width: 210px;
 		float: left;
 		min-height: 800px;

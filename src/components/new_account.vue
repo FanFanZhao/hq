@@ -2,7 +2,7 @@
     <div class="box">
         <!-- <indexHeader></indexHeader> -->
         <div class="account">
-            <div class="topcontent ft20 ">
+            <div class="topcontent ft20 bgf8">
                 <span>资产</span>
             </div>
             <div class="leftcontent contentBK">
