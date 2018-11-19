@@ -50,6 +50,7 @@
 			<div class="mask" @click="closeBtn()"></div>
 			<div class="content">
 				<div class="content-list">
+					<p class="close tr" @click="close()">X</p>
 					<p class="title">{{classify}}{{name}}</p>
 					<p class="price">单价{{prices}}</p>
 					<div class="trade">
@@ -125,6 +126,9 @@
 			}
 		},
 		methods: {
+			close(){
+                this.shows=false;
+			},
 			getCoins() {
 				this.$http({
 					url: "/api/currency/list"
@@ -144,6 +148,7 @@
 				this.type = type;
 				this.id = id;
 				this.page = page;
+				var i=layer.load();
 				this.$http({
 					url: "/api/legal_deal_platform",
 					params: {
@@ -156,6 +161,7 @@
 					}
 				}).then(res => {
 					if (res.data.type == 'ok') {
+						layer.close(i);
 						this.list = res.data.message.data;
 						let total = parseInt(res.data.message.total);
 						if (total > 10) {
@@ -243,18 +249,18 @@
 					};
 					_this.buyHttp('/api/do_legal_deal', datas, function(res) {
 						if(res.data.type == 'ok'){
-							// layer.msg(res.data.message)
-						if (res.data.message.data.type == 'sell') {
-							layer.msg(res.data.message.msg)
-							setTimeout(function() {
-								_this.$router.push({path:'/legalPay',query:{id:res.data.message.data.id}});
-							}, 500)
-						} else {
-							layer.msg(res.data.message.msg)
-							setTimeout(function() {
-								_this.$router.push({path:'/components/payCannel',query:{id:res.data.message.data.id}});
-							}, 500)
-						}
+							console.log(123456)
+							if (res.data.message.data.type == 'sell') {
+								layer.msg(res.data.message.msg)
+								setTimeout(function() {
+									_this.$router.push({path:'/legalPay',query:{id:res.data.message.data.id}});
+								}, 500)
+							} else {
+								layer.msg(res.data.message.msg)
+								setTimeout(function() {
+									_this.$router.push({path:'/legalPayDetail',query:{id:res.data.message.data.id}});
+								}, 500)
+							}
 						}else{
                            layer.msg(res.data.message);
 						}
@@ -280,8 +286,10 @@
 				}).then(res => {
 					console.log(res);
 					if (res.data.type == 'ok') {
+						
 						callback && callback(res)
 					} else {
+						layer.msg(res.data.message)
 						if (res.data.type == '998') {
 							setTimeout(() => {
 								_this.$router.push('/legalTradeSet');

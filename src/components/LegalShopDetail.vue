@@ -85,9 +85,10 @@
           <div class="w10">{{item.price}}</div>
           <div class="w10">{{item.way_name}}</div>
           <div>
-            <span @click="changeOrder('error_send',item.id)">异常</span>
-            <span @click="changeOrder('back_send',item.id)">撤回</span>
             <router-link tag="span" :to="{path:'/shopLegalRecord',query:{id:item.id}}">查看订单</router-link>
+            <span @click="changeOrder('back_send',item.id)" v-if="item.is_done!=1">撤回</span>
+            <span @click="changeOrder('error_send',item.id)" v-if="item.is_done!=1">异常</span>
+            
           </div>
         </li>
       </ul>
@@ -148,7 +149,7 @@ export default {
       detail: { money: "", num: "" },
       timer: "",
       rate:'--',
-      filterPms: { id: "", page: 1, wasDone: false, type: "buy" },
+      filterPms: { id: "", page: 1, wasDone: false, type: "sell" },
       list: [],
       submitPms:{type:'sell'},
       typeList:[{name:'出售',type:'sell'},{name:'求购',type:'buy'}],
@@ -173,6 +174,7 @@ export default {
     changeType(index,type){
       this.current=index;
       this.type=type;
+      console.log(this.type)
     },
     // 获取默认数据
     getSellerInfo(more) {
@@ -247,6 +249,8 @@ export default {
         if (res.data.type == "ok") {
           layer.msg(res.data.message);
           this.getList();
+        }else{
+          layer.msg(res.data.message);
         }
       });
     },

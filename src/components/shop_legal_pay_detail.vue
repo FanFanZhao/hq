@@ -1,6 +1,6 @@
 <template>
-  <div id="legal-pay-detail">
-    <div class="title">
+  <div id="legal-pay-detail" class="clr-part">
+    <div class="title bg-part">
          <span v-if="msg.is_sure == 0">未完成</span>
       <span v-if="msg.is_sure == 1">已完成</span>
       <span v-if="msg.is_sure == 2">已取消</span>
@@ -11,14 +11,33 @@
       <div v-if="msg.is_sure == 3">买家已付款，请核实后确认</div>
      
     </div>
-    <div class="info">
+    <div class="info bg-part ft14">
       <div>
         <span>交易总额：</span>
         <span>{{msg.deal_money}}</span>
       </div>
-      <div>
-        <span>卖家</span>
-        <span>{{msg.seller_name}}</span>
+      <div class="column" v-if="msg.is_seller==0">
+        <div>
+          <span>卖家:</span>
+          <span v-if="msg.type=='buy'">{{user.account_number}}</span>
+          <span v-else>{{msg.seller_name}}</span>
+        </div>
+        <div>
+          <span>{{user.bank_name}}</span>
+          <span>{{user.bank_account}}</span>
+        </div>
+        <div>
+          <span>支付宝:</span>
+          <span>{{user.alipay_account}}</span>
+        </div>
+        <div>
+          <span>微信:</span>
+          <span>{{user.wechat_account}}</span>
+        </div>
+        <div>
+          <span>真实姓名:</span>
+          <span>{{user.real_name}}</span>
+        </div>
       </div>
       <div>
         <span>单价：</span>
@@ -36,13 +55,14 @@
         <span>参考号：</span>
         <span>{{msg.id}}</span>
       </div>
-      <div>
+      <!-- <div>
         <span>商家账户：</span>
-        <router-link :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span" style="color:#2E1B85">{{msg.seller_name}}</router-link>
-      </div>
+        <router-link :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span" class="light_blue seller">{{msg.seller_name}}</router-link>
+      </div> -->
       <div class="btns">
         <div class="btn" @click="showCancel = true" v-if="msg.is_sure == 0 && msg.type =='buy'">取消订单</div>
         <div class="btn" @click="showConfirm = true" v-if="(msg.is_sure == 3) && (msg.type =='sell')">确认已收款</div>
+        <div class="btn" @click="showPay = true" v-if="(msg.is_sure==0) && (msg.type=='buy')">我已付款,点击确认</div>
       </div>
     </div>
     <div class="cancel-box" v-if="showCancel">
@@ -59,14 +79,27 @@
         </div>
       </div>
     </div>
+    <!-- 确认收款 -->
     <div class="confirm-box" v-if="showConfirm">
+      <div class="content">
+        <div>收款确认</div>
+        <div>请确认您已收到买家的打款</div>
+        <div>恶意点击将直接冻结账户</div>
+        <div class="yes-no flex">
+          <div @click="showConfirm = false">取消</div>
+          <div @click="confirm">确认</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirm-box" v-if="showPay">
       <div class="content">
         <div>付款确认</div>
         <div>请确认您已向卖家付款</div>
         <div>恶意点击将直接冻结账户</div>
         <div class="yes-no flex">
-          <div @click="showConfirm = false">取消</div>
-          <div @click="confirm">确认</div>
+          <div @click="showPay = false">取消</div>
+          <div @click="confirmPay">确认</div>
         </div>
       </div>
     </div>
@@ -78,10 +111,12 @@ export default {
   data() {
     return {
       msg: "",
+      user:'',
       token:'',
       showConfirm:false,
       showCancel:false,
       hasPay:false,
+      showPay:false,
       id:'',
       msg:{}
     };
@@ -107,6 +142,7 @@ export default {
         console.log(res);
         if(res.data.type == 'ok'){
           this.msg = res.data.message;
+          this.user= res.data.message.user_cash_info;
         }
       })
     },
@@ -134,13 +170,29 @@ export default {
         headers:{Authorization:this.token}
       }).then(res => {
         // console.log(res);
-        lay.msg(res.data.message);
+        layer.msg(res.data.message);
         
       }).then(() => {
         this.showCancel = false;
       })
     },
+   // 卖家确认付款
     confirm(){
+      this.$http({
+        url:'api/legal_deal_sure',
+        method:'post',
+        data:{id:this.id},
+        headers:{Authorization:this.token}
+      }).then(res => {
+        // console.log(res);
+        layer.msg(res.data.message);
+        location.reload();
+      }).then(() => {
+        this.showConfirm = false;
+      })
+    },
+    // 买家确认付款
+    confirmPay(){
       this.$http({
         url:'api/user_legal_pay',
         method:'post',
@@ -148,10 +200,10 @@ export default {
         headers:{Authorization:this.token}
       }).then(res => {
         // console.log(res);
-        lay.msg(res.data.message);
-        
+        layer.msg(res.data.message);
+        location.reload();
       }).then(() => {
-        this.showConfirm = false;
+        this.showPay = false;
       })
     }
   }
@@ -184,6 +236,14 @@ export default {
     }
     span:first-child{
       width:140px;
+    }
+    .column{
+      div{
+        display: flex;
+        span:first-child{
+          width:140px;
+        }
+      }
     }
     >.btns{
       padding: 20px 0;
@@ -231,6 +291,9 @@ export default {
         }
       }
     }
+  }
+  .seller{
+    cursor: pointer;
   }
 }
 </style>
