@@ -1,7 +1,7 @@
 <template>
   <div id="legal-record">
     <div class="title">法币交易记录</div>
-    <div class="filter-box">
+    <div class="filter-box ft14">
       <div>
         <span>交易类型：</span>
         <span :class="{'select':filterPms.type == 'sell'}" @click="filterPms.type = 'sell';getList()">购买</span>
@@ -15,7 +15,7 @@
       </div>
     </div>
     
-    <ul>
+    <ul class="ft14">
       <li v-for="(item,index) in list" :key="index">
         <div class="flex li-t">
           <div>
@@ -34,16 +34,16 @@
         </div>
         <div class="flex li-b">
           <div>
-            <div>时间</div>
-            <div>{{item.create_time}}</div>
+            <span>时间</span>
+            <span>{{item.create_time}}</span>
           </div>
           <div>
-            <div>数量</div>
-            <div>{{item.number}}</div>
+            <span>数量</span>
+            <span>{{item.number}}</span>
           </div>
           <div>
-            <div>交易总额（{{item.currency_name}})</div>
-            <div>{{item.deal_money}}</div>
+            <span>交易总额（{{item.currency_name}})</span>
+            <span>{{item.deal_money}}</span>
           </div>
         </div>
       </li>
@@ -123,7 +123,7 @@ export default {
     margin-bottom: 30px;
     padding: 0 30px;
     line-height: 50px;
-    font-size: 20px;
+    font-size: 16px;
     background: #f8f8f8;
   }
   > .filter-box {
@@ -143,14 +143,19 @@ export default {
   > ul {
     padding: 10px 30px;
     background: #f8f8f8;
+    margin-top: 20px;
     li {
+      padding: 10px;
+      background: #eee;
+      margin-top: 10px;
+      border-radius: 4px;
       > div {
         justify-content: space-between;
         line-height: 30px;
       }
     }
     > li:nth-child(n + 2) {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid #eee;
     }
   }
 

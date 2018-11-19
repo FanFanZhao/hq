@@ -42,7 +42,7 @@
       <div class="btns">
         <!-- <div class="btn" @click="showCancel = true">取消订单</div>
         <div class="btn" @click="showConfirm = true">我已付款，点击确认</div> -->
-        <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 0">确认已收款</div>
+        <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 3">确认已收款</div>
       </div>
     </div>
     <div class="cancel-box clr-part" v-if="showCancel">
