@@ -276,28 +276,56 @@
 			// 请求
 			buyHttp(urls, params, callback) {
 				let _this = this;
-				_this.$http({
-					url: urls,
-					method: "post",
-					data: params,
-					headers: {
-						Authorization: localStorage.getItem("token")
-					}
-				}).then(res => {
-					console.log(res);
-					if (res.data.type == 'ok') {
-						
-						callback && callback(res)
-					} else {
-						layer.msg(res.data.message)
-						if (res.data.type == '998') {
-							setTimeout(() => {
-								_this.$router.push('/legalTradeSet');
-							}, 500);
+				if(_this.type=='buy'){
+					layer.msg('如30分钟未完成交易,可自行取消交易！');
+					setTimeout(function(){
+						_this.$http({
+						url: urls,
+						method: "post",
+						data: params,
+						headers: {
+							Authorization: localStorage.getItem("token")
 						}
+						}).then(res => {
+							console.log(res);
+							if (res.data.type == 'ok') {
+								
+								callback && callback(res)
+							} else {
+								layer.msg(res.data.message)
+								if (res.data.type == '998') {
+									setTimeout(() => {
+										_this.$router.push('/legalTradeSet');
+									}, 500);
+								}
 
-					}
-				});
+							}
+						});
+					},2000)
+				}else{
+					_this.$http({
+						url: urls,
+						method: "post",
+						data: params,
+						headers: {
+							Authorization: localStorage.getItem("token")
+						}
+					}).then(res => {
+						console.log(res);
+						if (res.data.type == 'ok') {
+							
+							callback && callback(res)
+						} else {
+							layer.msg(res.data.message)
+							if (res.data.type == '998') {
+								setTimeout(() => {
+									_this.$router.push('/legalTradeSet');
+								}, 500);
+							}
+
+						}
+					});
+				}
 			},
 			// 跳转订单记录
 			recordList(){
