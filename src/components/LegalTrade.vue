@@ -1,7 +1,7 @@
 <template>
 	<div id="legaltrade-box">
-		<div class="buy-sell flex">
-			<div class="buy-box">
+		<div class="buy-sell flex bg-part">
+			<div class="buy-box bod_rc">
 				<div class="title">购买</div>
 				<ul :class="['flex',{'now':type == 'sell'}]">
 					<li v-for="(coin,index) in legals" :key="index" :class="{'current':coin.id == id}" @click="changeClassify(coin.id,1,coin.name)">{{coin.name}}</li>
@@ -25,7 +25,7 @@
 				<div>操作</div>
 			</div>
 			<ul class="list">
-				<li v-for="(item,index) in list" :key="index" class="flex">
+				<li v-for="(item,index) in list" :key="index" class="flex bod_bc">
 					<div class="flex alcenter">
 						<img :src="item.currency_logo" alt="">
 						<div class="flex column center">
@@ -354,7 +354,7 @@
 			position: relative;
 			>.buy-box {
 				padding: 20px;
-				border-right: 1px solid #ccc;
+				// border-right: 1px solid #ccc;
 			}
 
 			>.sell-box {
@@ -389,7 +389,7 @@
 				cursor: pointer;
 				font-size: 16px;
 				position: absolute;
-				right: 0;
+				right:20px;
 				text-align: right;
 				top: 30px;
 			}
@@ -411,7 +411,7 @@
 			>.list {
 				>li {
 					padding: 20px 0;
-					border-bottom: 1px solid #e5e5e5;
+					// border-bottom: 1px solid #e5e5e5;
 
 					>div {
 						flex: 1;

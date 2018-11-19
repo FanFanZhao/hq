@@ -1,5 +1,5 @@
 <template>
-  <div id="legal-pay-detail" class="clr-part">
+  <div id="legal-pay-detail" class="bg-part">
     <div class="title bg-part">
       <span v-if="msg.is_sure == 0">待付款</span>
       <span v-if="msg.is_sure == 1">已完成</span>
@@ -45,7 +45,7 @@
         <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 3">确认已收款</div>
       </div>
     </div>
-    <div class="cancel-box clr-part" v-if="showCancel">
+    <div class="cancel-box bg-part" v-if="showCancel">
       <div class="content">
         <div>取消交易</div>
         <div class="ft14">如您已向卖家付款请千万不要取消交易</div>
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="confirm-box  clr-part" v-if="showConfirm">
+    <div class="confirm-box  bg-part" v-if="showConfirm">
       <div class="content">
         <div>付款确认</div>
         <div class="ft14">请确认您已向卖家付款</div>
@@ -70,7 +70,7 @@
         </div>
       </div>
     </div>
-    <div class="confirm-box  clr-part" v-if="hasPay">
+    <div class="confirm-box  bg-part" v-if="hasPay">
       <div class="content">
         <div>收款确认</div>
         <div class="ft14">请确认买家已向您付款</div>
@@ -190,7 +190,7 @@ export default {
   width: 1200px;
   margin: 50px auto;
   > .title {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     margin-bottom: 20px;
     padding: 0  0 20px 30px;
     span{
@@ -203,7 +203,7 @@ export default {
     }
   }
   > .info {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     padding: 0 30px;
     line-height: 40px;
     >div{

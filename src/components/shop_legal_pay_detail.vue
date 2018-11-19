@@ -1,11 +1,11 @@
 <template>
-  <div id="legal-pay-detail" class="clr-part">
+  <div id="legal-pay-detail" class="bg-part">
     <div class="title bg-part">
-         <span v-if="msg.is_sure == 0">未完成</span>
+      <span v-if="msg.is_sure == 0">未完成</span>
       <span v-if="msg.is_sure == 1">已完成</span>
       <span v-if="msg.is_sure == 2">已取消</span>
       <span v-if="msg.is_sure == 3">已付款</span>
-       <div v-if="msg.is_sure == 0">请等待买家付款</div>
+      <div v-if="msg.is_sure == 0">请等待买家付款</div>
       <div v-if="msg.is_sure == 1">订单已完成</div>
       <div v-if="msg.is_sure == 2">订单已取消</div>
       <div v-if="msg.is_sure == 3">买家已付款，请核实后确认</div>
@@ -215,7 +215,7 @@ export default {
   width: 1200px;
   margin: 50px auto;
   > .title {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     margin-bottom: 20px;
     padding: 0  0 20px 30px;
     span{
@@ -228,7 +228,7 @@ export default {
     }
   }
   > .info {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     padding: 0 30px;
     line-height: 40px;
     >div{

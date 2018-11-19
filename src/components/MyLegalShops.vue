@@ -1,7 +1,7 @@
 <template>
   <div id="myshops">
-    <div class="title">我的店铺</div>
-    <div class="list-box">
+    <div class="title bgf8">我的店铺</div>
+    <div class="list-box bgf8">
       <div class="list-header flex">
         <div>名称</div>
         <div>所属法币</div>
@@ -64,16 +64,17 @@ export default {
 
 <style lang='scss'>
 #myshops {
+  width: 1200px;
   margin: 30px auto 0;
   > .title {
     margin-bottom: 20px;
     padding: 0 30px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     line-height: 50px;
   }
   > .list-box {
     line-height: 30px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     padding: 0 30px;
     .list-header,
     li {

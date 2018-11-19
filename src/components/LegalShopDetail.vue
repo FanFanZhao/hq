@@ -1,7 +1,7 @@
 <template>
   <div id="legal-shop-detail">
-    <div class="top flex">
-      <div class="top-t flex">
+    <div class="top flex bgf8">
+      <div class="top-t flex bod_rc">
         <div class="logo">k</div>
         <div>
           <div>{{info.name}}</div>
@@ -30,7 +30,7 @@
         <div @click="fb">发布</div>
       </div>
     </div>
-    <div class="md flex">
+    <div class="md flex bgf8">
       <div>
         <span>邮箱认证</span>
         <img v-if="info.prove_email == 1" src="../assets/images/success.png" alt="">
@@ -52,7 +52,7 @@
         <img v-else src="../assets/images/icon_error.png" alt="">
       </div>
     </div>
-    <div class="list">
+    <div class="list bgf8">
       <div class="tab">
         <div class="flex">
           <div>类型：</div>
@@ -78,7 +78,7 @@
         <div>操作</div>
       </div>
       <ul :class="[showWhich+'-box']" >
-        <li v-for="(item,index) in list" :key="index" :class="[item.type == 'buy'?'buy-item':'sell-item']">
+        <li v-for="(item,index) in list" :key="index" :class="[item.type == 'buy'?'buy-item':'sell-item']" class="bod_bc">
           <div class="w10">{{item.currency_name}}</div>
           <div class="w15">{{item.surplus_number}}</div>
           <div class="w25">{{(item.limitation.min-0).toFixed(4)}}-{{(item.limitation.max-0).toFixed(4)}}</div>
@@ -380,13 +380,13 @@ export default {
   // background: #f8f8f8;
   line-height: 30px;
   > .top {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     line-height: 36px;
     padding: 16px 30px;
     > .top-t {
       align-items: center;
       padding-right: 30px;
-      border-right: 1px solid #ccc;
+      // border-right: 1px solid #ccc;
       margin-right: 30px;
       > .logo {
         margin-right: 20px;
@@ -420,9 +420,8 @@ export default {
     }
   }
   > .md {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     padding: 16px 30px;
-    background: #f8f8f8;
     > div {
       margin-right: 50px;
       img {
@@ -432,7 +431,7 @@ export default {
     }
   }
   > .list {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     margin-top: 20px;
     padding: 5px 30px 16px;
     > .tab {
@@ -465,7 +464,7 @@ export default {
       li {
         padding: 16px 0;
         height: 62px;
-        border-bottom: 1px solid #ddd;
+        // border-bottom: 1px solid #ddd;
         > div {
           float: left;
         }

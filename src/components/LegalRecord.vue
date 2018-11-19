@@ -1,7 +1,7 @@
 <template>
   <div id="legal-record">
-    <div class="title">法币交易记录</div>
-    <div class="filter-box ft14">
+    <div class="title bgf8">法币交易记录</div>
+    <div class="filter-box ft14 bgf8">
       <div>
         <span>交易类型：</span>
         <span :class="{'select':filterPms.type == 'sell'}" @click="filterPms.type = 'sell';getList()">购买</span>
@@ -15,8 +15,8 @@
       </div>
     </div>
     
-    <ul class="ft14">
-      <li v-for="(item,index) in list" :key="index">
+    <ul class="ft14 bgf8">
+      <li v-for="(item,index) in list" :key="index" class="eee">
         <div class="flex li-t">
           <div>
             <span v-if="item.type == 'sell'">购买</span>
@@ -124,11 +124,9 @@ export default {
     padding: 0 30px;
     line-height: 50px;
     font-size: 16px;
-    background: #f8f8f8;
   }
   > .filter-box {
     line-height: 30px;
-    background: #f8f8f8;
     span {
       margin-left: 16px;
       cursor: pointer;
@@ -142,11 +140,10 @@ export default {
   }
   > ul {
     padding: 10px 30px;
-    background: #f8f8f8;
     margin-top: 20px;
     li {
       padding: 10px;
-      background: #eee;
+      // background: #eee;
       margin-top: 10px;
       border-radius: 4px;
       > div {
@@ -155,14 +152,13 @@ export default {
       }
     }
     > li:nth-child(n + 2) {
-      border-top: 1px solid #eee;
+      // border-top: 1px solid #eee;
     }
   }
 
   > .more {
     text-align: center;
     padding: 20px;
-    background: #f8f8f8;
     cursor: pointer;
   }
   >.nomore{

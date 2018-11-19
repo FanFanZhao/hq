@@ -1,6 +1,6 @@
 <template>
   <div id="legal-record">
-    <div class="title">订单记录</div>
+    <div class="title bgf8">订单记录</div>
     <!-- <div class="filter-box">
       <div>
         <span>交易类型：</span>
@@ -15,8 +15,8 @@
       </div>
     </div> -->
     
-    <ul>
-      <li v-for="(item,index) in list" :key="index">
+    <ul class="bgf8">
+      <li v-for="(item,index) in list" :key="index" class="bod_bc">
         <div class="flex li-t">
           <div>
             <span v-if="item.type == 'sell'">购买</span>
@@ -123,11 +123,11 @@ export default {
     padding: 0 30px;
     line-height: 50px;
     font-size: 20px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
   }
   > .filter-box {
     line-height: 30px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     span {
       margin-left: 16px;
       cursor: pointer;
@@ -141,7 +141,7 @@ export default {
   }
   > ul {
     padding: 10px 30px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     li {
       > div {
         justify-content: space-between;
@@ -149,14 +149,14 @@ export default {
       }
     }
     > li:nth-child(n + 2) {
-      border-top: 1px solid #ccc;
+      // border-top: 1px solid #ccc;
     }
   }
 
   > .more {
     text-align: center;
     padding: 20px;
-    background: #f8f8f8;
+    // background: #f8f8f8;
     cursor: pointer;
   }
   >.nomore{

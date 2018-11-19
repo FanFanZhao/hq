@@ -1,7 +1,7 @@
 <template>
   <div id="legal-seller">
-    <div class="top flex">
-      <div class="top-t flex">
+    <div class="top flex bgf8">
+      <div class="top-t flex bod_rc">
         <div class="logo">k</div>
         <div>
           <div>{{info.name}}</div>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="md flex">
+    <div class="md flex bgf8">
       <div>
         <span>邮箱认证</span>
         <img v-if="info.prove_email == 1" src="../assets/images/success.png" alt="">
@@ -49,7 +49,7 @@
         <img v-else src="../assets/images/icon_error.png" alt="">
       </div>
     </div>
-    <div class="list">
+    <div class="list bgf8">
       <div class="tab">
         <span  :class="{'now':showWhich == 'sell'}" @click="showWhich = showWhich == 'sell'?'none':'sell'">在线出售</span>
         <span :class="{'now':showWhich == 'buy'}" @click="showWhich = showWhich == 'buy'?'none':'buy'">在线购买</span>
@@ -63,7 +63,7 @@
         <div>操作</div>
       </div>
       <ul :class="[showWhich+'-box']">
-        <li v-for="(item,index) in info.lists.data" :key="index" :class="[item.type == 'buy'?'buy-item':'sell-item']">
+        <li v-for="(item,index) in info.lists.data" :key="index" :class="[item.type == 'buy'?'buy-item':'sell-item']" class="bod_bc">
           <div>{{item.currency_name}}</div>
           <div>{{item.surplus_number}}</div>
           <div>{{item.limitation.min}}-{{item.limitation.max}}</div>
@@ -124,7 +124,7 @@ export default {
     return {
       token: "",
       page: 1,
-      sellerId: 6,
+      sellerId: '',
       info: { lists: { data: [] } },
       showWhich: "none",
       showDetail: false,
@@ -135,7 +135,7 @@ export default {
   created() {
     this.token = window.localStorage.getItem("token") || "";
     if (this.token) {
-      // this.sellerId = this.$route.query.sellerId;
+      this.sellerId = this.$route.query.sellerId;
       this.getSellerInfo();
     }
   },
@@ -245,13 +245,13 @@ export default {
   // background: #f8f8f8;
   line-height: 30px;
   > .top {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     line-height: 36px;
     padding: 16px 30px;
     > .top-t {
       align-items: center;
       padding-right: 30px;
-      border-right: 1px solid #ccc;
+      // border-right: 1px solid #ccc;
       margin-right: 30px;
       > .logo {
         margin-right: 20px;
@@ -270,9 +270,8 @@ export default {
     }
   }
   > .md {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     padding: 16px 30px;
-    background: #f8f8f8;
     > div {
       margin-right: 50px;
       img {
@@ -282,7 +281,7 @@ export default {
     }
   }
   > .list {
-    background: #f8f8f8;
+    // background: #f8f8f8;
     margin-top: 20px;
     padding: 16px 30px;
     > .tab {
@@ -317,7 +316,7 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 16px 0;
-        border-bottom: 1px solid #ddd;
+        // border-bottom: 1px solid #ddd;
         > div {
           flex: 1;
           text-align: center;
