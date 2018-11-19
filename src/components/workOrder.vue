@@ -1,6 +1,6 @@
 <template>
     <div class="order">
-        <div class="m-title tc">我的工单</div>
+        <div class="m-title tc bg-part bod_bc">我的工单</div>
         <div class="left">
             <uporder></uporder>
         </div>
@@ -31,8 +31,7 @@ export default {
         height: 42px; 
         width: 100%;
         font-size: 20px;
-        color: #111;
-        border-bottom: 1px solid #c1d0cd;
+        // border-bottom: 1px solid #c1d0cd;
         margin: 10px 0 20px;
         line-height: 46px;
     }

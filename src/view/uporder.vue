@@ -3,7 +3,7 @@
         <h3 class="tc ft18">历史工单</h3>
         <div class="attion ft14">提交工单后，客服稍后给您回复，请耐心等待。</div>
         <ul class="hislist">
-            <li v-for="(item,index) in hisList" @click="godetail(item.id)">
+            <li v-for="(item,index) in hisList" @click="godetail(item.id)" class="bg-part">
                 <div class="flex between">
                     <p>{{item.title}}</p>
                     <p :class="{'colorlan':item.status_name=='已完成'}">{{item.status_name}}</p>
