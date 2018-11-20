@@ -62,6 +62,7 @@ export default {
     return {
       account_number: "",
       extension_code: "",
+      is_seller:0,
       isShow:false,
       accountList:[
         {
@@ -75,13 +76,25 @@ export default {
     this.token = window.localStorage.getItem("token") || "";
     this.account_number = window.localStorage.getItem("accountNum") || "";
     this.extension_code = window.localStorage.getItem("extension_code") || "";
+    this.is_seller = window.localStorage.getItem("is_seller") || "";
+    if(this.is_seller == 1){
+        this.isShow = true;
+    }
+    eventBus.$on("seller", msg => {
+      if(msg){
+          this.is_seller = window.localStorage.getItem("is_seller") || "";
+          if(this.is_seller == 1){
+            this.isShow = true;
+          }
+      }
+    });
     eventBus.$on("toHeader", msg => {
       if(msg.account){
         this.account_number = msg.account;
         this.extension_code = msg.extension_code;
       }
     });
-    this.init();
+    // this.init();
     
   },
   mounted() {
@@ -97,10 +110,11 @@ export default {
   methods: {
     signOut() {
       this.account_number = "";
-      window.localStorage.removeItem("token");
-      window.localStorage.removeItem("accountNum");
-      window.localStorage.removeItem("user_id");
-      window.localStorage.removeItem("extension_code");
+      // window.localStorage.removeItem("token");
+      // window.localStorage.removeItem("accountNum");
+      // window.localStorage.removeItem("user_id");
+      // window.localStorage.removeItem("extension_code");
+      window.localStorage.clear();
       this.$router.push('/components/login');
     },
     goto(index, name) {

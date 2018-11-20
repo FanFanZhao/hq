@@ -220,7 +220,7 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 $navBack: #181b2a;
 $red: #d45858;
 $line: #303b4b;
@@ -229,8 +229,8 @@ $fColor2: #637085;
     padding-left: 34px;
     padding-right: 34px;
     padding-top: 34px;
-    width: 970px;
-    min-height: 800px;
+    width: 970px !important;
+    min-height: 800px !important;
 }
 #user-security {
   .bar-bottom {

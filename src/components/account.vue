@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <indexHeader></indexHeader>
-        <div class="account">
+        <div class="account flex">
             <left v-bind:lang="lang" :current="0"></left>
             <router-view></router-view>
         </div>

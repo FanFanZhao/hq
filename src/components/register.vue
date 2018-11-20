@@ -12,14 +12,14 @@
                 <div class="account-box">
                     <div class="tip" v-if="isMb">请输入手机号</div>
                     <div class="tip" v-if="!isMb">请输入邮箱</div>
-                    <input type="text" v-model="account">
+                    <input type="text" class="input_bg" v-model="account">
                 </div>
                     <div class="tip" style="margin-bottom:10px">请输入验证码</div>
                 <div class="code-box">
-                    <input type="text" v-model="code" class="code">
+                    <input type="text" v-model="code" class="code input_bg">
                     <button type='button' class="code-btn redBg" @click="sendCode">发送验证码</button>
                 </div>
-                <button class="confirm-btn redBg" @click="checkCode" type="button">确认</button>
+                <button class="confirm-btn redBg curPer" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
                 <!-- <div class="title">设置地区</div> -->
@@ -311,7 +311,7 @@ export default {
     input {
       width: 520px;
       min-height: 46px;
-      border: 1px solid #ccc;
+      // border: 1px solid #ccc;
       padding: 0 20px;
       // color: #c7cce6;
       font-size: 14px;
@@ -325,16 +325,17 @@ export default {
       margin: 10px 0 20px;
       span {
         margin: 0 20px;
+        cursor: pointer;
       }
     }
     .code-box {
       width: 520px;
       height: 46px;
       //background-color: #1e2235;
-      background: #fff;
-      border: 1px solid #ccc;
+      // background: #fff;
+      // border: 1px solid #ccc;
       input {
-        border: none;
+        // border: none;
         height: 44px;
         min-height: 44px;
         width: 420px;
@@ -343,6 +344,8 @@ export default {
         border: none;
         line-height: 45px;
         width: 93px;
+        cursor: pointer;
+        border-radius: 2px;
         // color: #c7cce6;
         // border-left: 1px solid #c7cce6;
         // //background: #1e2235;
