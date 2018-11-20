@@ -9,6 +9,7 @@ import c2c from '@/components/c2c'
 import login from '@/components/login'
 import UserCenter from '@/components/UserCenter'
 import BindEmail from '@/view/BindEmail'
+import bindPhone from '@/components/bindPhone'
 import UserSecurity from '@/view/UserSecurity'
 import register from '@/components/register'
 import account from '@/components/account'
@@ -154,6 +155,11 @@ export default new Router({
 					path: '/components/bindEmail',
 					name: 'BindEmail',
 					component: BindEmail
+				},
+				{
+					path: '/components/bindPhone',
+					name: 'bindPhone',
+					component: bindPhone
 				},
 				{
 					path: '/components/authentication',

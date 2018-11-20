@@ -34,6 +34,8 @@
                 </p>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <span  class="fr red mouseDefault"></span>
+                <router-link class="fr red" to="/components/bindPhone" v-if="account == '未绑定'">去绑定</router-link>
+                <span class="fr blue" v-else>已绑定</span>
             </li>
             <li>
                 <img  :src="esrc">

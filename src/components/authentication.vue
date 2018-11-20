@@ -1,5 +1,5 @@
 <template>
-    <div class="account-box wrap fColor1">
+    <div class="account-box wrap">
         <div class="title bgf8">
                 身份认证
         </div>
@@ -8,14 +8,14 @@
                 <div class="main-input">
                     <div class="flex alcenter center">
                         <span>姓名：</span>
-                        <input type="text" placeholder="请输入真实姓名" id="name" v-model="name">
+                        <input type="text" class="input_bg" placeholder="请输入真实姓名" id="name" v-model="name">
                     </div>
                     <div class="flex alcenter center mt20">
                         <span>身份证：</span>
-                        <input type="number" placeholder="请输入身份证号" id="card" v-model="card_id">
+                        <input type="number" class="input_bg" placeholder="请输入身份证号" id="card" v-model="card_id">
                     </div>
                 </div>
-                <div class="mt40 fColor1 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
+                <div class="mt40 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
                 <div class="idimg flex center mt40">
                     <div>
                         <img :src="src01" alt="">
@@ -199,11 +199,11 @@ export default {
             }
             .idimg{
                 div{
-                    width: 160px;
-                    height: 160px;
+                    width: 140px;
+                    height: 140px;
                     overflow: hidden;
                     position: relative;
-                    background: url('../../static/imgs/addimg.png') no-repeat;
+                    background: url('../../static/imgs/addimgs.png') no-repeat;
                     background-size: 100% 100%;
                     border: 1px solid #E2E2E2;
                     margin-left: 50px;
@@ -212,7 +212,7 @@ export default {
                         z-index: 11110;
                         opacity: 0;
                         width: 100%;
-                        height: 160px;
+                        height: 140px;
                         top: 0;
                         cursor: pointer;
                     }
@@ -228,7 +228,8 @@ export default {
                     margin: 0 auto;
                     margin-left: 100px;
                     margin-top: 60px;
-                    background: #5697f4
+                    background: #5697f4;
+                    color: #fff;
                 }
             }
             .au-statue{
