@@ -2,7 +2,7 @@
     <div class="hisorder">
         <h3 class="tc ft18">提交工单</h3>
         <div class="attion ft14">请严格按照分类提交问题</div>
-        <ul class="tabbox">
+        <ul class="tabbox flex">
             <li :class="{'ticket-active':index==current}" v-for="(item,index) in tabList" @click="change(index,item.type)">{{item.name}}</li>
         </ul>
         <div>
@@ -20,7 +20,7 @@
         <div>
             <p class="mt20">选择币种</p>
             <div class="mt10">
-                <select name="" id="" v-model='selectval'>
+                <select name="" id="" v-model='selectval' class="input_bg">
                     <option :value="item.id" v-for="(item,index) in coinList">{{item.name}}</option>
                 </select>
             </div>
@@ -28,13 +28,13 @@
         <div>
             <p class="mt20">标题</p>
             <div class="mt10">
-                <input type="text" placeholder="请输入标题信息" class="input" v-model="title">
+                <input type="text" placeholder="请输入标题信息" class="input input_bg" v-model="title">
             </div>
         </div>
         <div>
             <p class="mt40">您的文字信息</p>
             <div class="mt10">
-                <textarea name="" id="" cols="30" rows="10" v-model="textval">
+                <textarea name="" id="" cols="30" rows="10" v-model="textval" class="input_bg">
 
                 </textarea>
             </div>
@@ -156,9 +156,7 @@ export default {
     }
     .tabbox{
         border-bottom: 1px solid #a3acb5;
-        overflow: hidden;
         li{
-            float: left;
             font-size: 16px;
             padding: 10px 30px;
             border: 1px solid transparent;

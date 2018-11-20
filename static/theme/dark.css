@@ -27,6 +27,11 @@ body,
 #app .eee {
   background: #080d13;
 }
+#app .input_bg {
+  border-color: #4b535f;
+  color: rgba(255, 255, 255, 0.8);
+  background: #1b212f;
+}
 #app #c2c-box .show-detail {
   background: #3a4067;
 }
@@ -291,4 +296,22 @@ body,
   border-color: #4b535f;
   color: #fff;
   background: #1b212f;
+}
+#app .hisorder .tabbox {
+  border-bottom: 1px solid #202538;
+}
+#app .hisorder .tabbox .ticket-active {
+  border: 1px solid #202538;
+  margin-bottom: -1px;
+  border-bottom-color: #080d13;
+}
+#app .detail .enterbox .chossefile {
+  background: #283340;
+}
+#app #legaltrade-box > .list-box > .list-title {
+  border-bottom: 1px solid #4d535a;
+}
+#app #legaltrade-box > .buy-sell > div > .now > .current {
+  border-bottom: 2px solid #fff;
+  color: #fff;
 }

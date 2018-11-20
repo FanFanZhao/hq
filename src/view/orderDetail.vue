@@ -1,6 +1,6 @@
 <template>
     <div class="detail">
-        <div class="title pd20 bgf8 mt20">
+        <div class="title pd20 bgf8">
            工单详情
            <span class="fr curPer" @click="goBefore">&lt;&lt;返回</span>
         </div>
@@ -165,14 +165,13 @@ export default {
     min-height: 850px;
     width: 1000px;
     margin: 0 auto;
+    padding-top: 20px;
     .title{
-       /* border-radius: 4px; */
        height:60px;
        line-height:60px;
        padding:0 20px;
     }
     .checkbox{
-        border-radius: 4px;
         height: 500px;
         margin: 0 auto;
         margin-top: 20px;

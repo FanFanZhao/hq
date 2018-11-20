@@ -1,7 +1,7 @@
 <template>
     <div class="order">
         <div class="m-title tc bg-part bod_bc">我的工单</div>
-        <div class="left">
+        <div class="left bod_rc">
             <uporder></uporder>
         </div>
         <div class="right">
@@ -37,7 +37,6 @@ export default {
     }
     .left{
         width: 50%;
-        border-right: 1px solid #eee;
         min-height: 800px;
         float: left;
         padding: 0px 30px;

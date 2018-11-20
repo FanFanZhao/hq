@@ -16,7 +16,7 @@
 			<div class="record light_blue" @click="recordList()">订单记录</div>
 		</div>
 		<div class="list-box">
-			<div class="list-title flex">
+			<div class="list-title flex ft14 gray9">
 				<div>商家</div>
 				<div>数量</div>
 				<div>限额</div>
@@ -25,19 +25,19 @@
 				<div>操作</div>
 			</div>
 			<ul class="list">
-				<li v-for="(item,index) in list" :key="index" class="flex bod_bc">
+				<li v-for="(item,index) in list" :key="index" class="flex bod_bc ft14">
 					<div class="flex alcenter">
 						<img :src="item.currency_logo" alt="">
 						<div class="flex column center">
-							<span class="light_blue">{{item.seller_name}}</span>
+							<span class="light_blue bold">{{item.seller_name}}</span>
 						</div>
 					</div>
 					<div class="flex alcenter">{{item.surplus_number}}  {{item.currency_name}}</div>
 					<div class="flex alcenter">￥{{(item.limitation.min-0).toFixed(2)}}-￥{{(item.limitation.max-0).toFixed(2)}}CNY</div>
-					<div class="flex alcenter">{{item.price}}</div>
+					<div class="flex alcenter price ft16 bold">{{item.price}}</div>
 					<div class="flex alcenter">{{item.way_name}}</div>
 					<div class="flex alcenter end"  @click="buySell(item.price,item.limitation.min,item.limitation.max,item.id,item.type)">
-						<button>{{classify}}{{name}}</button>
+						<button class="curPer">{{classify}}{{name}}</button>
 					</div>
 				</li>
 			</ul>
@@ -50,7 +50,7 @@
 			<div class="mask" @click="closeBtn()"></div>
 			<div class="content">
 				<div class="content-list">
-					<p class="close tr" @click="close()">X</p>
+					<p class="close tr curPer" @click="close()">X</p>
 					<p class="title">{{classify}}{{name}}</p>
 					<p class="price">单价{{prices}}</p>
 					<div class="trade">
@@ -73,7 +73,7 @@
 					<!-- <p class="tip">请在24小时内联系商家付款，超出24小时将自动取消</p> -->
 					<div class="btns">
 						<p class="cannel">{{time}}s自动取消</p>
-						<button class="comfirm" type="button" @click="buyOrder()">下单</button>
+						<button class="comfirm curPer" type="button" @click="buyOrder()">下单</button>
 					</div>
 				</div>
 			</div>
@@ -371,16 +371,22 @@
 					li {
 						margin-right: 16px;
 						cursor: pointer;
-						    padding: 2px 6px;
+						padding: 2px 6px;
+						color: #638bd4;
 					}
 				}
 
 				>.now {
+					li{
+						color: #638bd4;
+					}
 					>.current {
 						// color: $purple;
 						// border-bottom: 2px solid $purple;
-						background: #563BD1;
-						color: #fff;
+						// background: #563BD1;
+						border-bottom: 2px solid #333;
+						font-weight: 600;
+						color: #333;
 						padding: 2px 6px;
 					}
 				}
@@ -399,6 +405,8 @@
 			margin-top: 20px;
 
 			>.list-title {
+				padding: 10px 0;
+				border-bottom: 1px solid #d9d9d9;
 				>div {
 					flex: 1;
 				}
@@ -412,7 +420,9 @@
 				>li {
 					padding: 20px 0;
 					// border-bottom: 1px solid #e5e5e5;
-
+                    .price{
+						color: #489972;
+					}
 					>div {
 						flex: 1;
 						line-height: 36px;
@@ -436,10 +446,10 @@
 						text-align: right;
 
 						>button {
-							background-color: $purple;
-							padding: 5px 15px;
+							background-color: #638BD4;
+							padding: 0px 10px;
 							color: #fff;
-							border-radius: 8px;
+							border-radius: 4px;
 							line-height: 36px;
 						}
 					}

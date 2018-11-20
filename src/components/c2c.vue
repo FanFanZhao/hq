@@ -62,7 +62,7 @@
                                 <span>姓名</span>
                                 <input type="text" v-model="user_name">
                             </div>
-                            <div class="inp-box">
+                            <div class="inp-box hide">
                                 <span>详细内容</span>
                                 <input type="text" v-model="content">
                             </div>
@@ -124,7 +124,7 @@
                                 <span>姓名</span>
                                 <input type="text" v-model="user_name01">
                             </div>
-                            <div class="inp-box">
+                            <div class="inp-box hide">
                                 <span>详细内容</span>
                                 <input type="text" v-model="content01" />
                             </div>
@@ -633,9 +633,9 @@ export default {
       // if(this.user_name == ""){
       //   return layer.msg('请输入姓名');
       // }
-      if(this.content == ""){
-        return layer.msg('请填写详细信息');
-      }
+      // if(this.content == ""){
+      //   return layer.msg('请填写详细信息');
+      // }
       console.log(this.c2c_ratio,this.num)
       var c2c_rationum=(this.c2c_ratio*this.num).toFixed(4)
       layer.confirm('数量:'+that.num+',所需手续费:'+c2c_rationum, {
@@ -700,9 +700,9 @@ export default {
       // if(this.user_name01 == ""){
       //   return layer.msg('请输入姓名');
       // }
-      if(this.content01 == ""){
-        return layer.msg('请填写详细信息');
-      }
+      // if(this.content01 == ""){
+      //   return layer.msg('请填写详细信息');
+      // }
       var c2c_rationum=(this.c2c_ratio*this.num01).toFixed(4)
       return layer.confirm('数量:'+that.num01+',所需手续费:'+c2c_rationum, {
         btn: ['确认','取消'] //按钮

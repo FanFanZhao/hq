@@ -18,16 +18,16 @@
     <ul class="ft14 bgf8">
       <li v-for="(item,index) in list" :key="index" class="eee">
         <div class="flex li-t">
-          <div>
+          <div class="ft14 bold cblue">
             <span v-if="item.type == 'sell'">购买</span>
             <span v-else>出售</span>
             <span>{{item.currency_name}}</span>
           </div>
           <div class="status">
             <router-link :to="{path:'/legalPay',query:{id:item.id}}" v-if="item.is_sure == 0&&item.type=='sell'">未完成 ></router-link>
-             <router-link :to="{path:'/legalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 0 &&item.type=='buy'">未完成 ></router-link>
+            <router-link :to="{path:'/legalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 0 &&item.type=='buy'">未完成 ></router-link>
             <router-link :to="{path:'/legalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 1">已完成 ></router-link>
-            <router-link :to="{path:'/legalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 2">已取消 ></router-link>
+            <router-link class="ceilColor" :to="{path:'/legalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 2">已取消 ></router-link>
             <router-link :to="{path:'/legalPayDetail',query:{id:item.id}}" v-else>已付款 ></router-link>
            
           </div>
