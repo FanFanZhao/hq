@@ -218,7 +218,8 @@ export default {
 .code-box button {
   border: none;
   line-height: 47px;
-  
+  border-radius: 3px;
   width: 94px;
+  cursor: pointer;
 }
 </style>

@@ -7,20 +7,20 @@
                     <p class="main_title">重置密码</p>
                     <div class="register-input">
                         <span class="register-item">请输入原密码</span>
-                        <input type="password" class="input-main input-content" maxlength="20" v-model="oldPwd" id="account">
+                        <input type="password" class="input-main input-content input_bg" maxlength="20" v-model="oldPwd" id="account">
                     </div>
                      <div class="register-input">
                         <span class="register-item">请输入新密码</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="pwd" id="pwd">
+                        <input type="password" class="input-main input-content input_bg" maxlength="16" v-model="pwd" id="pwd">
                     </div>
                      <div class="register-input">
                         <span class="register-item">请再次输入新密码</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="rePwd">
+                        <input type="password" class="input-main input-content input_bg" maxlength="16" v-model="rePwd">
                     </div>
                      <div class="register-input">
                         <span class="register-item">请输入验证码</span>
                         <div class="code-box">
-                            <input type="text" class="input-main input-content" maxlength="16" v-model="code">
+                            <input type="text" class="input-main input-content input_bg" maxlength="16" v-model="code">
                             <button type="button" class="redBg" @click="sendCode">{{resetSeconds}}</button>
                         </div>
                     </div>
@@ -224,11 +224,12 @@ export default {
 }
 .code-box input {
   width: 406px;
-  border: none;
+  /* border: none; */
 }
 .code-box button {
   padding: 0 20px;
   line-height: 47px;
   width: 107px;
+  border-radius: 2px;
 }
 </style>

@@ -242,5 +242,7 @@ export default {
   padding: 0 20px;
   line-height: 47px;
   width: 107px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 </style>
