@@ -12,7 +12,7 @@
                         </div>
                         <div class="flex alcenter center mt20">
                             <span>身份证：</span>
-                            <input type="number" placeholder="请输入身份证号" id="card" v-model="card_id">
+                            <input type="text" placeholder="请输入身份证号" id="card" v-model="card_id">
                         </div>
                     </div>
                     <div class="mt40 fColor1 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
@@ -118,12 +118,13 @@ export default {
             var that = this;
             let name = this.$utils.trim(that.name);
             let card_id = this.$utils.trim(that.card_id);
+            var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(this.name.length == ''){
                 layer.tips('请输入姓名!', '#name');
                 return;
             }
-            if(this.card_id.length == ''){
-                layer.tips('请输入身份证号!', '#card');
+            if(this.card_id.length == ''|| !reg.test(this.card_id)){
+                layer.tips('请输入正确身份证号!', '#card');
                 return;
             }
             this.$http({
