@@ -7,13 +7,13 @@
                 </div>
             <div  class="fl ml30">
                 <p  class="ft16 ">您的账号安全等级 :
-                    <span  class="ml10">低</span>
+                    <span  class="ml10">{{lever}}</span>
                 </p>
                 <div  class="bar-bottom">
-                    <div  class="bar-top" style="width: 25%;"></div>
+                    <div  class="bar-top" :style="widthBar"></div>
                 </div>
                 <p  class="fColor2 ft14">
-                    您的账号安全等级 低，强烈建议开启更多身份验证</p>
+                    您的账号安全等级 {{lever}}，完善更多资料，保证账号安全</p>
                 <p  class="fColor2 ft14" style="display: none;">
                     您的账号安全等级 低，恭喜您!</p>
             </div>
@@ -122,6 +122,9 @@ export default {
       goset:"去设置",
       extension_code: "",
       austatus:'去认证',
+      lever:'低',
+      widthBar:'width: 25%',
+      bar:25,
       authen:0,
       psrc: require("@/assets/images/icon_error.png"),
       esrc: require("@/assets/images/icon_error.png"),
@@ -156,14 +159,27 @@ export default {
             if (res.data.message.phone) {
               this.account = res.data.message.phone;
               this.psrc = require("@/assets/images/success.png");
+              this.bar=this.bar+25;
             }
             if(res.data.message.email!=null){
                 this.email=res.data.message.email;
                 this.esrc=require('@/assets/images/success.png')
+                this.bar=this.bar+25;
             }
             this.extension_code = res.data.message.extension_code;
             this.authen=res.data.message.review_status;
-            if(this.authen==2){this.asrc=require("@/assets/images/success.png")}
+            if(this.authen==2){
+              this.asrc=require("@/assets/images/success.png")
+              this.bar=this.bar+25;
+            }
+            if(this.bar==50){
+              this.lever='中';
+            }else if(this.bar==75){
+              this.lever='高'; 
+            }else if(this.bar==100){
+              this.lever='强';
+            }
+            this.widthBar='width:'+this.bar+'%';
           }
         })
         .catch(error => {});

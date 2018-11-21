@@ -56,8 +56,8 @@ export default {
            card_id:'',
            src1:'',
            src2:'',
-           src01:'',
-           src02:'',
+           src01:'../../static/imgs/cardFront.jpg',
+           src02:'../../static/imgs/cardBack.jpg',
            review_status:''
         }
     },
@@ -203,20 +203,23 @@ export default {
             }
             .idimg{
                 div{
-                    width: 140px;
-                    height: 140px;
+                    width: 180px;
+                    height: 120px;
                     overflow: hidden;
                     position: relative;
-                    background: url('../../static/imgs/addimgs.png') no-repeat;
+                    // background: url('../../static/imgs/addimgs.png') no-repeat;
                     background-size: 100% 100%;
                     border: 1px solid #E2E2E2;
                     margin-left: 50px;
+                    img{
+                        width: 100%;
+                    }
                     input{
                         position: absolute;
                         z-index: 11110;
                         opacity: 0;
                         width: 100%;
-                        height: 140px;
+                        height: 120px;
                         top: 0;
                         cursor: pointer;
                     }

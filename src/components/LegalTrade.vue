@@ -62,7 +62,7 @@
 						<input v-else class="number" type="number" :placeholder='"请输入要"+money_type+"数量"' v-model="nums">
 						<button class="all" type="button" v-if=" type== 'buy' " @click="allMoney();">全部买入</button>
 						<button class="all" type="button" v-else @click="allMoney();">全部卖出</button>
-						<span class="name">{{name}}</span>
+						<span class="name">{{name01}}</span>
 					</div>
 					<div class="maxnum">限额{{minNum}}-{{maxNum}}</div>
 					<div class="trade-totals">
@@ -107,7 +107,8 @@
 				nums: '',
 				totalNums: '0.00',
 				ID:'',
-				money_type:''
+				money_type:'',
+				name01:'CNY'
 			};
 		},
 		created() {
@@ -222,8 +223,10 @@
 			tabClassify(num) {
 				if (num == 1) {
 					this.types = 'trade';
+					this.name01 = 'CNY';
 				} else {
 					this.types = 'num';
+					this.name01 = this.name;
 				}
 			},
 			// 全部卖出或买入
