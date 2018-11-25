@@ -109,11 +109,11 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {    -webkit-a
 }
 .scroll::-webkit-scrollbar {
     width: 6px;
-    // background-color: #161d28;
+    background-color: transparent;
 }
 .scroll::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    // background-color: #222639;
+    background-color: #d9dce0;
 }
 .white{color: #fff;}
 .w50{width: 50%;}

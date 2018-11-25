@@ -315,3 +315,9 @@ body,
   border-bottom: 2px solid #fff;
   color: #fff;
 }
+.scroll::-webkit-scrollbar {
+  background-color: #080d13!important;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #222e3c!important;
+}

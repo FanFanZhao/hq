@@ -994,8 +994,10 @@ export default {
       }
     }
     > .bot {
-      .ul-bot{
-        
+      .ul-box{
+        max-height: 500px;
+        padding-bottom:20px;
+        overflow-y: scroll;
       }
       .show-detail{
         float: right;
@@ -1063,7 +1065,7 @@ export default {
         text-align: center;
         padding: 8px 5px;
         line-height: 24px;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid #f3f3f3;
         &:hover {
           background: #f8f8f8;
         }
