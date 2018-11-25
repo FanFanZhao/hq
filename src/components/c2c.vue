@@ -193,8 +193,10 @@
                           <div>{{(item.number*item.price-0).toFixed(2)}}</div>
                           <div>{{item.status_name}}</div>
                           <div class="last">
-                            <div class="btn-last" @click="buySell(item.id,'buy')">买入</div>
-                            <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
+                            <div class="btn-last" @click="buySell(item.id,'buy')" v-if="item.show==1">买入</div>
+                            <div class="btn-last" v-else>买入</div>
+                            <span class="show-detail" @click="getDetail(item.id,'c2c',$event)" v-if="item.show==1">详情</span>
+                            <span class="show-detail" v-else>详情</span>
                           </div>
                       </li>
                     </ul>
@@ -208,8 +210,10 @@
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
                             <div>{{item.status_name}}</div>
                             <div class="last">
-                              <div v-if="item.status_name == '等待中'" @click="buySell(item.id,'sell')" class="btn-last">卖出</div>
-                              <span class="show-detail" @click="getDetail(item.id,'c2c',$event)">详情</span>
+                              <div class="btn-last" @click="buySell(item.id,'sell')" v-if="item.show==1">卖出</div>
+                              <div class="btn-last" v-else>卖出</div>
+                              <span class="show-detail" @click="getDetail(item.id,'c2c',$event)" v-if="item.show==1">详情</span>
+                              <span class="show-detail" v-else>详情</span>
                             </div>
                         </li>  
                     </ul>
@@ -1102,6 +1106,7 @@ export default {
         .btn-last {
           background: #ca4141;
         }
+        
       }
       .ul-in li {
         > div:first-child {
@@ -1110,6 +1115,11 @@ export default {
 
         .btn-last {
           background: #25796a;
+        }
+      }
+      .deny_trade{
+        .btn-last {
+          cursor: not-allowed !important;
         }
       }
     }
@@ -1135,6 +1145,6 @@ export default {
 .openimg{display: block;margin: 0 auto;max-width: 100%;}
 .deny_trade{
   opacity: 0.5;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 </style>
