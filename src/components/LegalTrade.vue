@@ -252,22 +252,25 @@
 					};
 					_this.buyHttp('/api/do_legal_deal', datas, function(res) {
 						if(res.data.type == 'ok'){
-							console.log(123456)
+						console.log(123456)
 							if (res.data.message.data.type == 'sell') {
-								layer.msg(res.data.message.msg)
-								setTimeout(function() {
-									_this.$router.push({path:'/legalPay',query:{id:res.data.message.data.id}});
-								}, 500)
-							} else {
-								layer.msg(res.data.message.msg)
-								setTimeout(function() {
-									_this.$router.push({path:'/legalPayDetail',query:{id:res.data.message.data.id}});
-								}, 500)
-							}
-						}else{
-                           layer.msg(res.data.message);
+								// layer.msg(res.data.message.msg)
+					            if(_this.type=='sell'){
+									layer.msg(res.data.message.msg+'如30分钟未完成交易,可自行取消交易！')
+								}
+							setTimeout(function() {
+								_this.$router.push({path:'/legalPay',query:{id:res.data.message.data.id}});
+							}, 500)
+						} else {
+							layer.msg(res.data.message.msg)
+							setTimeout(function() {
+								_this.$router.push({path:'/legalPayDetail',query:{id:res.data.message.data.id}});
+							}, 500)
 						}
-					});
+					}else{
+						layer.msg(res.data.message);
+					}
+				});
 				} else {
 					if (_this.types == 'trade') {
 						layer.msg('请输入欲购买数量');
@@ -289,15 +292,18 @@
 				}).then(res => {
 					console.log(res);
 					if (res.data.type == 'ok') {
-						if(_this.type=='buy'){
-							layer.msg(res.data.msg+'如30分钟未完成交易,可自行取消交易！')
-						}
+						layer.msg(res.data.message)
 						callback && callback(res)
 					} else {
 						layer.msg(res.data.message)
+						if (res.data.type == '997') {
+							setTimeout(() => {
+								_this.$router.push("/components/userSetting");
+							}, 500);
+						}
 						if (res.data.type == '998') {
 							setTimeout(() => {
-								_this.$router.push('/legalTradeSet');
+								_this.$router.push('/components/authentication');
 							}, 500);
 						}
 

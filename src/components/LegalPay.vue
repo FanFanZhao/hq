@@ -27,7 +27,7 @@
       </div>
       <div>
         <span>联系方式：</span>
-        <span>{{msg.seller.mobile}}</span>
+        <span>{{msg.seller_phone}}</span>
       </div>
       <div>
         <span>识别码：</span>
