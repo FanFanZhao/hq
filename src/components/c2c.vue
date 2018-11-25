@@ -388,7 +388,6 @@ export default {
       myAdd: { page: 1, list: [], hasMore: true },
       myBuySell: { page: 1, list: [], hasMore: true },
       active: 0,
-      currency_list: [],
       currency_name: "",
       id: "",
       c2c_ratio:0,
@@ -440,7 +439,7 @@ export default {
     // 获取币种列表
     get_currency() {
       this.$http({
-        url: "/api/currency/list",
+        url: "/api/currency/c2c_list",
         method: "get",
         headers: { Authorization: this.token }
       }).then(res => {

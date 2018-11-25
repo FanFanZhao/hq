@@ -23,8 +23,8 @@
           <span v-else>{{msg.seller_name}}</span>
         </div>
         <div>
-          <span>{{user.bank_name}}</span>
-          <span>{{user.bank_account}}</span>
+          <span>银行卡:</span>
+          <span>{{user.bank_name}}:{{user.bank_account}}</span>
         </div>
         <div>
           <span>支付宝:</span>
@@ -50,6 +50,10 @@
       <div>
         <span>下单时间：</span>
         <span>{{msg.format_create_time}}</span>
+      </div>
+      <div v-if="msg.pay_voucher"> 
+        <span>支付凭证</span>
+        <img :src="msg.pay_voucher" alt="" class="pay_voucher" @click="evimgs(msg.pay_voucher)">
       </div>
       <div>
         <span>参考号：</span>
@@ -205,6 +209,22 @@ export default {
       }).then(() => {
         this.showPay = false;
       })
+    },
+    evimgs(src){
+      console.log(src)
+      return layer.open({
+        type: 1 //Page层类型
+        ,area: ['375px', '500px']
+        ,title: ''
+        ,shade: 0.6 //遮罩透明度
+        ,anim: 1 //0-6的动画形式，-1不开启
+        ,content: "<img src='"+src+"' alt='' class='openimg'>"
+        ,btn: ['关闭'],
+         yes: function(index){
+            layer.close(index);
+        }
+
+      });   
     }
   }
 };
@@ -295,5 +315,11 @@ export default {
   .seller{
     cursor: pointer;
   }
+  .pay_voucher{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .openimg{display: block;margin: 0 auto;max-width: 100%;}
 }
 </style>

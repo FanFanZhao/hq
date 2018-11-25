@@ -31,23 +31,15 @@
                 <img src="../assets/images/select0.png" alt="">
             </div>
         </div>
-        <!-- <div class="line"></div> -->
+
         <ul class="coin-wrap scroll">
-            <!-- <li>
-                <span v-for="item in newData">{{item}}</span>
-            </li> -->
             <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
-              <p v-for="(itm,idx) in market"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.currency_name,itm,index,market)">
-               <!-- <a  @click="changePair(itm,index,market)"> -->
-				   <span class="w36"><img :src="itm.logo" alt=""><i>{{itm.currency_name}}/{{itm.legal_name}}</i></span>
-				   <span class="w30 tr redColor" :data-name='itm.currency_name+"/"+itm.legal_name'>{{itm.now_price || 0.00}}</span>
-				   <!-- <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span> -->
-				   <span :class="{'green':itm.change>=0}">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
-			   <!-- </a> -->
-
-                </p>
+              <p v-for="(itm,idx) in market" v-if="itm.is_display==1"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.currency_name,itm,index,market)">
+                <span class="w36"><img :src="itm.logo" alt=""><i>{{itm.currency_name}}/{{itm.legal_name}}</i></span>
+                <span class="w30 tr redColor" :data-name='itm.currency_name+"/"+itm.legal_name'>{{itm.now_price || 0.00}}</span>
+                <span :class="{'green':itm.change>=0}">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
+              </p>
             </li>
-
         </ul>
 	</div>
 </template>
@@ -91,6 +83,7 @@ export default {
           arr_quota[i] = msg[i].quotation;
         }
         this.marketList = arr_quota;
+        console.log(this.marketList)
         // this.$store.state.priceScale = Math.pow(
         //   10,
         //   this.marketList[0][0].now_price
@@ -98,7 +91,7 @@ export default {
         //     : 0
         // );
         this.$store.state.priceScale =100000;
-        console.log(this.$store.state.priceScale )
+        // console.log(this.$store.state.priceScale )
         this.$store.state.symbol =
         this.marketList[0][0].currency_name + "/" + this.exName;
         //默认法币id和name
@@ -126,31 +119,6 @@ export default {
   },
   mounted() {
     var that = this;
-
-    // eventBus.$on("toNew", function(data) {
-    //   console.log(data);
-    //   if (data) {
-    //     var newprice = data.newprice;
-    //     var cname = data.istoken;
-    //     var newup = data.newup;
-    //     console.log(newup);
-    //     if (newup >= 0) {
-    //       newup = "+" + newup + "%";
-    //       $("span[data-name='" + cname + "']")
-    //         .next()
-    //         .css("color", "#55a067");
-    //     } else {
-    //       newup = newup + "%";
-    //       $("span[data-name='" + cname + "']")
-    //         .next()
-    //         .css("color", "#cc4951");
-    //     }
-    //     $("span[data-name='" + cname + "']")
-    //       .html("$" + newprice)
-    //       .next()
-    //       .html(newup);
-    //   }
-    // });
   },
   methods: {
     // socket封装

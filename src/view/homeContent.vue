@@ -100,7 +100,7 @@
           </div>
           
           <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
-            <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='li.currency_name+"/"+li.legal_name'>
+            <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='li.currency_name+"/"+li.legal_name' v-if="li.is_display==1">
               <div class="two-coin">
                 <img :src="li.logo" alt="" style="width:30px;">
                 <span style="color:#61688a;font-weight:bold">{{li.currency_name}}/{{li.legal_name}}</span>
