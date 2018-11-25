@@ -18,7 +18,7 @@
         <span>{{msg.way_name}}</span>
       </div>
       <div>
-        <span>账户：</span>
+        <span>银行账户：</span>
         <span>{{msg.hes_account}}</span>
       </div>
       <div>
@@ -26,12 +26,28 @@
         <span>{{msg.hes_realname}}</span>
       </div>
       <div>
+        <span>联系方式：</span>
+        <span>{{msg.seller.mobile}}</span>
+      </div>
+      <div>
+        <span>识别码：</span>
+        <span style="color:red">{{msg.messy_code}}      (*转账时请务必备注此识别码)</span>
+      </div>
+      <div>
+        <span>参考号：</span>
+        <span>{{msg.id}}</span>
+      </div>
+      <div>
         <span>商家账户：</span>
         <router-link :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span" style="color:#2E1B85">{{msg.seller_name}}</router-link>
       </div>
       <div class="btns">
         <div class="btn" @click="showCancel = true">取消订单</div>
-        <div class="btn" @click="showConfirm = true">我已付款，点击确认</div>
+        <!-- <div class="btn" @click="showConfirm = true">我已付款，点击确认</div> -->
+        <div class="btn imgbtn">
+          我已付款，上传付款凭证
+          <input type="file" id="file" accept="image/*" @change="file" >
+        </div>
       </div>
     </div>
     <div class="cancel-box" v-if="showCancel">
@@ -71,7 +87,8 @@ export default {
       showConfirm:false,
       showCancel:false,
       hasPay:false,
-      id:''
+      id:'',
+      src:''
     };
   },
   created() {
@@ -121,11 +138,36 @@ export default {
         this.showCancel = false;
       })
     },
+    file(){
+      var that = this;
+      var formData = new FormData();
+			formData.append("file", $("#file")[0].files[0]);
+      var i = layer.load();
+			$.ajax({
+				url:'api/upload',
+				type: 'post',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (msg) {
+          layer.close(i);
+          console.log(msg)
+					if(msg.type == 'ok'){
+            that.src=msg.message;
+            if(that.src){
+                that.showConfirm = true;
+            }else{
+              layer.msg('图片上传失败');
+            }
+					}
+				}
+			});
+    },
     confirm(){
       this.$http({
         url:'api/user_legal_pay',
         method:'post',
-        data:{id:this.id},
+        data:{id:this.id,pay_voucher:this.src},
         headers:{Authorization:this.token}
       }).then(res => {
         // console.log(res);
@@ -217,5 +259,7 @@ export default {
       }
     }
   }
+  .imgbtn{position: relative;}
+  #file{position: absolute;top: 0;left: 0;width: 190px;height: 40px;opacity: 0;z-index: 99;cursor: pointer;}
 }
 </style>

@@ -8,7 +8,7 @@
       <div v-if="msg.is_sure == 0">请等待买家付款</div>
       <div v-if="msg.is_sure == 1">订单已完成</div>
       <div v-if="msg.is_sure == 2">订单已取消</div>
-      <div v-if="msg.is_sure == 3">买家已付款，请核实后确认</div>
+      <div v-if="msg.is_sure == 3">已付款，等待核实后确认</div>
      
     </div>
     <div class="info bg-part ft14">
@@ -51,9 +51,17 @@
         <span>下单时间：</span>
         <span>{{msg.format_create_time}}</span>
       </div>
+      <div>
+        <span>联系方式：</span>
+        <span>{{msg.is_seller==1?msg.buyer_phone:msg.seller_phone}}</span>
+      </div>
       <div v-if="msg.pay_voucher"> 
         <span>支付凭证</span>
         <img :src="msg.pay_voucher" alt="" class="pay_voucher" @click="evimgs(msg.pay_voucher)">
+      </div>
+      <div>
+        <span>识别码：</span>
+        <span style="color:red">{{msg.messy_code}}      (*转账时请务必备注此识别码)</span>
       </div>
       <div>
         <span>参考号：</span>
@@ -66,7 +74,10 @@
       <div class="btns">
         <div class="btn" @click="showCancel = true" v-if="msg.is_sure == 0 && msg.type =='buy'">取消订单</div>
         <div class="btn" @click="showConfirm = true" v-if="(msg.is_sure == 3) && (msg.type =='sell')">确认已收款</div>
-        <div class="btn" @click="showPay = true" v-if="(msg.is_sure==0) && (msg.type=='buy')">我已付款,点击确认</div>
+        <div class="btn imgbtn" v-if="(msg.is_sure==0) && (msg.type=='buy')">
+          我已付款，上传付款凭证
+          <input type="file" id="file" accept="image/*" @change="file" >
+        </div>
       </div>
     </div>
     <div class="cancel-box" v-if="showCancel">
@@ -122,7 +133,8 @@ export default {
       hasPay:false,
       showPay:false,
       id:'',
-      msg:{}
+      msg:{},
+      src:''
     };
   },
   created() {
@@ -195,17 +207,45 @@ export default {
         this.showConfirm = false;
       })
     },
+    file(){
+      var that = this;
+      var formData = new FormData();
+			formData.append("file", $("#file")[0].files[0]);
+      var i = layer.load();
+			$.ajax({
+				url:'api/upload',
+				type: 'post',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (msg) {
+          layer.close(i);
+          console.log(msg)
+					if(msg.type == 'ok'){
+            that.src=msg.message;
+            if(that.src){
+                that.showPay = true;
+            }else{
+              layer.msg('图片上传失败');
+            }
+					}
+				}
+			});
+    },
     // 买家确认付款
     confirmPay(){
       this.$http({
         url:'api/user_legal_pay',
         method:'post',
-        data:{id:this.id},
+        data:{id:this.id,pay_voucher:this.src},
         headers:{Authorization:this.token}
       }).then(res => {
         // console.log(res);
         layer.msg(res.data.message);
-        location.reload();
+        setTimeout(function(){
+          location.reload();
+        },2000)
+        
       }).then(() => {
         this.showPay = false;
       })
@@ -320,6 +360,8 @@ export default {
     height: 40px;
     cursor: pointer;
   }
-  .openimg{display: block;margin: 0 auto;max-width: 100%;}
 }
+  .openimg{display: block;margin: 0 auto;max-width: 100%;}
+  .imgbtn{position: relative;}
+  #file{position: absolute;top: 0;left: 0;width: 190px;height: 40px;opacity: 0;z-index: 99;cursor: pointer;}
 </style>

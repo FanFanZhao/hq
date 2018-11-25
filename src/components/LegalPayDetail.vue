@@ -6,9 +6,9 @@
       <span v-if="msg.is_sure == 2">已取消</span>
       <span v-if="msg.is_sure == 3">已付款</span>
       <div v-if="msg.is_sure == 0">请等待买家付款</div>
-      <div v-if="msg.is_sure == 1">订单已完成，无法查看支付信息</div>
-      <div v-if="msg.is_sure == 2">订单已取消，无法查看支付信息</div>
-      <div v-if="msg.is_sure == 3">已付款，无法查看支付信息</div>
+      <div v-if="msg.is_sure == 1">订单已完成</div>
+      <div v-if="msg.is_sure == 2">订单已取消</div>
+      <div v-if="msg.is_sure == 3">已付款，请仔细查看支付信息</div>
     </div>
     <div class="info bg-part ft14">
       <div>
@@ -28,21 +28,33 @@
         <span>{{msg.number}}</span>
       </div>
       <div>
+        <span>联系方式：</span>
+        <span>{{msg.seller_phone}}</span>
+      </div>
+      <div>
         <span>下单时间：</span>
         <span>{{msg.format_create_time}}</span>
+      </div>
+      <div>
+        <span>识别码：</span>
+        <span style="color:red">{{msg.messy_code}}</span>
+      </div>
+      <div v-if="msg.pay_voucher">
+        <span>支付凭证：</span>
+        <img :src="msg.pay_voucher" alt="" class="curPer" style="width:40px;height:40px" @click="evimgs(msg.pay_voucher)">
       </div>
       <div>
         <span>参考号：</span>
         <span>{{msg.id}}</span>
       </div>
-      <div>
+      <div class="curPer">
         <span>商家账户：</span>
         <router-link :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span" >{{msg.seller_name}}</router-link>
       </div>
       <div class="btns">
         <!-- <div class="btn" @click="showCancel = true">取消订单</div>
         <div class="btn" @click="showConfirm = true">我已付款，点击确认</div> -->
-        <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 3">确认已收款</div>
+        <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 3&&msg.type=='buy'">确认已收款</div>
       </div>
     </div>
     <div class="cancel-box bg-part" v-if="showCancel">
@@ -177,10 +189,25 @@ export default {
         headers:{Authorization:this.token}
       }).then(res => {
         layer.msg(res.data.message);
-      }).then(() => {
         this.showConfirm = false;
       })
     },
+    evimgs(src){
+      console.log(src)
+      return layer.open({
+        type: 1 //Page层类型
+        ,area: ['375px', '500px']
+        ,title: ''
+        ,shade: 0.6 //遮罩透明度
+        ,anim: 1 //0-6的动画形式，-1不开启
+        ,content: "<img src='"+src+"' alt='' class='openimg'>"
+        ,btn: ['关闭'],
+         yes: function(index){
+            layer.close(index);
+        }
+
+      });   
+    }
   }
 };
 </script>
@@ -261,4 +288,5 @@ export default {
     }
   }
 }
+.openimg{display: block;margin: 0 auto;max-width: 100%;}
 </style>

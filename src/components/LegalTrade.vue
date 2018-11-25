@@ -54,7 +54,7 @@
 					<p class="title">{{classify}}{{name}}</p>
 					<p class="price">单价{{prices}}</p>
 					<div class="trade">
-						<p :class="['trade-name',{'active':types == 'trade'}]" @click="tabClassify(1)">{{name}}交易</p>
+						<p :class="['trade-name',{'active':types == 'trade'}]" @click="tabClassify(1)">CNY交易</p>
 						<p :class="['trade-num',{'active':types == 'num'}]" @click="tabClassify(2)">{{classify}}数量</p>
 					</div>
 					<div class="totals-num">

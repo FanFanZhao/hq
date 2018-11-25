@@ -183,10 +183,10 @@
                     <div>状态</div>
                     <div class="tr">操作</div>
                 </div>
-                <div class="ul-box" v-if="nowList == 'listIn'">
+                <div class="ul-box scroll" v-if="nowList == 'listIn'">
                     <!-- c2c卖出 -->
                     <ul class="ul-out" v-if="showList&&listOut.list.length">
-                      <li v-for="(item,index) in listOut.list" :key="index" class="flex">
+                      <li v-for="(item,index) in listOut.list" :key="index" :class="item.show==1?'flex':'flex deny_trade'">
                           <div class="blue">卖出</div>
                           <div>{{item.price}}</div>
                           <div>{{item.number}} {{item.token}}</div>
@@ -201,7 +201,7 @@
                     <!-- <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div> -->
                     <!-- c2c买入 -->
                     <ul class="ul-in" v-if="showList&&listIn.list.length">
-                        <li v-for="(item,index) in listIn.list" :key="index" class="flex">
+                        <li v-for="(item,index) in listIn.list" :key="index" :class="item.show==1?'flex':'flex deny_trade'">
                             <div class="red">买入</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
@@ -216,7 +216,7 @@
                     <div class="more"  v-if="(listIn.list.length&&listIn.hasMore) || (listOut.list.length&&listOut.hasMore)" @click="getList(0);getList(1)">加载更多</div>
                 </div>
                 <!-- 我发布的买入卖出 -->
-                <div class="ul-box" v-if="nowList == 'myAdd'">
+                <div class="ul-box scroll" v-if="nowList == 'myAdd'">
                   <ul class="ul-out" v-if="showList&&myAdd.list.length">
                     <li v-for="(item,index) in myAdd.list" :key="index" class="flex" >
                         <div :class='item.type_name=="挂买"?"red":"blue"'>{{item.type_name}}</div>
@@ -238,7 +238,7 @@
                   <div class="more"  v-if="myAdd.list.length&&myAdd.hasMore&&this.showList" @click="getMy('myAdd')">加载更多</div>
                 </div>
                 <!-- 我交易的 -->
-                <div class="ul-box" v-if="nowList == 'myBuySell'">
+                <div class="ul-box scroll" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
                         <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" >
                             <div :class='item.transaction_name=="买入"?"red":"blue"'>{{item.transaction_name}}</div>
@@ -273,9 +273,9 @@
                     </div>
                     
                     <div class="c2c-detail" v-if="detail.type=='c2c'">
-                        <div>
+                        <!-- <div>
                             <span>{{detail.c2c.type==0?'买家':'卖家'}}账号：</span><span>{{detail.user_info.account_number}}</span>
-                        </div>
+                        </div> -->
                         <!-- <div>
                             <span>{{detail.c2c.type==0?'买家':'卖家'}}姓名：</span><span>{{detail.c2c.name}}</span>
                         </div> -->
@@ -994,6 +994,9 @@ export default {
       }
     }
     > .bot {
+      .ul-bot{
+        
+      }
       .show-detail{
         float: right;
         margin: 0 8px;
@@ -1128,4 +1131,8 @@ export default {
 }
 .evimg{width: 40px;height: 40px}
 .openimg{display: block;margin: 0 auto;max-width: 100%;}
+.deny_trade{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>
