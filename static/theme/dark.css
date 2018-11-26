@@ -315,6 +315,10 @@ body,
   border-bottom: 2px solid #fff;
   color: #fff;
 }
+#app .log_wrap[data-v-1f036bf9] {
+  border: 1px solid #1d1d1f;
+  background: #131a21;
+}
 .scroll::-webkit-scrollbar {
   background-color: #080d13!important;
 }

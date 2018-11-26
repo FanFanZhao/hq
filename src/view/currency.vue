@@ -2,17 +2,53 @@
     <div class="currency">
         <div class="title ">币种资料</div>
         <div class="content f14 ">
-            <p class="ft24 ">BTC</p>
+            <p class="ft24 ">{{currency_name}}</p>
             <p class=" abstract ft14">简介</p>
-            <p class="mt15 ft14 ">
-                比特币（Bitcoin，简称BTC）是目前使用最为广泛的一种数字货币，它诞生于2009年1月3日，是一种点对点（P2P）传输的数字加密货币，总量2100万枚。比特币网络每10分钟释放出一定数量币，预计在2140年达到极限。比特币被投资者称为“数字黄金”。比特币依据特定算法，通过大量的计算产生，不依靠特定货币机构发行，其使用整个P2P网络中众多节点构成的分布式数据库来确认并记录所有的交易行为，并使用密码学设计确保货币流通各个环节安全性，可确保无法通过大量制造比特币来人为操控币值。基于密码学的设计可以使比特币只能被真实拥有者转移、支付及兑现。同样确保了货币所有权与流通交易的匿名性。
-            </p>
+            <p class="mt15 ft14" v-html="content"></p> 
         </div>
     </div>
 </template>
 <script>
 export default {
-    name:"currency"
+    name:"currency",
+    data(){
+        return{
+            currency_name:'',
+            currency_id:'',
+            content:''
+        }
+    },
+    methods:{
+        getData(){
+            this.$http({
+            url: '/api/' + "introduction",
+            method: "post",
+            data: {currency_id: this.currency_id},
+            headers: { Authorization: window.localStorage.getItem("token") || "" },
+        }).then(res => {
+                if (res.data.type == "ok") {
+                   this.content=res.data.message.introduction[0].contents;
+                }
+            })
+        }
+    },
+    mounted(){
+        var that = this;
+
+        eventBus.$on("toTrade", function(data) {
+            console.log(data)
+            that.currency_id = data.legal_id
+            that.currency_name = data.leg_name;
+            that.getData();
+        });
+        eventBus.$on("toTrade0", function(data0) {
+            console.log(data0)
+            that.currency_id = data0.legal_id
+            that.currency_name = data0.leg_name;
+            that.getData();
+        });
+        
+    }
 }
 </script>
 <style scoped>
@@ -21,8 +57,5 @@ export default {
 .content{padding: 15px 30px 60px;}
 .ft24{font-size: 24px}
 .abstract{padding:15px 0;border-bottom: 1px solid #ccc;}
-.des{
-    
-}
 </style>
 

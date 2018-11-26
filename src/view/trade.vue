@@ -194,6 +194,7 @@ export default {
       this.current = index;
       if (index == 1) {
         this.disabled = true;
+
       } else {
         this.disabled = false;
       }

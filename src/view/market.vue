@@ -127,7 +127,7 @@ export default {
       console.log("socket");
       that.$socket.emit("login", this.$makeSocketId());
       that.$socket.on("daymarket", msg => {
-        console.log(msg);
+        // console.log(msg);
         if (msg.type == "daymarket") {
             var cname = msg.currency_name+'/'+msg.legal_name;
             var newprice = msg.now_price;

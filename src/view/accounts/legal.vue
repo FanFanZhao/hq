@@ -67,7 +67,7 @@ export default {
              this.$router.push({
                 path:'/legalAccount',
                 name:'legalAccount',
-                params:{
+                query:{
                   currency_id:currency_id
                 }
             })
@@ -109,6 +109,7 @@ export default {
    .convert{
        padding: 10px 0;
    }
+
 </style>
 
 

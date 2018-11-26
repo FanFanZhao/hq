@@ -18,7 +18,7 @@
                <!-- <p class="flex1 tc">锁仓</p> -->
                <p class="flex1 tc">操作</p>
            </div>
-           <ul class="content_ul">
+           <ul class="content_ul scroll">
                <li v-for="(item,index) in asset_list" :key="index">
                     <div class="content_li flex alcenter between">
                    <p class="flex1 tc">{{item.currency_name}}</p>
@@ -599,6 +599,10 @@ export default {
             }
         }
     }
+    .content_ul{
+       height: 735px;
+       overflow-y: scroll;
+   }
 </style>
 
 
