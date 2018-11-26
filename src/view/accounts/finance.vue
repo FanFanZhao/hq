@@ -1,8 +1,8 @@
 <template>
     <div class="bgf8">
         <div class="header bgf8">
-            <p class="fl">总资产折合：<span class="asset_num">0.0000000</span><span class="asset_name"> BTC</span><span class="ft12 "> ≈ <span>0.00</span>CNY</span>
-            <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
+            <p class="fl">总资产折合：<span class="asset_num">{{total}}</span><span class="asset_name">USDT</span><span class="ft12 "> ≈ <span>{{totalcny}}</span>CNY</span>
+            <!-- <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label> -->
             </p>
             <p class="fr right_text">
                 <!-- <span class="record" @click="record">财务记录</span> -->
@@ -30,7 +30,7 @@
                        <span @click="excharge(index,item.currency)" >充币</span>
                        <span @click="withdraw(index,item.currency)">提币</span>
                        <!-- <span @click="exchange">兑换</span> -->
-                       <span @click="rec(index)">记录</span>
+                       <span @click="rec(index,item.currency)">记录</span>
                    </p>
                    </div>
                    <!--充币区-->
@@ -42,10 +42,17 @@
                          </div>
                          <!-- <img class="ewm_img" :class="{'hide':isHide}" src="../../assets/images/ewm.jpg" /> -->
                        </span></p>
-                       <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
+                       <!-- <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p> -->
                        <p class="ft12 fColor2 mb15">温馨提示</p>
-                       <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
-                           <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list">{{item}}</li>
+                       <ul class="tips_ul ft12 fColor2">
+                           <li>
+                                • 请勿向上述地址充值任何非{{item.currency_name}}资产，否则资产将不可找回。<br>
+                                •  {{item.currency_name}}充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。<br>
+                                • 您充值至上述地址后，需要整个网络节点的确认，1次网络确认后到账，6次网络确认后可提币。<br>
+                                • 最小充值金额：{{rate}} {{item.currency_name}} ，小于最小金额的充值将不会上账且无法退回。<br>
+                                • 您的充值地址不会经常改变，可以重复充值；如有更改，我们会尽量通过网站公告或邮件通知您。<br>
+                                • 请务必确认电脑及浏览器安全，防止信息被篡改或泄露。
+                           </li>
                        </ul>
                    </div>
                    <!--提币区-->
@@ -76,7 +83,13 @@
                         <div class="flex2">
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
-                           <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list01">{{item}}</li>
+                           <li>最小提币数量为：{{min_number}}{{item.currency_name}}。</li>
+                           <li>
+                                为保障资金安全，当您账户安全策略变更、密码修改、我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系。
+                           </li>
+                           <li>
+                                请务必确认电脑及浏览器安全，防止信息被篡改或泄露
+                           </li>
                        </ul>
                        </div>
                        <div class="flex1 tc"><button class="withdraw_btn" @click="mention">提币</button></div>
@@ -84,7 +97,7 @@
                        </div>
                    </div>
                    <!--记录区-->
-                   <div class="hide_div rec-box" v-if="index == active02">
+                   <div class="hide_div rec-box scroll" v-if="index == active02">
                        <div class="rec-con">
 
                         <div class="rec-title">
@@ -93,12 +106,13 @@
                             <span>时间</span>
                         </div>
                         <ul class="rec-list">
-                            <li v-for="(reItem,reIndex) in recData[index]" :key="reIndex">
+                            <li v-for="(reItem,reIndex) in recData" v-if="recData.length !=0" :key="reIndex">                           
                                 <span>{{reItem.value}}</span>
                                 <span>{{reItem.info}}</span>
                                 <span>{{reItem.created_time}}</span>
                             </li>
-                            
+                            <li class="no_rec mt10 tc light_blue jscenter curPer" v-if="recData.length !=0" @click="more(item.currency)">{{moreLog}}</li>
+                            <li class="no_rec mt10 tc light_blue jscenter curPer" v-show="recData.length ==0">暂无记录</li>
                         </ul>
                        </div>
                    </div>
@@ -138,6 +152,9 @@ export default {
             min_number:'',
             currency:'',
             asset_list:[],
+            total:0.00,
+            totalcny:0.00,
+            moreLog:'加载更多',
             tip_list:[
                 '请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。','请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。'
             ],
@@ -182,32 +199,6 @@ export default {
         },
         sendData(currency){
             var that = this;
-            // $.ajax({
-            //     type: "POST",
-            //     url: '/api/' + 'wallet/get_in_address',
-            //     data: {
-            //         currency:currency
-            //     },
-            //     dataType: "json",
-            //     async: true,
-            //     beforeSend: function beforeSend(request) {
-            //         request.setRequestHeader("Authorization", that.token);
-            //     },
-            //     success: function(res){
-            //         if (res.type=="ok"){
-            //             console.log(res)
-            //             that.excharge_address=res.message;
-            //             // 生成二维码
-            //             $('#code').qrcode({
-            //                 width: 100, //宽度
-            //                 height:100, //高度
-            //                 text:res.message
-            //             });
-            //         }else{
-            //             console.log(res.message)
-            //         }
-            //     }
-            // })
             this.$http({
                 url: '/api/' + 'wallet/get_in_address',
                 method:'post',
@@ -237,29 +228,14 @@ export default {
                 this.flag = false;
                 this.active = 'a';
                 this.active01 = 'a'
-                 this.active02 = 'a';
+                this.active02 = 'a';
             }else{
                 this.flag = true;
-                 this.active01 = index;
-                 this.active = 'a';
-                 this.active02 = 'a';
+                this.active01 = index;
+                this.active = 'a';
+                this.active02 = 'a';
             }
             this.getNum(currency);
-        },
-        //记录
-        rec(index,currency){
-             if(this.flag){
-                this.flag = false;
-                this.active = 'a';
-                this.active01 = 'a'
-                 this.active02 = 'a';
-            }else{
-                this.flag = true;
-                 this.active02 = index;
-                 this.active = 'a';
-                  this.active01 = 'a'
-                
-            }
         },
         getNum(currency){
             var that = this;
@@ -279,7 +255,7 @@ export default {
                         console.log(res)
                         that.coinname=res.message.name;
                         that.balance=res.message.change_balance;
-                        that.min_number='最小提币数量'+res.message.min_number;
+                        that.min_number=res.message.min_number;
                         that.minnumber=res.message.min_number;
                         that.ratenum=res.message.rate+'-'+res.message.rate;
                         that.reachnum=0.0000;
@@ -377,26 +353,55 @@ export default {
                 this.isHide = true
             }
         },
+        rec(index,currency){
+             if(this.flag){
+                this.flag = false;
+                this.active = 'a';
+                this.active01 = 'a'
+                this.active02 = 'a';
+                console.log(index)
+            }else{
+                console.log(index)
+                this.flag = true;
+                this.active02 = index;
+                this.active = 'a';
+                this.active01 = 'a';
+                //充币、提币记录
+                this.page = 1;
+                this.recData = [];
+                this.getLog(currency); 
+            }
+        },
+        getLog(currency){
+            this.$http({
+                url: '/api/wallet/legal_log',
+                method:'post',
+                data:{type:'2',currency:currency,page:this.page},
+                headers:{'Authorization':this.token}
+            }).then( res => {
+                console.log(res);
+                console.log(res.data.message.list)
+                if(res.data.type == 'ok'){
+                    console.log(res);
+                    this.recData = this.recData.concat(res.data.message.list);
+                    if(res.data.message.list.length != 0){
+                        this.moreLog = '加载更多'
+                    }else{
+                        this.moreLog = '没有更多记录了'
+                    }
+                }
+            })
+        },
+        //加载更多记录
+        more(currency){
+            this.moreLog = '加载中...'
+            this.page++;
+            this.getLog(currency);
+        },
+
         getdata(){
             var that = this;
             console.log(that.token)
-            // $.ajax({
-            //     url: '/api/' + "wallet/list",
-            //     type: "POST",
-            //     dataType: "json",
-            //     async: true,
-            //     beforeSend: function beforeSend(request) {
-            //        request.setRequestHeader("Authorization", that.token);
-            //     },
-            //     success: function (data) {
-            //     console.log(data)
-            //     if (data.type == 'ok') {
-            //         that.asset_list=data.message.change_wallet.balance;
-            //     } else if (data.type == '999') {
-                    
-            //     }
-            //     }
-            // });
             this.$http({
             url: '/api/' + 'wallet/list',
             method:'post',
@@ -404,20 +409,22 @@ export default {
             headers: {'Authorization':  that.token},
             }).then(res=>{
                 console.log(res.data)
-                that.asset_list=res.data.message.change_wallet.balance;
-                this.asset_list.forEach((item,index) => {
-                    this.$http({
-                        url: '/api/wallet/legal_log',
-                        method:'post',
-                        data:{type:'change',currency:item.currency},
-                        headers:{'Authorization':this.token}
-                    }).then( res => {
-                        console.log(res);
-                        if(res.data.type == 'ok'){
-                            this.recData[index] = res.data.message.list;
-                        }
-                    })
-                })
+                that.asset_list = res.data.message.change_wallet.balance;
+                that.total = res.data.message.change_wallet.totle;
+                that.totalcny = res.data.message.change_wallet.CNY;
+                // this.asset_list.forEach((item,index) => {
+                //     this.$http({
+                //         url: '/api/wallet/legal_log',
+                //         method:'post',
+                //         data:{type:'change',currency:item.currency},
+                //         headers:{'Authorization':this.token}
+                //     }).then( res => {
+                //         console.log(res);
+                //         if(res.data.type == 'ok'){
+                //             this.recData[index] = res.data.message.list;
+                //         }
+                //     })
+                // })
             }).catch(error=>{
                 console.log(error)
             })
@@ -425,22 +432,6 @@ export default {
     },
     created(){
         this.token= localStorage.getItem('token') || '';
-        // this.address=localStorage.getItem('address') || '';
-        // console.log(this.address)
-        // if(this.address){
-        //     this.$http({
-        //         url:'/api/'+'money/rechange?user_id='+this.address,
-        //         type:'GET'
-        //     }).then(res=>{
-        //         console.log(res)
-        //         this.addr=res.data.message.company_eth_address;
-        //         this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
-        //         var content = this.addr;
-        //         // var clipboard = new Clipboard('#copy')
-        //     }).catch(error=>{
-        //         return error
-        //     })
-        // }
     },
 
     mounted(){
@@ -491,7 +482,7 @@ export default {
     }
     .content_li{
         padding: 15px 0;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #eee;
     }
     .operation,.copy,.ewm{
         color: #d45858;
@@ -509,7 +500,7 @@ export default {
         cursor: pointer;
     }
     .hide_div{
-        border:1px solid #ccc;
+        border:1px solid #eee;
         padding: 20px;
     }
     .excharge_record{
@@ -581,7 +572,8 @@ export default {
         display: none;
     }
     .rec-box{
-        
+        max-height: 400px;
+        overflow: scroll;
         .rec-con{
             margin: 10px;
             padding: 0 20px;
@@ -599,11 +591,11 @@ export default {
             }
             li{
                 display: flex;
-                
                 justify-content: space-between;
                 font-size: 12px;
-                // color: #728daf;
-                // border-top: 1px solid #181b2a;
+            }
+            .jscenter{
+                justify-content: center
             }
         }
     }
