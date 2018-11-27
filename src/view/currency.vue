@@ -34,19 +34,28 @@ export default {
     },
     mounted(){
         var that = this;
-
-        eventBus.$on("toTrade", function(data) {
-            console.log(data)
-            that.currency_id = data.legal_id
-            that.currency_name = data.leg_name;
+        if(window.localStorage.getItem('tradeData')){
+            var localData=JSON.parse(window.localStorage.getItem('tradeData'))
+            that.currency_id = localData.currency_id,
+            that.legal_id = localData.legal_id;
+            that.currency_name = localData.currency_name;
+            that.legal_name = localData.legal_name;
             that.getData();
-        });
-        eventBus.$on("toTrade0", function(data0) {
-            console.log(data0)
-            that.currency_id = data0.legal_id
-            that.currency_name = data0.leg_name;
-            that.getData();
-        });
+        }else{
+            eventBus.$on("toTrade", function(data) {
+                // console.log(data)
+                that.currency_id = data.currency_id
+                that.currency_name = data.currency_name;
+                that.getData();
+            });
+            eventBus.$on("toTrade0", function(data0) {
+                // console.log(data0)
+                that.currency_id = data0.currency_id
+                that.currency_name = data0.currency_name;
+                that.getData();
+            });
+        }
+        
         
     }
 }

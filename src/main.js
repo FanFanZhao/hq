@@ -77,12 +77,14 @@ Axios.interceptors.request.use(function (config) {
 })
 Axios.interceptors.response.use(function (response) {
 	if(response.data.type == '999'){
-		// window.localStorage.removeItem("token");
-		// window.localStorage.removeItem("accountNum");
-		// window.localStorage.removeItem("user_id");
-		// window.localStorage.removeItem("extension_code");
-		// router.push('/components/login');
-		alert('login')
+		window.localStorage.removeItem("token");
+		window.localStorage.removeItem("accountNum");
+		window.localStorage.removeItem("user_id");
+		window.localStorage.removeItem("extension_code");
+		layer.msg('登录超时,请重新登录');
+		setTimeout(function(){
+			router.push('/components/login');
+		},2000)
 	}
 	return response;
 }, function (error) {

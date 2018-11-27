@@ -30,7 +30,10 @@
 			}
 		},
 		created(){
-			
+			if(window.localStorage.getItem('tradeData')){
+				var localData=JSON.parse(window.localStorage.getItem('tradeData'))
+				this.$store.state.symbol = localData.currency_name + "/" + localData.legal_name;
+			}
 
 		},
 		sockets: {},
@@ -107,6 +110,7 @@
 					let obj={}
 
 					if(that.$store.state.symbol==msg.symbol){
+						console.log(msg)
 						obj.open=Number(msg.open)
 						obj.low=Number(msg.low)
 						obj.high=Number(msg.high)

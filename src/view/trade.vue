@@ -17,27 +17,27 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl 1">可用 {{user_legal}} {{currency_name}}</span>
+                        <span class="fl 1">可用 {{user_legal}} {{legal_name}}</span>
                         <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
                         <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent  :disabled="disabled" v-if="!disabled">
                         <input type="number" v-model="lastPrice" @keydown.69.prevent  :disabled="disabled" v-if="disabled">
-                        <span>{{currency_name}}</span>
+                        <span>{{legal_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入量</label>
                         <input type="number" v-model="buyInfo.buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
-                        <span>{{legal_name}}</span>
+                        <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>资金密码</label>
                         <input type="password" v-model="buyInfo.pwd" @keydown.69.prevent>
                     </div>
-                    <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
-                    <div class="sell_btn curPer mt40 tc greenBack 1 ft16" @click="buyCoin">买{{legal_name}}</div>
+                    <!-- <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div> -->
+                    <div class="mt50 1 ft16">交易额 {{buyTotal}} {{legal_name}}</div>
+                    <div class="sell_btn curPer mt40 tc greenBack 1 ft16" @click="buyCoin">买{{currency_name}}</div>
                 </div>
             </div>
             <div class="w50 fl second">
@@ -47,79 +47,30 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl 1">可用 {{user_currency}} {{legal_name}}</span>
+                        <span class="fl 1">可用 {{user_currency}} {{currency_name}}</span>
                         <!-- <span class="fr redColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
                         <input type="number" @keydown.69.prevent v-model="sellInfo.sellPrice" v-if="!disabled">
                         <input type="number" @keydown.69.prevent v-model="lastPrice" :disabled='disabled' v-if="disabled">
-                        <span>{{currency_name}}</span>
+                        <span>{{legal_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出量</label>
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellInfo.sellNum">
-                        <span>{{legal_name}}</span>
+                        <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>资金密码</label>
                         <input type="password" v-model="sellInfo.pwd" @keydown.69.prevent>
                     </div>
-                    <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
-                    <div class="sell_btn curPer mt40 tc redBack 1 ft16" @click="sellCoin">卖{{legal_name}}</div>
+                    <!-- <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div> -->
+                    <div class="mt50 1 ft16">交易额 {{sellTotal}} {{legal_name}}</div>
+                    <div class="sell_btn curPer mt40 tc redBack 1 ft16" @click="sellCoin">卖{{currency_name}}</div>
                 </div>
             </div>
         </div>
-        <!-- 市价交易 -->
-        <!-- <div class="content clear" v-if="showNone" >
-            <div class="w50 fl first">
-                <div class="ft14">
-                   <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
-                    或 <span class="redColor curPer" @click="goNext('register')">注册</span>
-                    开始交易
-                    </div>
-                    <div class="clear available" v-else>
-                        <span class="fl 1">可用 {{user_currency}} {{currency_name}}</span>
-                        <span class="fr redColor curPer" @click="goNext('account')">充币</span>
-                    </div>
-                    <div class="mt40 input-item clear">
-                        <label>买入价</label>
-                        <input type="number" value="以市场最低价买入" @keydown.69.prevent  disabled>
-                        <span>{{currency_name}}</span>
-                    </div>
-                    <div class="mt40 input-item clear">
-                        <label>买入量</label>
-                        <input type="number"  @keydown.69.prevent  @keyup="numFilter($event)">
-                        <span>{{legal_name}}</span>
-                    </div>
-                    <div class="sell_btn curPer mt40 tc greenBack 1 ft16">买{{legal_name}}</div>
-                </div>
-            </div>
-            <div class="w50 fl second">
-                <div class="ft14">
-                   <div class="available clear 1" v-if="address.length<=0"><span class="redColor curPer" @click="goNext('login')">登录</span>
-                    或 <span class="redColor curPer" @click="goNext('register')">注册</span>
-                    开始交易
-                    </div>
-                    <div class="clear available" v-else>
-                        <span class="fl 1">可用 {{user_legal}} {{legal_name}}</span>
-                        <span class="fr redColor curPer" @click="goNext('account')">充币</span>
-                    </div>
-                    <div class="mt40 input-item clear">
-                        <label>卖出价</label>
-                        <input type="number" value="以市场最优价格卖出" @keydown.69.prevent disabled>
-                        <span>{{currency_name}}</span>
-                    </div>
-                    <div class="mt40 input-item clear">
-                        <label>卖出量</label>
-                        <input type="number" @keydown.69.prevent  @keyup="numFilter($event)">
-                        <span>{{legal_name}}</span>
-                    </div>
-                    <div class="sell_btn curPer mt40 tc redBack 1 ft16">卖{{legal_name}}</div>
-                </div>
-            </div>
-        </div>   -->
     </div>
 </template>
 
@@ -130,6 +81,8 @@ export default {
     return {
       currency_name: "",
       legal_name: "",
+      currency_id: "",
+      legal_id: "",
       user_currency: "",
       user_legal: "",
       show: true,
@@ -158,24 +111,32 @@ export default {
         that.sellInfo.sellPrice = data;
       }
     });
-    eventBus.$on("toTrade", function(data) {
-      // console.log(data);
-      (that.currency_id = data.currency_id), (that.legal_id = data.legal_id);
+    
+    if(window.localStorage.getItem('tradeData')){
+      var localData=JSON.parse(window.localStorage.getItem('tradeData'))
+      that.currency_id = localData.currency_id,
+      that.legal_id = localData.legal_id;
+      that.currency_name = localData.currency_name;
+      that.legal_name = localData.legal_name;
+      that.buy_sell(that.legal_id, that.currency_id);
+    }else{
+      eventBus.$on("toTrade", function(data) {
+      that.currency_id = data.currency_id,
+      that.legal_id = data.legal_id;
       that.currency_name = data.currency_name;
-      that.legal_name = data.leg_name;
+      that.legal_name = data.legal_name;
       that.buy_sell(that.legal_id, that.currency_id);
     });
-    eventBus.$on("toTrade0", function(data0) {
-      // console.log(data0);
-      (that.currency_id = data0.currency_id), (that.legal_id = data0.legal_id);
-      that.currency_name = data0.currency_name;
-      that.legal_name = data0.leg_name;
-      // console.log(that.currency_name);
-      // console.log(that.legal_name);
-      that.buy_sell(that.legal_id, that.currency_id);
-    });
+      eventBus.$on("toTrade0", function(data0) {
+        that.currency_id = data0.currency_id,
+        that.legal_id = data0.legal_id;
+        that.currency_name = data0.currency_name;
+        that.legal_name = data0.legal_name;
+        that.buy_sell(that.legal_id, that.currency_id);
+      });
+    }
+    
     eventBus.$on("tocel", function(datas) {
-      // console.log(datas);
       if (datas) {
         that.buy_sell(that.legal_id, that.currency_id);
       }
@@ -236,8 +197,8 @@ export default {
         url: "/api/" + this.buyInfo.url,
         method: "post",
         data: {
-          legal_id: this.currency_id,
-          currency_id: this.legal_id,
+          legal_id: this.legal_id,
+          currency_id: this.currency_id,
           price: this.disabled ? this.lastPrice : this.buyInfo.buyPrice,
           num: this.buyInfo.buyNum,
           pay_password:this.buyInfo.pwd
@@ -289,8 +250,8 @@ export default {
         url: "/api/" + this.sellInfo.url,
         method: "post",
         data: {
-          legal_id: this.currency_id,
-          currency_id: this.legal_id,
+          legal_id: this.legal_id,
+          currency_id: this.currency_id,
           price: this.disabled?this.lastPrice:this.sellInfo.sellPrice,
           num: this.sellInfo.sellNum,
           pay_password:this.sellInfo.pwd
@@ -319,13 +280,13 @@ export default {
         });
     },
     //买入、卖出记录
-    buy_sell(legals_id, currencys_id) {
+    buy_sell(legal_id, currency_id) {
       this.$http({
         url: "/api/" + "transaction/deal",
         method: "post",
         data: {
-          legal_id: currencys_id,
-          currency_id: legals_id
+          legal_id: legal_id,
+          currency_id: currency_id
         },
         headers: { Authorization: localStorage.getItem("token") }
       })

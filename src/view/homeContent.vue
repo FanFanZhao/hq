@@ -115,7 +115,7 @@
                 <span :class="setColor(li.change)">{{(li.change>0?'+':'')+(li.change-0).toFixed(2)}}%</span>
               </div>
               <!-- <div>
-                <span @click="setData({currency_id:item.id,legal_id:li.currency_id,currency_name:item.name,leg_name:li.name,isShow:index})">交易 </span>
+                <span @click="setData({currency_id:item.id,legal_id:li.currency_id,currency_name:item.name,legal_name:li.name,isShow:index})">交易 </span>
               </div> -->
             </li>
           </ul>
@@ -335,14 +335,24 @@ export default {
           this.nowCoin = this.quotation[0].name;
           let msg = res.data.message[0];
           let quo = msg.quotation[0];
+          // var tradeData = {
+          //   currency_id: msg.id,
+          //   legal_id: quo.currency_id,
+          //   currency_name: msg.name,
+          //   legal_name: quo.name,
+          //   isShow:0
+          // };
+          // window.localStorage.setItem('tradeData',JSON.stringify(tradeData))
           var tradeData = {
-            currency_id: msg.id,
-            legal_id: quo.currency_id,
-            currency_name: msg.name,
-            leg_name: quo.name,
-            isShow:0
+            currency_id: quo.currency_id,
+            legal_id: quo.legal_id,
+            currency_name: quo.currency_name,
+            legal_name: quo.legal_name,
+            isShow: 0
           };
-          window.localStorage.setItem('tradeData',JSON.stringify(tradeData))
+          if (!window.localStorage.getItem("tradeData")) {
+            window.localStorage.setItem("tradeData", JSON.stringify(tradeData));
+          }
         }
       });
     },

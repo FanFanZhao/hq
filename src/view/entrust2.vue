@@ -175,7 +175,7 @@ export default {
             if (res.type === "ok") {
               layer.msg(res.message);
               that.getdata(that.urls, that.types);
-              that.connect();
+              // that.connect();
             } else {
               layer.msg(res.message);
             }
