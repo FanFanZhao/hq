@@ -319,6 +319,9 @@ body,
   border: 1px solid #1d1d1f;
   background: #131a21;
 }
+#app .allow {
+  color: #333;
+}
 .scroll::-webkit-scrollbar {
   background-color: #080d13!important;
 }
