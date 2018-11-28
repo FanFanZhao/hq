@@ -14,7 +14,7 @@
                 <!-- <span class="active">USDT</span>
                 <span>JNB</span>
                 <span>JNB</span> -->
-                <span v-for="(tab,index) in tabList " :key="index" :class="{'active': index == (legal_index || isShow)}" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
+                <span v-for="(tab,index) in tabList " :class="{'active': index == (legal_index || isShow)}" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
             </div>
         </div>
         <div class="coin-title clear">
@@ -33,7 +33,7 @@
         </div>
 
         <ul class="coin-wrap scroll">
-            <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
+            <li v-for="(market,index) in marketList " v-if="(legal_index || isShow) == index" >
               <p v-for="(itm,idx) in market" v-if="itm.is_display==1"  :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.legal_id,itm.currency_name,itm.legal_name,itm,index,market)">
                 <span class="w36"><img :src="itm.logo" alt=""><i>{{itm.currency_name}}/{{itm.legal_name}}</i></span>
                 <span class="w30 tr redColor" :data-name='itm.currency_name+"/"+itm.legal_name'>{{itm.now_price || 0.00}}</span>
