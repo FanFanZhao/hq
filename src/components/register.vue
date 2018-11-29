@@ -77,7 +77,8 @@ export default {
       code: "",                   //验证码
       invite: "",                  //邀请码
       timer: "",                  //倒计时timer
-      showList: false,            //是否显示地址列表
+      showList: false,   
+      time:60         //是否显示地址列表
       //province: { id: "", name: "请选择省" },      //所选省份
       //provinces: [],                              //省份列表
 
@@ -154,6 +155,7 @@ export default {
       this.isMb = boo;
       this.codeTrue = false;
       this.showList = false;
+      this.time=60;
       // this.provinces = [];this.cities = [];this.districts = [];
       // this.province = { id: "", name: "请选择省" };
       // this.city = { id: "", name: "请选择市" };
@@ -167,20 +169,25 @@ export default {
     },
     // 发送验证码
     sendCode(e) {
+      
       let isMb = this.isMb;
-      let url = "sms_send";
+      let url = "sms_send"; 
+      if (e.target.disabled) {
+        console.log('disabled');
+        return;
+      } 
       if (this.account == "") {
         layer.msg("请输入账号");
         return;
-      } else if (e.target.disabled) {
-        return;
-      } else if (isMb) {
+      } 
+      if (isMb) {
         var reg = /^1[345678]\d{9}$/;
         if (!reg.test(this.account)) {
           layer.msg("您输入的手机号不符合规则");
           return;
         }
-      } else if (!isMb) {
+      }
+      if (!isMb) {
         var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         if (!emreg.test(this.account)) {
           layer.msg("您输入的邮箱不符合规则");
@@ -188,31 +195,34 @@ export default {
         } else {
           url = "sms_mail";
         }
-      } else {
       }
-      var time = 60;
-
-      this.timer = setInterval(function() {
-        e.target.innerHTML = time + "秒";
-        e.target.disabled = true;
-        if (time == 0) {
-          clearInterval(this.timer);
-          e.target.innerHTML = "验证码";
-          e.target.disabled = false;
-          return;
-        }
-        time--;
-      }, 1000);
-      let data = { user_string: this.account };
-
+      e.target.disabled = true;
+      let data = { user_string: this.account };    
       this.$http({
         url: "/api/" + url,
         method: "post",
         data: data
       }).then(res => {
         //console.log(res);
+        this.timeceil(e);
         layer.msg(res.data.message);
       });
+    },
+    timeceil(e){
+      var that =this;
+      // var time = 60;
+      that.timer = setInterval(function() {
+        e.target.innerHTML = that.time + "秒";
+        e.target.disabled = true;
+        if (that.time == 0) {
+          clearInterval(that.timer);
+          e.target.innerHTML = "验证码";
+          e.target.disabled = false;
+          that.time = 60;
+          return;
+        }
+        that.time--;
+      }, 1000);
     },
     // 验证验证码
     checkCode() {

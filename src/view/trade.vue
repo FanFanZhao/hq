@@ -112,15 +112,30 @@ export default {
       }
     });
     
-    if(window.localStorage.getItem('tradeData')){
-      var localData=JSON.parse(window.localStorage.getItem('tradeData'))
-      that.currency_id = localData.currency_id,
-      that.legal_id = localData.legal_id;
-      that.currency_name = localData.currency_name;
-      that.legal_name = localData.legal_name;
-      that.buy_sell(that.legal_id, that.currency_id);
-    }else{
-      eventBus.$on("toTrade", function(data) {
+    // if(window.localStorage.getItem('tradeData')){
+    //   var localData=JSON.parse(window.localStorage.getItem('tradeData'))
+    //   that.currency_id = localData.currency_id,
+    //   that.legal_id = localData.legal_id;
+    //   that.currency_name = localData.currency_name;
+    //   that.legal_name = localData.legal_name;
+    //   that.buy_sell(that.legal_id, that.currency_id);
+    // }else{
+    //   eventBus.$on("toTrade", function(data) {
+    //   that.currency_id = data.currency_id,
+    //   that.legal_id = data.legal_id;
+    //   that.currency_name = data.currency_name;
+    //   that.legal_name = data.legal_name;
+    //   that.buy_sell(that.legal_id, that.currency_id);
+    // });
+    //   eventBus.$on("toTrade0", function(data0) {
+    //     that.currency_id = data0.currency_id,
+    //     that.legal_id = data0.legal_id;
+    //     that.currency_name = data0.currency_name;
+    //     that.legal_name = data0.legal_name;
+    //     that.buy_sell(that.legal_id, that.currency_id);
+    //   });
+    // }
+     eventBus.$on("toTrade", function(data) {
       that.currency_id = data.currency_id,
       that.legal_id = data.legal_id;
       that.currency_name = data.currency_name;
@@ -134,8 +149,6 @@ export default {
         that.legal_name = data0.legal_name;
         that.buy_sell(that.legal_id, that.currency_id);
       });
-    }
-    
     eventBus.$on("tocel", function(datas) {
       if (datas) {
         that.buy_sell(that.legal_id, that.currency_id);

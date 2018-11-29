@@ -24,6 +24,8 @@ export default {
     color:#aabdbc;
     font-size: 14px;
     text-align: center;
+    width: 100%;
+    min-width: 1200px;
     >div{
         padding: 20px;
         span{
