@@ -641,7 +641,7 @@ export default {
       // }
       console.log(this.c2c_ratio,this.num)
       var c2c_rationum=(this.c2c_ratio*this.num).toFixed(4)
-      layer.confirm('数量:'+that.num+',所需手续费:'+c2c_rationum, {
+      layer.confirm('数量:'+that.num, {
         btn: ['确认','取消'] //按钮
         }, function(){
         let  i = layer.load();
