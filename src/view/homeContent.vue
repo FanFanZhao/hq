@@ -107,7 +107,7 @@
               </div>
               <div class="yester">
                 <!-- <span :class="setColor(li.change)">{{li.now_price==null?'0':li.now_price}}</span>/ -->
-                <span >{{li.now_price==null?'0':li.now_price}}</span>
+                <span class="nowprice">{{li.now_price==null?'0':li.now_price}}</span>
               </div>
               <div class="count">{{li.volume == null?'0':li.volume}}</div>
               <div class="yes-toa">
@@ -282,39 +282,86 @@ export default {
       var that = this;
       console.log("socket");
       that.$socket.emit("login", this.$makeSocketId());
-      that.$socket.on("transaction", msg => {
+      that.$socket.on("daymarket", msg => {
         console.log(msg);
-        var cname = msg.token;
-        var yesprice = msg.yesterday;
-        var toprice = msg.today;
-        console.log(cname);
-        var zf = 0;
-        if (toprice - yesprice == 0) {
-          zf = "0%";
-        } else if (toprice == 0) {
-          zf = "-100";
-        } else if (yesprice) {
-          zf = "+100%";
-        } else {
-          zf = ((toprice - yesprice) / yesprice / 100).toFixed(2);
-          if (zf > 0) {
-            zf = "+" + zf + "%";
-          } else {
-            zf = zf + "%";
+        if (msg.type == "daymarket") {
+          var cname = msg.currency_name+'/'+msg.legal_name;
+          var newprice = msg.now_price;
+          var newup = msg.change;
+          var volume = msg.volume
+          // console.log(cname)
+          $("li[data-name='" + cname + "']")
+            .find(".yester span")
+            .html(newprice);
+          $("li[data-name='" + cname + "']")
+            .find(".today span")
+            .html(volume);
+          $("li[data-name='" + cname + "']")
+            .find(".yes-toa span")
+            .html(newup+'%');
+          if(newup<0){
+             $("li[data-name='" + cname + "']")
+            .find(".yes-toa span")
+            .css('color','#cc4951');
+          }else{
+            $("li[data-name='" + cname + "']")
+            .find(".yes-toa span")
+            .css('color','#55a067');
           }
+          // if(newup<0){
+          //   newup = newup + "%";
+          //   $("span[data-name='" + cname + "']")
+          //     .next()
+          //     .css("color", "#cc4951");
+          // }else{
+          //   newup = newup + "%";
+          //   $("span[data-name='" + cname + "']")
+          //     .next()
+          //     .css("color", "#55a067");
+          // }
+          // $("span[data-name='" + cname + "']")
+          //     .html(newprice)
+          //     .next().html(newup)
         }
-        var zf = toprice - yesprice;
-        $("li[data-name='" + cname + "']")
-          .find(".yester span")
-          .html(yesprice);
-        $("li[data-name='" + cname + "']")
-          .find(".today span")
-          .html(toprice);
-        $("li[data-name='" + cname + "']")
-          .find(".yes-toa span")
-          .html(zf);
       });
     },
+    // connect() {
+    //   var that = this;
+    //   console.log("socket-------");
+    //   that.$socket.emit("login", this.$makeSocketId());
+    //   that.$socket.on("daymarket", msg => {
+    //     console.log(msg);
+    //     var cname = msg.token;
+    //     var yesprice = msg.yesterday;
+    //     var toprice = msg.today;
+    //     console.log(cname);
+    //     var zf = 0;
+    //     if (toprice - yesprice == 0) {
+    //       zf = "0%";
+    //     } else if (toprice == 0) {
+    //       zf = "-100";
+    //     } else if (yesprice) {
+    //       zf = "+100%";
+    //     } else {
+    //       zf = ((toprice - yesprice) / yesprice / 100).toFixed(2);
+    //       if (zf > 0) {
+    //         zf = "+" + zf + "%";
+    //       } else {
+    //         zf = zf + "%";
+    //       }
+    //     }
+    //     var zf = toprice - yesprice;
+    //     $("li[data-name='" + cname + "']")
+    //       .find(".yester span")
+    //       .html(yesprice);
+    //     $("li[data-name='" + cname + "']")
+    //       .find(".today span")
+    //       .html(toprice);
+    //     $("li[data-name='" + cname + "']")
+    //       .find(".yes-toa span")
+    //       .html(zf);
+    //   });
+    // },
     setColor(c) {
       if (c > 0) {
         return "ceilColor";
