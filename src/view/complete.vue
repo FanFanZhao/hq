@@ -64,11 +64,11 @@ export default {
                 },  
                 headers: {'Authorization':  localStorage.getItem('token')},    
             }).then(res=>{
-                console.log(res ,222)
+                // console.log(res ,222)
                 // layer.close(i);
                 if(res.data.type == "ok"){
                     this.deList = res.data.message.complete;
-                    console.log(this.deList)
+                    // console.log(this.deList)
                     this.connect();
                 }else{
                     layer.msg(res.data.message)
@@ -82,12 +82,12 @@ export default {
             var that = this;
             that.$socket.emit("login", this.$makeSocketId());
             that.$socket.on('transaction',function(msg){
-                console.log(msg);
+                // console.log(msg);
                 if(msg.type == 'transaction'){
                     var complete = JSON.parse(msg.complete);
-                    console.log(complete);
+                    // console.log(complete);
                     that.deList = complete;
-                    console.log(this.deList)
+                    // console.log(this.deList)
                 }
             })
         }

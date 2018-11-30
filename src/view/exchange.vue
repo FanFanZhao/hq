@@ -50,16 +50,16 @@ export default {
   },
   mounted(){
     var that = this;
-    var localData=JSON.parse(window.localStorage.getItem('tradeData'))
-    that.currency_id = localData.currency_id;
-    that.legal_id = localData.legal_id;
-    that.connect();
+    // var localData=JSON.parse(window.localStorage.getItem('tradeData'))
+    // that.currency_id = localData.currency_id;
+    // that.legal_id = localData.legal_id;
     eventBus.$on("toExchange0", function(data0) {
       that.currency_name = data0.currency_name;
       that.legal_name = data0.legal_name;
       that.currency_id = data0.currency_id;
       that.legal_id = data0.legal_id;
       that.buy_sell(that.legal_id, that.currency_id);
+      that.connect();
     });
     eventBus.$on("toExchange", function(data) {
       that.currency_name = data.currency_name;
@@ -67,6 +67,7 @@ export default {
       that.currency_id = data.currency_id;
       that.legal_id = data.legal_id;
       that.buy_sell(that.legal_id,that.currency_id);
+      that.connect();
     });
   },
   sockets: {

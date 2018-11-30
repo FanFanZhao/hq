@@ -24,7 +24,7 @@ export default {
             url: '/api/' + "introduction",
             method: "post",
             data: {currency_id: this.currency_id},
-            headers: { Authorization: window.localStorage.getItem("token") || "" },
+            // headers: { Authorization: window.localStorage.getItem("token") || "" },
         }).then(res => {
                 if (res.data.type == "ok") {
                    this.content=res.data.message.introduction[0].contents;

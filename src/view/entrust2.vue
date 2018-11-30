@@ -144,8 +144,8 @@ export default {
     getMore() {
       this.page = ++this.page;
       this.loading = true;
-      console.log(this.page);
-      console.log(this.types);
+      // console.log(this.page);
+      // console.log(this.types);
       this.getdata(this.urls, this.types);
     },
     getMore01() {
@@ -154,7 +154,7 @@ export default {
       this.getHistory();
     },
     revoke(id) {
-      console.log(this.type)
+      // console.log(this.type)
       var that = this;
       layer.confirm("确认要删除吗？", ["确定", "取消"], () => {
         // var id = id;
@@ -188,7 +188,7 @@ export default {
     connect() {
       this.$socket.emit("login", localStorage.getItem("user_id"));
       this.$socket.on("transaction", msg => {
-        console.log(msg);
+        // console.log(msg);
       });
     },
     getdata(url, type) {
@@ -203,7 +203,7 @@ export default {
         headers: { Authorization: this.token }
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           res = res.data;
           this.loading = false;
           let mlist = [];
@@ -214,11 +214,9 @@ export default {
             //  page = 1;
             //  this.enList = []
             if (page == 1) {
-              console.log("-----------------");
               this.enList = mlist;
             } else {
               var newEist = mlist;
-              console.log();
               if (newEist.length <= 0) {
                 this.more = "没有更多数据了...";
                 return;
@@ -268,7 +266,7 @@ export default {
         headers: { Authorization: this.token }
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.loading = false;
           let mlist = [];
           if(res.data.type == 'ok'){
