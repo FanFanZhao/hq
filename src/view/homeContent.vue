@@ -12,12 +12,13 @@
         <home-login></home-login>
         <div class="swiper-container banner_wrap swiper-container-horizontal">
             <div class="swiper-wrapper">
-               <div class="swiper-slide sliders">
+               <div class="swiper-slide sliders" v-for="(item,index) in noticeList">
                    <a href="">
-                   <img src="../../static/imgs/swp1.jpg" />
+                   <img :src="item.thumbnail" />
                    </a>
                </div>
-               <div class="swiper-slide sliders">
+
+               <!-- <div class="swiper-slide sliders">
                    <a href="">
                    <img src="../../static/imgs/swp2.jpg" />
                    </a>
@@ -26,7 +27,7 @@
                    <a href="">
                    <img src="../../static/imgs/swp3.jpg" />
                    </a>
-               </div>
+               </div> -->
                 
                
             </div>
@@ -215,7 +216,8 @@ export default {
       coinKline: {},
       swiperList: [],
       coinList: [],
-      coin_list: []
+      coin_list: [],
+      noticeList:[]
     };
   },
   created() {
@@ -246,14 +248,14 @@ export default {
     });
     // this.setChart();
     this.$http({
-      url: '/api/' + "news/help",
+      url: '/api/' + "news/list",
       method: "post",
-      data: {}
+      data: {c_id:23}
     })
       .then(res => {
         console.log(res);
         if (res.status === 200) {
-          this.noticeList = res.data.message;
+          this.noticeList = res.data.message.list;
         } else {
           layer.msg(res.message);
         }

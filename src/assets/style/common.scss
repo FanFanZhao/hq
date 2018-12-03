@@ -16,6 +16,9 @@ sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
 sup{top:-.5em}
 sub{bottom:-.25em}
 ins,a{text-decoration:none}
+html,body{
+    min-width: 1200px;
+}
 .color{
     color: #333
 }
