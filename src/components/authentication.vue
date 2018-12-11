@@ -15,19 +15,19 @@
                         <input type="text" class="input_bg" placeholder="请输入身份证号" id="card" v-model="card_id">
                     </div>
                 </div>
-                <div class="mt40 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
+                <div class="mt40 ft14 tc">请上传身份证正反面及手持身份证正面照。</div>
                 <div class="idimg flex center mt40">
                     <div>
                         <img :src="src01" alt="">
-                        <input type="file" id="file" accept="image/*" name="file" @change="file1">
+                        <input type="file"  accept="image/*" name="file" @change="file1">
                     </div>
                     <div>
                         <img :src="src02" alt="">
-                        <input type="file" id="file" accept="image/*" name="file" @change="file2">
+                        <input type="file"  accept="image/*" name="file" @change="file2">
                     </div>
                     <div>
                         <img :src="src03" alt="">
-                        <input type="file" id="file" accept="image/*" name="file" @change="file3">
+                        <input type="file"  accept="image/*" name="file" @change="file3">
                     </div>
                 </div>
                 <div class="updata tc">
