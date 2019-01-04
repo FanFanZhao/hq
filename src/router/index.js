@@ -42,6 +42,7 @@ import currencyList from '@/view/currency_list'
 import currencyEdit from '@/view/edit_currency'
 import workOrder from '@/components/workOrder'
 import orderDetail from '@/view/orderDetail'
+import walletTransfer from '@/view/wallet_transfer'
 //收款方式
 
 import ForgetPwd from '@/components/ForgetPwd' //忘记密码
@@ -232,9 +233,15 @@ export default new Router({
 
 					]
 
-				}
+				},
+				{
+					path: '/walletTransfer',
+					name: 'walletTransfer',
+					component: walletTransfer
+				},
 			]
 		},
+		
 		// {
 		// 	path:'/dealCenter',
 		// 	name:'dealCenter',
